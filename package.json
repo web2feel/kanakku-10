@@ -1,5 +1,5 @@
 {
-  "name": "tn-maths-tutor",
+  "name": "kanakku-10",
   "private": true,
   "version": "0.1.0",
   "type": "module",
@@ -10,7 +10,13 @@
     "preview": "vite preview",
     "typecheck": "tsc -b",
     "lint": "oxlint",
-    "check:content": "tsx scripts/check-content.ts"
+    "check:content": "tsx scripts/check-content.ts",
+    "netlify:login": "netlify login",
+    "netlify:link": "netlify link",
+    "netlify:init": "netlify init",
+    "dev:netlify": "netlify dev",
+    "deploy:preview": "npm run check:content && netlify deploy",
+    "deploy:prod": "npm run check:content && netlify deploy --prod"
   },
   "dependencies": {
     "framer-motion": "^14.2.0",
@@ -29,11 +35,15 @@
     "@types/react": "^19.2.18",
     "@types/react-dom": "^19.2.7",
     "@vitejs/plugin-react": "^6.1.1",
+    "netlify-cli": "^27.12.1",
     "oxlint": "^1.81.0",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",
     "typescript": "~6.0.2",
     "vite": "^8.3.0",
     "vite-plugin-singlefile": "^2.3.3"
+  },
+  "engines": {
+    "node": ">=20"
   }
 }

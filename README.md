@@ -18,14 +18,39 @@ npm run check:content  # validates every question and the answer parser
 
 `npm run build:single` produces one self-contained HTML file in `dist-single/` (used for previews).
 
-## Deploy
+## Deploy (Netlify)
 
-The build is a plain static site with hash routing (`#/unit/...`), so it works on any static host
-with no server configuration:
+The Netlify CLI is a dev dependency and `netlify.toml` holds the build settings
+(`npm run build` → `dist/`). The site uses hash routing (`#/unit/...`), so no redirect rules are needed.
 
-- **Netlify / Vercel**: build command `npm run build`, publish directory `dist`.
-- **GitHub Pages**: push `dist/` to a `gh-pages` branch, or use the official Pages action with
-  `npm run build`. `base: './'` in `vite.config.ts` means it works from any sub-path.
+### From your machine
+
+```bash
+npm run netlify:login    # once: opens the browser to sign in to Netlify
+npm run netlify:init     # once: create a new Netlify site and link this folder
+                         # (or `npm run netlify:link` to link an existing site)
+npm run deploy:preview   # content check + build + draft deploy, prints a preview URL
+npm run deploy:prod      # content check + build + deploy to the live site
+npm run dev:netlify      # local dev server through Netlify (optional)
+```
+
+### Automatically from GitHub
+
+`.github/workflows/ci.yml` runs on every push and pull request:
+
+- **check**: type-check, content check and build. Always on.
+- **deploy**: production deploy on pushes to `main`; a preview deploy on each pull request, with
+  the link posted as a PR comment. Off until you turn it on:
+  1. Netlify → User settings → Applications → **New access token**. Save it as the GitHub
+     repository secret `NETLIFY_AUTH_TOKEN`.
+  2. Netlify → your site → Site configuration → **Site ID**. Save it as the secret `NETLIFY_SITE_ID`.
+     (After `netlify:init`, it is also in `.netlify/state.json`.)
+  3. GitHub → Settings → Secrets and variables → Actions → **Variables**: add `NETLIFY_ENABLED` = `true`.
+
+If you connect the repository in Netlify's own dashboard instead, leave `NETLIFY_ENABLED` unset so
+the site is not deployed twice.
+
+Any other static host also works: build with `npm run build` and publish `dist/`.
 
 ## Project layout
 
