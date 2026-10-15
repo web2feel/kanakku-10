@@ -9,7 +9,7 @@ Each lesson is built on its own branch (`lesson/<unit>-<lesson>-<name>`) and mer
 
 | Item | Status | Notes |
 |---|---|---|
-| App shell, routing, responsive layout, light and dark themes | ✅ | Hash routing, works on any static host |
+| App shell, routing, responsive layout (dark theme) | ✅ | Hash routing, works on any static host |
 | Lesson template: Learn, Explore, Examples, Practice, Quiz | ✅ | |
 | Scene diagrams with step highlighting | ✅ | `src/components/Scene.tsx` |
 | Answer checking (decimals, fractions, √, units) | ✅ | `src/lib/answers.ts` |
@@ -17,6 +17,7 @@ Each lesson is built on its own branch (`lesson/<unit>-<lesson>-<name>`) and mer
 | Content validation script | ✅ | `npm run check:content` |
 | CI (type-check, content check, build) | ✅ | `.github/workflows/ci.yml` |
 | Netlify deployment (CLI + GitHub Actions) | ✅ | Needs Netlify secrets, see README |
+| Visual design: Astro design system | ✅ | `design/astro.design.md`; tokens and adaptations in `src/index.css` |
 | Code-split lessons to speed up first load | ⬜ | Bundle is ~410 KB gzipped |
 | Identity checker tool (for Lesson 6.3) | ⬜ | |
 | Logins and cross-device progress | ⬜ | Later |
@@ -51,4 +52,5 @@ Textbook PDFs are needed for each unit. The answer key for Units 1–8 is alread
 
 ## Changelog
 
+- **2026-10-15** · Restyled with the Astro design system: dark canvas, gradient atmosphere, ghost-pill controls, self-hosted Archivo and Inter.
 - **2026-10-15** · Pilot: app shell, Lessons 6.1 and 6.4, Netlify deployment, CI.

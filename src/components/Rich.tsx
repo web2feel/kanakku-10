@@ -3,7 +3,8 @@ import { Fragment, useMemo } from 'react'
 
 export function Tex({ tex, display = false, className = '' }: { tex: string; display?: boolean; className?: string }) {
   const html = useMemo(
-    () => katex.renderToString(tex, {
+    () =>
+      katex.renderToString(tex, {
         displayMode: display,
         throwOnError: false,
         strict: false,

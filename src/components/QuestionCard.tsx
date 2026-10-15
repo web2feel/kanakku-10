@@ -26,7 +26,9 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
   const id = useId()
   const [choice, setChoice] = useState<number | null>(null)
   const [values, setValues] = useState<string[]>(() => (q.type === 'numeric' ? q.parts.map(() => '') : []))
-  const [verdicts, setVerdicts] = useState<(Verdict | null)[]>(() => (q.type === 'numeric' ? q.parts.map(() => null) : []))
+  const [verdicts, setVerdicts] = useState<(Verdict | null)[]>(() =>
+    q.type === 'numeric' ? q.parts.map(() => null) : [],
+  )
   const [mcqResult, setMcqResult] = useState<boolean | null>(null)
   const [hints, setHints] = useState(0)
   const [showSolution, setShowSolution] = useState(false)
@@ -192,7 +194,11 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
 
           {q.type === 'mcq' && mcqResult !== null && (
             <p className={`feedback ${mcqResult ? 'f-correct' : 'f-wrong'}`} role="status">
-              {mcqResult ? 'Correct.' : mode === 'quiz' ? 'Not quite. The right answer is marked.' : 'Not quite. Try another option.'}
+              {mcqResult
+                ? 'Correct.'
+                : mode === 'quiz'
+                  ? 'Not quite. The right answer is marked.'
+                  : 'Not quite. Try another option.'}
             </p>
           )}
 

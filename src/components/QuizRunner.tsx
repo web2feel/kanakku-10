@@ -89,7 +89,10 @@ export function QuizRunner({ questions, lessonKey }: { questions: Question[]; le
   return (
     <div className="quiz">
       <div className="quiz-progress" aria-hidden="true">
-        <div className="quiz-progress-fill" style={{ width: `${((i + (answered ? 1 : 0)) / questions.length) * 100}%` }} />
+        <div
+          className="quiz-progress-fill"
+          style={{ width: `${((i + (answered ? 1 : 0)) / questions.length) * 100}%` }}
+        />
       </div>
       <div className="practice-bar">
         <span className="muted small tabular">
