@@ -16,7 +16,8 @@
     "netlify:init": "netlify init",
     "dev:netlify": "netlify dev",
     "deploy:preview": "npm run check:content && netlify deploy",
-    "deploy:prod": "npm run check:content && netlify deploy --prod"
+    "deploy:prod": "npm run check:content && netlify deploy --prod",
+    "format": "prettier --write src scripts"
   },
   "dependencies": {
     "framer-motion": "^14.2.0",
@@ -37,6 +38,7 @@
     "@vitejs/plugin-react": "^6.1.1",
     "netlify-cli": "^27.12.1",
     "oxlint": "^1.81.0",
+    "prettier": "^3.9.10",
     "tailwindcss": "^4.3.3",
     "tsx": "^4.23.15",
     "typescript": "~6.0.2",

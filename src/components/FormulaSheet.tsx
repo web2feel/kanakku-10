@@ -95,7 +95,9 @@ export function FormulaSheet({ open, onClose }: { open: boolean; onClose: () => 
                                 <Tex tex={c} />
                               </th>
                             ) : (
-                              <td key={i}>{c === '\\infty' ? <span className="small muted">undef.</span> : <Tex tex={c} />}</td>
+                              <td key={i}>
+                                {c === '\\infty' ? <span className="small muted">undef.</span> : <Tex tex={c} />}
+                              </td>
                             ),
                           )}
                         </tr>

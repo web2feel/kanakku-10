@@ -31,12 +31,48 @@ export function TriangleExplorer() {
   }
 
   const rows: { name: string; tex: string; sides: string; num: number; den: number }[] = [
-    { name: 'sin', tex: '\\sin\\theta', sides: '\\dfrac{\\htmlClass{c-opp}{MP}}{\\htmlClass{c-hyp}{OP}}', num: p, den: hyp },
-    { name: 'cos', tex: '\\cos\\theta', sides: '\\dfrac{\\htmlClass{c-adj}{OM}}{\\htmlClass{c-hyp}{OP}}', num: o, den: hyp },
-    { name: 'tan', tex: '\\tan\\theta', sides: '\\dfrac{\\htmlClass{c-opp}{MP}}{\\htmlClass{c-adj}{OM}}', num: p, den: o },
-    { name: 'cosec', tex: '\\operatorname{cosec}\\theta', sides: '\\dfrac{\\htmlClass{c-hyp}{OP}}{\\htmlClass{c-opp}{MP}}', num: hyp, den: p },
-    { name: 'sec', tex: '\\sec\\theta', sides: '\\dfrac{\\htmlClass{c-hyp}{OP}}{\\htmlClass{c-adj}{OM}}', num: hyp, den: o },
-    { name: 'cot', tex: '\\cot\\theta', sides: '\\dfrac{\\htmlClass{c-adj}{OM}}{\\htmlClass{c-opp}{MP}}', num: o, den: p },
+    {
+      name: 'sin',
+      tex: '\\sin\\theta',
+      sides: '\\dfrac{\\htmlClass{c-opp}{MP}}{\\htmlClass{c-hyp}{OP}}',
+      num: p,
+      den: hyp,
+    },
+    {
+      name: 'cos',
+      tex: '\\cos\\theta',
+      sides: '\\dfrac{\\htmlClass{c-adj}{OM}}{\\htmlClass{c-hyp}{OP}}',
+      num: o,
+      den: hyp,
+    },
+    {
+      name: 'tan',
+      tex: '\\tan\\theta',
+      sides: '\\dfrac{\\htmlClass{c-opp}{MP}}{\\htmlClass{c-adj}{OM}}',
+      num: p,
+      den: o,
+    },
+    {
+      name: 'cosec',
+      tex: '\\operatorname{cosec}\\theta',
+      sides: '\\dfrac{\\htmlClass{c-hyp}{OP}}{\\htmlClass{c-opp}{MP}}',
+      num: hyp,
+      den: p,
+    },
+    {
+      name: 'sec',
+      tex: '\\sec\\theta',
+      sides: '\\dfrac{\\htmlClass{c-hyp}{OP}}{\\htmlClass{c-adj}{OM}}',
+      num: hyp,
+      den: o,
+    },
+    {
+      name: 'cot',
+      tex: '\\cot\\theta',
+      sides: '\\dfrac{\\htmlClass{c-adj}{OM}}{\\htmlClass{c-opp}{MP}}',
+      num: o,
+      den: p,
+    },
   ]
 
   // angle arc at O (O is at (o, 0)); arc from direction (-1,0) towards P
@@ -50,16 +86,38 @@ export function TriangleExplorer() {
   return (
     <div className="widget triangle-explorer">
       <div className="widget-stage mafs-wrap">
-        <Mafs height={340} viewBox={{ x: [-1.2, 8.5], y: [-1, 6.5] }} preserveAspectRatio="contain" pan={false} zoom={false}>
-          <Coordinates.Cartesian
-            xAxis={{ lines: 1, labels: false }}
-            yAxis={{ lines: 1, labels: false }}
+        <Mafs
+          height={340}
+          viewBox={{ x: [-1.2, 8.5], y: [-1, 6.5] }}
+          preserveAspectRatio="contain"
+          pan={false}
+          zoom={false}
+        >
+          <Coordinates.Cartesian xAxis={{ lines: 1, labels: false }} yAxis={{ lines: 1, labels: false }} />
+          <Polygon
+            points={[
+              [0, 0],
+              [o, 0],
+              [0, p],
+            ]}
+            color="var(--accent)"
+            fillOpacity={0.08}
+            weight={0}
           />
-          <Polygon points={[[0, 0], [o, 0], [0, p]]} color="var(--accent)" fillOpacity={0.08} weight={0} />
           <Line.Segment point1={[0, 0]} point2={[0, p]} color="var(--opp)" weight={4} />
           <Line.Segment point1={[0, 0]} point2={[o, 0]} color="var(--adj)" weight={4} />
           <Line.Segment point1={[o, 0]} point2={[0, p]} color="var(--hyp)" weight={4} />
-          <Polygon points={[[0, 0], [0.35, 0], [0.35, 0.35], [0, 0.35]]} color="var(--muted)" fillOpacity={0} weight={1.5} />
+          <Polygon
+            points={[
+              [0, 0],
+              [0.35, 0],
+              [0.35, 0.35],
+              [0, 0.35],
+            ]}
+            color="var(--muted)"
+            fillOpacity={0}
+            weight={1.5}
+          />
           {arcPts.slice(1).map((pt, i) => (
             <Line.Segment key={i} point1={arcPts[i]} point2={pt} color="var(--ink)" weight={2} />
           ))}

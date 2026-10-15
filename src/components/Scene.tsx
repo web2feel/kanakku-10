@@ -67,7 +67,10 @@ export function Scene({ spec, highlight }: { spec: SceneSpec; highlight?: string
             {[10, 22, 34].map((d) => (
               <path
                 key={d}
-                d={`M 0 ${groundY + d} ` + Array.from({ length: Math.ceil(W / 24) }, () => `q 6 -4 12 0 t 12 0`).join(' ')}
+                d={
+                  `M 0 ${groundY + d} ` +
+                  Array.from({ length: Math.ceil(W / 24) }, () => `q 6 -4 12 0 t 12 0`).join(' ')
+                }
                 className="scene-wave"
               />
             ))}
@@ -80,7 +83,9 @@ export function Scene({ spec, highlight }: { spec: SceneSpec; highlight?: string
           </g>
         )}
 
-        {spec.objects?.map((o, i) => <SceneObj key={i} o={o} px={px} k={k} />)}
+        {spec.objects?.map((o, i) => (
+          <SceneObj key={i} o={o} px={px} k={k} />
+        ))}
 
         {spec.north && <NorthArrow at={px(spec.north)} />}
 
@@ -107,7 +112,9 @@ export function Scene({ spec, highlight }: { spec: SceneSpec; highlight?: string
           const p1 = add(at, mul(ua, s))
           const p2 = add(p1, mul(ub, s))
           const p3 = add(at, mul(ub, s))
-          return <path key={i} d={`M ${p1[0]} ${p1[1]} L ${p2[0]} ${p2[1]} L ${p3[0]} ${p3[1]}`} className="scene-right" />
+          return (
+            <path key={i} d={`M ${p1[0]} ${p1[1]} L ${p2[0]} ${p2[1]} L ${p3[0]} ${p3[1]}`} className="scene-right" />
+          )
         })}
 
         {spec.angles?.map((an, i) => {
@@ -184,7 +191,17 @@ function autoDir(p: Vec, c: Vec): Dir {
   const dy = p[1] - c[1]
   const ang = Math.atan2(-dy, dx) // math orientation
   const sector = Math.round(ang / (Math.PI / 4))
-  const map: Record<string, Dir> = { '0': 'e', '1': 'ne', '2': 'n', '3': 'nw', '4': 'w', '-4': 'w', '-3': 'sw', '-2': 's', '-1': 'se' }
+  const map: Record<string, Dir> = {
+    '0': 'e',
+    '1': 'ne',
+    '2': 'n',
+    '3': 'nw',
+    '4': 'w',
+    '-4': 'w',
+    '-3': 'sw',
+    '-2': 's',
+    '-1': 'se',
+  }
   return map[String(sector)] ?? 'n'
 }
 
@@ -225,7 +242,9 @@ function SceneObj({ o, px, k }: { o: SceneObject; px: (v: Vec) => Vec; k: number
       const top = by - hp
       return (
         <g className="obj">
-          <path d={`M ${bx - w / 2} ${by} L ${bx - w / 3} ${top + 10} L ${bx + w / 3} ${top + 10} L ${bx + w / 2} ${by} Z`} />
+          <path
+            d={`M ${bx - w / 2} ${by} L ${bx - w / 3} ${top + 10} L ${bx + w / 3} ${top + 10} L ${bx + w / 2} ${by} Z`}
+          />
           {[0.25, 0.55].map((t) => {
             const y = by - hp * t
             const half = w / 2 - (w / 6) * t
@@ -304,7 +323,9 @@ function SceneObj({ o, px, k }: { o: SceneObject; px: (v: Vec) => Vec; k: number
       const w = 36
       return (
         <g className="obj">
-          <path d={`M ${bx - w / 2} ${by - 9} L ${bx + w / 2} ${by - 9} L ${bx + w / 2 - 6} ${by} L ${bx - w / 2 + 6} ${by} Z`} />
+          <path
+            d={`M ${bx - w / 2} ${by - 9} L ${bx + w / 2} ${by - 9} L ${bx + w / 2 - 6} ${by} L ${bx - w / 2 + 6} ${by} Z`}
+          />
           <rect x={bx - 8} y={by - 17} width={14} height={8} className="obj-accent" />
         </g>
       )
@@ -318,12 +339,7 @@ function SceneObj({ o, px, k }: { o: SceneObject; px: (v: Vec) => Vec; k: number
       )
     }
     case 'bird': {
-      return (
-        <path
-          d={`M ${bx - 9} ${by - 3} q 4.5 -6 9 0 q 4.5 -6 9 0`}
-          className="obj-bird"
-        />
-      )
+      return <path d={`M ${bx - 9} ${by - 3} q 4.5 -6 9 0 q 4.5 -6 9 0`} className="obj-bird" />
     }
     case 'plane': {
       return (
