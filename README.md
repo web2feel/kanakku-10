@@ -52,6 +52,14 @@ the site is not deployed twice.
 
 Any other static host also works: build with `npm run build` and publish `dist/`.
 
+## Design
+
+The visual design follows the Astro design system in `design/astro.design.md`. The tokens, and the
+few tutor-specific additions (diagram side colours, hint and wrong-answer colours, the light band
+on the home page), are documented at the top of `src/index.css`. Fonts are self-hosted from
+`src/assets/fonts` (Archivo for display, standing in for the proprietary Obviously; Inter for body).
+Body text weight is one token, `--w-body`, if it ever needs to be heavier.
+
 ## Project layout
 
 ```
