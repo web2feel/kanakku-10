@@ -9,7 +9,7 @@ Each lesson is built on its own branch (`lesson/<unit>-<lesson>-<name>`) and mer
 
 | Item | Status | Notes |
 |---|---|---|
-| App shell, routing, responsive layout, light and dark themes | ✅ | Hash routing, works on any static host |
+| App shell, routing, responsive layout (dark theme) | ✅ | Hash routing, works on any static host |
 | Lesson template: Learn, Explore, Examples, Practice, Quiz | ✅ | |
 | Scene diagrams with step highlighting | ✅ | `src/components/Scene.tsx` |
 | Answer checking (decimals, fractions, √, units) | ✅ | `src/lib/answers.ts` |
