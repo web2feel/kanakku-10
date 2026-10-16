@@ -1,6 +1,7 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage, type StateStorage } from 'zustand/middleware'
 import type { Lesson, Unit } from '../content/types'
+import type { PointsEvent, SavedProgress } from '../accounts/types'
 
 export type Tab = 'learn' | 'explore' | 'examples' | 'practice' | 'quiz'
 export const TABS: { id: Tab; label: string }[] = [
@@ -23,11 +24,26 @@ export interface LessonProgress {
 interface ProgressState {
   lessons: Record<string, LessonProgress>
   lastLesson?: { unit: string; lesson: string }
+  /** account that this browser's progress belongs to; undefined while signed out */
+  ownerUid?: string
   markSeen: (key: string, tab: Tab) => void
   recordPractice: (key: string, qid: string, status: PracticeStatus) => void
   recordQuiz: (key: string, score: number, total: number) => void
   setLast: (unit: string, lesson: string) => void
   reset: () => void
+  /** Replace everything, e.g. after merging with the signed-in account. */
+  replaceAll: (data: SavedProgress, ownerUid: string | undefined) => void
+}
+
+/** Listeners for moments that earn leaderboard points (used by the account sync). */
+type PointsListener = (e: PointsEvent) => void
+const pointsListeners = new Set<PointsListener>()
+export function onPointsEvent(fn: PointsListener): () => void {
+  pointsListeners.add(fn)
+  return () => pointsListeners.delete(fn)
+}
+function emit(e: PointsEvent) {
+  for (const fn of pointsListeners) fn(e)
 }
 
 /** localStorage can be missing or throw (private windows, embedded previews). */
@@ -59,7 +75,7 @@ const empty = (): LessonProgress => ({ seen: [], practice: {} })
 
 export const useProgress = create<ProgressState>()(
   persist(
-    (set) => ({
+    (set, get) => ({
       lessons: {},
       markSeen: (key, tab) =>
         set((s) => {
@@ -67,27 +83,38 @@ export const useProgress = create<ProgressState>()(
           if (lp.seen.includes(tab)) return s
           return { lessons: { ...s.lessons, [key]: { ...lp, seen: [...lp.seen, tab] } } }
         }),
-      recordPractice: (key, qid, status) =>
+      recordPractice: (key, qid, status) => {
+        const prev = get().lessons[key]?.practice[qid]
         set((s) => {
           const lp = s.lessons[key] ?? empty()
-          const prev = lp.practice[qid]
           // never downgrade a correct answer
           if (prev === 'correct') return s
           if (prev === 'revealed' && status === 'tried') return s
           return { lessons: { ...s.lessons, [key]: { ...lp, practice: { ...lp.practice, [qid]: status } } } }
-        }),
-      recordQuiz: (key, score, total) =>
+        })
+        // points only for a first correct answer
+        if (status === 'correct' && prev !== 'correct') emit({ kind: 'solved', questionId: qid })
+      },
+      recordQuiz: (key, score, total) => {
         set((s) => {
           const lp = s.lessons[key] ?? empty()
           const best = Math.max(lp.quizBest ?? 0, score)
           return { lessons: { ...s.lessons, [key]: { ...lp, quizBest: best, quizTotal: total } } }
-        }),
+        })
+        emit({ kind: 'quiz', lessonKey: key, score })
+      },
       setLast: (unit, lesson) => set({ lastLesson: { unit, lesson } }),
       reset: () => set({ lessons: {}, lastLesson: undefined }),
+      replaceAll: (data, ownerUid) => set({ lessons: data.lessons, lastLesson: data.lastLesson, ownerUid }),
     }),
     { name: 'tn-maths-tutor-progress', version: 1, storage: createJSONStorage(() => safeStorage) },
   ),
 )
+
+/** The part of the state that is saved to the account. */
+export function savedProgress(s: Pick<ProgressState, 'lessons' | 'lastLesson'>): SavedProgress {
+  return s.lastLesson ? { lessons: s.lessons, lastLesson: s.lastLesson } : { lessons: s.lessons }
+}
 
 export const lessonKey = (unitId: string, lessonId: string) => `${unitId}/${lessonId}`
 

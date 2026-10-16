@@ -52,6 +52,52 @@ the site is not deployed twice.
 
 Any other static host also works: build with `npm run build` and publish `dist/`.
 
+## Accounts and the weekly leaderboard (Firebase)
+
+Signing in is optional. Signed out, progress stays in the browser as before. Signed in with Google:
+
+- **Progress** is saved to the account, merged with anything done on this device before signing in
+  (the better result wins; a correct answer is never downgraded), and follows the student to any device.
+- **Sign out** removes the account's progress from the browser, so shared computers stay private.
+- **Weekly leaderboard:** 10 points for each practice question solved for the first time, 5 for each correct
+  quiz answer (best attempt per quiz). Weeks reset Monday 00:00 IST. Only the top 10 are shown.
+- **Stored:** account ID, nickname, progress and weekly points. Names and email addresses are never written
+  to the database. Firebase Analytics is not used.
+
+Code: `src/accounts/` (store, merge, weeks, nicknames, Firebase and mock backends), `src/pages/SignInPage.tsx`,
+`src/components/Leaderboard.tsx`. Security rules: `firestore.rules`.
+
+### One-time setup in the Firebase console (project `easylearning-179c5`)
+
+1. **Authentication → Sign-in method:** enable **Google**.
+2. **Firestore Database:** create the database in **production mode**, location **asia-south1 (Mumbai)**.
+   The location cannot be changed later.
+3. **Authentication → Settings → Authorised domains:** add the site's domain, e.g. `your-site.netlify.app`
+   (and any custom domain). `localhost` is there already. Firebase does not accept wildcards, so Netlify
+   pull-request previews can't sign in unless their domain is added.
+4. **Deploy the security rules** from your machine:
+   ```bash
+   npm run firebase:login     # once
+   npm run deploy:rules
+   ```
+   Until the rules are deployed, production-mode Firestore refuses every request: sign-in works but
+   nothing saves (the app keeps working from the browser copy).
+5. Optional: **Project settings → Integrations → Google Analytics:** leave it off. In Google Cloud console,
+   restrict the API key to your site's domains.
+
+The web config lives in `src/accounts/config.ts`. It identifies the project and is not secret;
+access is controlled by the rules and the authorised domains.
+
+### Developing without Firebase
+
+```bash
+npm run dev:mock        # sign-in, nickname and leaderboard with a fake backend and sample students
+npm run test:accounts   # merge, week and nickname logic
+npm run test:rules      # security rules against the Firestore emulator (needs Java; runs in CI)
+```
+
+`VITE_ACCOUNTS=off` turns accounts off entirely (used for the single-file preview build).
+
 ## Design
 
 The visual design comes from the Claude Design handoff in `design/handoff/` (open any `.dc.html` there in a
@@ -74,7 +120,8 @@ src/
   widgets/                   interactive tools (TriangleExplorer, ElevationSimulator, …)
   lib/answers.ts             answer parsing and checking
   store/progress.ts          progress saved in the browser (zustand + localStorage)
-  pages/                     Home, Unit, Lesson, My progress (/me), Not found
+  pages/                     Home, Unit, Lesson, My progress (/me), Sign in (/signin), Not found
+  accounts/                  sign-in, progress sync, weekly points (Firebase, with a mock for development)
 scripts/check-content.ts     content validation
 ```
 

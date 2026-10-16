@@ -19,12 +19,13 @@ Each lesson is built on its own branch (`lesson/<unit>-<lesson>-<name>`) and mer
 | Netlify deployment (CLI + GitHub Actions) | ✅ | Needs Netlify secrets, see README |
 | Visual design: Kanakku redesign (Claude Design handoff) | ✅ | `design/handoff/`, tokens in `src/theme.css` |
 | My progress page (`/me`) | ✅ | Reads progress saved in the browser |
-| Google sign-in, nickname, synced progress | ⬜ | Needs a Firebase or Supabase project |
-| Weekly leaderboard | ⬜ | Needs sign-in; 10 pts per practice solved, 5 per quiz answer |
-| Sign-in page (`/signin`) | ⬜ | Designed; built with sign-in |
+| Google sign-in, nickname, synced progress | ✅ | Firebase; see README for console setup |
+| Weekly leaderboard | ✅ | 10 pts per practice solved, 5 per quiz answer; top 10, resets Monday IST |
+| Sign-in page (`/signin`) | ✅ | Google sign-in, then nickname |
+| Parental consent for under-18 sign-in (DPDP Act) | ⬜ | Needs a decision on the consent method before public launch |
+| Server-checked points (anti-cheat) | ⬜ | Rules cap points per write; a Cloud Function would make them tamper-proof |
 | Code-split lessons to speed up first load | ⬜ | Bundle is ~410 KB gzipped |
 | Identity checker tool (for Lesson 6.3) | ⬜ | |
-| Logins and cross-device progress | ⬜ | Later |
 | AI helper ("explain differently") | ⬜ | Later, needs the Claude API |
 
 ## Unit 6 · Trigonometry (pages 239–268)
@@ -55,6 +56,8 @@ Textbook PDFs are needed for each unit. The answer key for Units 1–8 is alread
 | 8 | Statistics and Probability | ⬜ |
 
 ## Changelog
+
+- **2026-10-16** · Accounts: Google sign-in, nickname, progress synced to Firebase, weekly leaderboard, security rules with tests.
 
 - **2026-10-16** · Kanakku redesign from the Claude Design handoff: warm paper, ink outlines, hard shadows; new My progress page.
 - **2026-10-15** · Restyled with the Astro design system: dark canvas, gradient atmosphere, ghost-pill controls, self-hosted Archivo and Inter.

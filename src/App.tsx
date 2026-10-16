@@ -6,6 +6,8 @@ import { UnitPage } from './pages/UnitPage'
 import { LessonPage } from './pages/LessonPage'
 import { NotFound } from './pages/NotFound'
 import { MePage } from './pages/MePage'
+import { SignInPage } from './pages/SignInPage'
+import { startAccounts } from './accounts/store'
 
 /**
  * Hash routing works on any static host (GitHub Pages, Netlify, a USB stick) with no server config.
@@ -22,6 +24,9 @@ function ScrollToTop() {
 }
 
 export default function App() {
+  useEffect(() => {
+    startAccounts()
+  }, [])
   return (
     <Router>
       <ScrollToTop />
@@ -31,6 +36,7 @@ export default function App() {
           <Route path="/unit/:unitId" element={<UnitPage />} />
           <Route path="/unit/:unitId/:lessonId" element={<LessonPage />} />
           <Route path="/me" element={<MePage />} />
+          <Route path="/signin" element={<SignInPage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Shell>

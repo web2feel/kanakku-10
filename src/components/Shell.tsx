@@ -3,12 +3,14 @@ import { Link, useLocation } from 'react-router-dom'
 import { UNITS } from '../content'
 import { overallCompletion, useProgress } from '../store/progress'
 import { FormulaSheet } from './FormulaSheet'
+import { useAccount } from '../accounts/store'
 
 export function Shell({ children }: { children: ReactNode }) {
   const [sheet, setSheet] = useState(false)
   const lessons = useProgress((s) => s.lessons)
   const { pathname } = useLocation()
   const pct = Math.round(overallCompletion(lessons, UNITS) * 100)
+  const status = useAccount((s) => s.status)
 
   useEffect(() => {
     if (!sheet) return
@@ -28,10 +30,16 @@ export function Shell({ children }: { children: ReactNode }) {
           <span className="brand-pill">Class 10 Maths</span>
         </Link>
         <div className="header-actions">
-          <Link to="/me" className={`btn-outline ${pathname === '/me' ? 'is-active' : ''}`}>
-            <span className="pct-badge tabular">{pct}%</span>
-            My progress
-          </Link>
+          {status === 'signed-out' ? (
+            <Link to="/signin" className={`btn-outline ${pathname === '/signin' ? 'is-active' : ''}`}>
+              Sign in
+            </Link>
+          ) : (
+            <Link to="/me" className={`btn-outline ${pathname === '/me' ? 'is-active' : ''}`}>
+              <span className="pct-badge tabular">{pct}%</span>
+              My progress
+            </Link>
+          )}
           <button className="btn-outline" onClick={() => setSheet(true)} aria-haspopup="dialog">
             <span aria-hidden="true">∑</span> Formula sheet
           </button>
