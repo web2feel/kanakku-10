@@ -1,0 +1,171 @@
+/* Kanakku redesign tokens — Tailwind v4. Import after "@import 'tailwindcss';" in src/index.css */
+/* Fonts are self-hosted in src/fonts.css. Source: design/handoff/theme.css */
+
+@theme {
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-sans: 'Figtree', system-ui, sans-serif;
+  --font-hand: 'Caveat', cursive;
+
+  /* surfaces */
+  --color-paper: #fbf6ec; /* page background */
+  --color-paper-2: #f4eddf; /* inset fills, table heads, chips */
+  --color-paper-3: #f1e8d6; /* subtle pills, row dividers */
+  --color-line: #eadfc9; /* soft borders */
+  --color-line-2: #d3c6ab; /* dashed borders */
+  --color-card: #ffffff;
+
+  /* ink */
+  --color-ink: #1f2a44; /* text, outlines, hard shadows, dark panels */
+  --color-ink-2: #2b3758; /* dark card (locked/coming soon) */
+  --color-ink-3: #4a5778; /* borders on dark */
+  --color-muted: #4a5368; /* body secondary */
+  --color-muted-2: #5b6478;
+  --color-muted-3: #7a8296; /* captions, meta */
+  --color-on-dark: #c9d1e6;
+  --color-on-dark-2: #aeb8d3;
+
+  /* accents */
+  --color-coral: #ff6b4a; /* primary CTA */
+  --color-coral-ink: #e8553a; /* hand-note text, hover link */
+  --color-sun: #ffd25a; /* highlight, current item, podium #1 */
+  --color-mint: #1fa97a; /* progress fill */
+  --color-mint-ink: #0f5640; /* success text */
+
+  /* pastels (one per meaning — do not reuse across meanings) */
+  --color-peach: #ffe1d6; /* history note, wrong answer, step 1 */
+  --color-butter: #fff0c2; /* tip, "you" row, step 2 */
+  --color-mintwash: #cdefe0; /* correct, seen tab, step 3 */
+  --color-sky: #d7ecff; /* note, step 4 */
+  --color-lilac: #e6e0fb; /* check yourself, step 5 */
+
+  /* geometry semantics — keep fixed everywhere */
+  --color-opp: #d2452a;
+  --color-adj: #2f6fd0;
+  --color-hyp: #1c8f67;
+
+  --radius-pill: 999px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+
+  --shadow-hard-sm: 3px 3px 0 #1f2a44;
+  --shadow-hard: 4px 4px 0 #1f2a44;
+  --shadow-hard-md: 5px 5px 0 #1f2a44;
+  --shadow-hard-lg: 8px 8px 0 #1f2a44;
+  --shadow-sun: 8px 8px 0 #ffd25a;
+}
+
+@layer base {
+  body {
+    background: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-sans);
+    -webkit-font-smoothing: antialiased;
+  }
+  a {
+    color: var(--color-ink);
+  }
+  a:hover {
+    color: var(--color-coral-ink);
+  }
+  h1,
+  h2,
+  h3 {
+    font-family: var(--font-display);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    text-wrap: balance;
+  }
+  p {
+    text-wrap: pretty;
+  }
+}
+
+@layer components {
+  .btn-primary {
+    display: inline-flex;
+    align-items: center;
+    gap: 10px;
+    background: var(--color-coral);
+    color: #fff;
+    font-weight: 700;
+    font-size: 17px;
+    padding: 15px 24px;
+    border-radius: 16px;
+    border: 2px solid var(--color-ink);
+    box-shadow: var(--shadow-hard);
+    transition:
+      transform 0.12s,
+      box-shadow 0.12s;
+  }
+  .btn-primary:hover {
+    color: #fff;
+    transform: translate(-2px, -2px);
+    box-shadow: 6px 6px 0 var(--color-ink);
+  }
+  .btn-outline {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: #fff;
+    font-weight: 600;
+    font-size: 15px;
+    padding: 10px 16px;
+    border-radius: 999px;
+    border: 2px solid var(--color-ink);
+    box-shadow: var(--shadow-hard-sm);
+  }
+  .btn-outline:hover {
+    transform: translate(-1px, -1px);
+    box-shadow: 4px 4px 0 var(--color-ink);
+    color: var(--color-ink);
+  }
+  .btn-dark {
+    background: var(--color-ink);
+    color: #fff;
+    border: 2px solid var(--color-ink);
+    font-weight: 700;
+    font-size: 15px;
+    padding: 9px 18px;
+    border-radius: 12px;
+  }
+  .btn-link {
+    font-weight: 700;
+    font-size: 15px;
+    text-decoration: underline;
+    text-underline-offset: 4px;
+  }
+  .card {
+    background: #fff;
+    border: 2px solid var(--color-ink);
+    border-radius: 24px;
+    padding: 28px;
+  }
+  .pill {
+    font-size: 12px;
+    font-weight: 700;
+    padding: 4px 10px;
+    border-radius: 999px;
+    background: var(--color-paper-2);
+    color: var(--color-muted-2);
+  }
+  .hand-note {
+    font-family: var(--font-hand);
+    font-weight: 600;
+    line-height: 1;
+  }
+  .meter {
+    height: 12px;
+    border-radius: 999px;
+    background: #fff;
+    border: 2px solid var(--color-ink);
+    overflow: hidden;
+  }
+  .meter > span {
+    display: block;
+    height: 100%;
+    background: var(--color-mint);
+    border-radius: 999px;
+  }
+}

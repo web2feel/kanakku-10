@@ -53,8 +53,8 @@ export const lesson4: Lesson = {
         {
           t: 'list',
           items: [
-            '**Line of sight**: the line from the observer\'s eye to the point being looked at.',
-            '**Horizontal line**: the level line through the observer\'s eye.',
+            "**Line of sight**: the line from the observer's eye to the point being looked at.",
+            "**Horizontal line**: the level line through the observer's eye.",
             '**Angle of elevation**: the angle between the line of sight and the horizontal when the object is **above** eye level. You raise your head to look at it.',
           ],
         },
@@ -66,7 +66,8 @@ export const lesson4: Lesson = {
       check: {
         id: 'l4-c-words',
         type: 'mcq',
-        prompt: 'You look up at a kite in the sky. The angle between your line of sight and the horizontal is called the',
+        prompt:
+          'You look up at a kite in the sky. The angle between your line of sight and the horizontal is called the',
         options: ['angle of depression', 'angle of elevation', 'line of sight', 'right angle'],
         correct: 1,
         solution: [{ text: 'The kite is above eye level, so it is an **angle of elevation**.' }],
@@ -106,15 +107,24 @@ export const lesson4: Lesson = {
           },
           caption: 'Walking from C to D, closer to the tower, the angle grows from α to β',
         },
-        { t: 'note', tone: 'tip', text: 'Use these facts to sanity-check answers. If you walk closer and your answer says the angle got smaller, something has gone wrong.' },
+        {
+          t: 'note',
+          tone: 'tip',
+          text: 'Use these facts to sanity-check answers. If you walk closer and your answer says the angle got smaller, something has gone wrong.',
+        },
       ],
       check: {
         id: 'l4-c-rules',
         type: 'mcq',
-        prompt: 'Ravi is 40 m from a tower and Meena is 25 m from the same tower, on the same side. Who sees the top at a larger angle of elevation?',
+        prompt:
+          'Ravi is 40 m from a tower and Meena is 25 m from the same tower, on the same side. Who sees the top at a larger angle of elevation?',
         options: ['Ravi', 'Meena', 'Both see the same angle', 'It depends on the height of the tower'],
         correct: 1,
-        solution: [{ text: 'Meena is closer to the foot of the tower, so her angle of elevation is larger, whatever the height of the tower.' }],
+        solution: [
+          {
+            text: 'Meena is closer to the foot of the tower, so her angle of elevation is larger, whatever the height of the tower.',
+          },
+        ],
       },
     },
     {
@@ -129,9 +139,21 @@ export const lesson4: Lesson = {
           t: 'table',
           head: ['You know / want', 'Sides', 'Use'],
           rows: [
-            ['height and horizontal distance', '{{opp:opposite}} and {{adj:adjacent}}', '$\\tan\\theta = \\dfrac{\\text{height}}{\\text{distance}}$'],
-            ['height and line of sight (a string, ladder or wire)', '{{opp:opposite}} and {{hyp:hypotenuse}}', '$\\sin\\theta = \\dfrac{\\text{height}}{\\text{line of sight}}$'],
-            ['horizontal distance and line of sight', '{{adj:adjacent}} and {{hyp:hypotenuse}}', '$\\cos\\theta = \\dfrac{\\text{distance}}{\\text{line of sight}}$'],
+            [
+              'height and horizontal distance',
+              '{{opp:opposite}} and {{adj:adjacent}}',
+              '$\\tan\\theta = \\dfrac{\\text{height}}{\\text{distance}}$',
+            ],
+            [
+              'height and line of sight (a string, ladder or wire)',
+              '{{opp:opposite}} and {{hyp:hypotenuse}}',
+              '$\\sin\\theta = \\dfrac{\\text{height}}{\\text{line of sight}}$',
+            ],
+            [
+              'horizontal distance and line of sight',
+              '{{adj:adjacent}} and {{hyp:hypotenuse}}',
+              '$\\cos\\theta = \\dfrac{\\text{distance}}{\\text{line of sight}}$',
+            ],
           ],
         },
         {
@@ -143,7 +165,8 @@ export const lesson4: Lesson = {
       check: {
         id: 'l4-c-which',
         type: 'mcq',
-        prompt: 'A kite string is 60 m long and makes an angle of $30^\\circ$ with the ground. To find the height of the kite, which ratio do you use?',
+        prompt:
+          'A kite string is 60 m long and makes an angle of $30^\\circ$ with the ground. To find the height of the kite, which ratio do you use?',
         options: ['$\\tan 30^\\circ$', '$\\sin 30^\\circ$', '$\\cos 30^\\circ$', '$\\sec 30^\\circ$'],
         correct: 1,
         solution: [
@@ -197,7 +220,8 @@ export const lesson4: Lesson = {
     {
       widget: 'elevation-simulator',
       title: 'Elevation simulator',
-      intro: 'Drag the observer along the ground, or use the sliders. The angle of elevation and $\\tan\\theta$ update as you move.',
+      intro:
+        'Drag the observer along the ground, or use the sliders. The angle of elevation and $\\tan\\theta$ update as you move.',
       tryThis: [
         'Walk towards the tower. Does the angle increase or decrease?',
         'Find a position where the angle is exactly $45^\\circ$. What do you notice about the height and the distance?',
@@ -243,9 +267,17 @@ export const lesson4: Lesson = {
         ],
       },
       steps: [
-        { text: '(i) The sides opposite and adjacent to $\\theta$ are known, so use tan.', math: '\\tan\\theta = \\frac{BC}{AB} = \\frac{4}{5} = 0.8', highlight: ['bc', 'ab', 'a1'] },
+        {
+          text: '(i) The sides opposite and adjacent to $\\theta$ are known, so use tan.',
+          math: '\\tan\\theta = \\frac{BC}{AB} = \\frac{4}{5} = 0.8',
+          highlight: ['bc', 'ab', 'a1'],
+        },
         { text: '$\\tan 38.7^\\circ = 0.8011 \\approx 0.8$, so $\\angle BAC = 38.7^\\circ$.', highlight: ['a1'] },
-        { text: '(ii) Again opposite and adjacent are known.', math: '\\tan\\theta = \\frac{8}{3} \\approx 2.66', highlight: ['bc2', 'ab2', 'a2'] },
+        {
+          text: '(ii) Again opposite and adjacent are known.',
+          math: '\\tan\\theta = \\frac{8}{3} \\approx 2.66',
+          highlight: ['bc2', 'ab2', 'a2'],
+        },
         { text: '$\\tan 69.4^\\circ = 2.6604 \\approx 2.66$, so $\\angle BAC = 69.4^\\circ$.', highlight: ['a2'] },
       ],
       answer: '(i) $38.7^\\circ$  (ii) $69.4^\\circ$',
@@ -272,9 +304,19 @@ export const lesson4: Lesson = {
         angles: [{ id: 'r', at: 'R', from: 'Q', to: 'P', label: '30°', r: 40 }],
       },
       steps: [
-        { text: 'Let $PQ = h$ be the tower and $R$ the observer. In right triangle $PQR$, $\\angle PRQ = 30^\\circ$ and $QR = 48$ m.', highlight: ['rq', 'r'] },
-        { text: 'We know the adjacent side and want the opposite side, so use tan.', math: '\\tan 30^\\circ = \\frac{PQ}{QR} = \\frac{h}{48}', highlight: ['qp', 'rq'] },
-        { math: '\\frac{1}{\\sqrt3} = \\frac{h}{48} \\;\\Rightarrow\\; h = \\frac{48}{\\sqrt3} = \\frac{48\\sqrt3}{3} = 16\\sqrt3', highlight: ['qp'] },
+        {
+          text: 'Let $PQ = h$ be the tower and $R$ the observer. In right triangle $PQR$, $\\angle PRQ = 30^\\circ$ and $QR = 48$ m.',
+          highlight: ['rq', 'r'],
+        },
+        {
+          text: 'We know the adjacent side and want the opposite side, so use tan.',
+          math: '\\tan 30^\\circ = \\frac{PQ}{QR} = \\frac{h}{48}',
+          highlight: ['qp', 'rq'],
+        },
+        {
+          math: '\\frac{1}{\\sqrt3} = \\frac{h}{48} \\;\\Rightarrow\\; h = \\frac{48}{\\sqrt3} = \\frac{48\\sqrt3}{3} = 16\\sqrt3',
+          highlight: ['qp'],
+        },
       ],
       answer: 'The tower is $16\\sqrt3$ m high (about 27.71 m).',
     },
@@ -300,9 +342,19 @@ export const lesson4: Lesson = {
         angles: [{ id: 'c', at: 'C', from: 'B', to: 'A', label: '60°', r: 30 }],
       },
       steps: [
-        { text: 'Let $AB = 75$ m be the height of the kite and $AC$ the string. $\\angle ACB = 60^\\circ$.', highlight: ['ab', 'c'] },
-        { text: 'We know the opposite side and want the hypotenuse, so use sin.', math: '\\sin 60^\\circ = \\frac{AB}{AC} = \\frac{75}{AC}', highlight: ['ab', 'ac'] },
-        { math: '\\frac{\\sqrt3}{2} = \\frac{75}{AC} \\;\\Rightarrow\\; AC = \\frac{150}{\\sqrt3} = \\frac{150\\sqrt3}{3} = 50\\sqrt3', highlight: ['ac'] },
+        {
+          text: 'Let $AB = 75$ m be the height of the kite and $AC$ the string. $\\angle ACB = 60^\\circ$.',
+          highlight: ['ab', 'c'],
+        },
+        {
+          text: 'We know the opposite side and want the hypotenuse, so use sin.',
+          math: '\\sin 60^\\circ = \\frac{AB}{AC} = \\frac{75}{AC}',
+          highlight: ['ab', 'ac'],
+        },
+        {
+          math: '\\frac{\\sqrt3}{2} = \\frac{75}{AC} \\;\\Rightarrow\\; AC = \\frac{150}{\\sqrt3} = \\frac{150\\sqrt3}{3} = 50\\sqrt3',
+          highlight: ['ac'],
+        },
       ],
       answer: 'The string is $50\\sqrt3$ m long (about 86.6 m).',
     },
@@ -337,10 +389,25 @@ export const lesson4: Lesson = {
         ],
       },
       steps: [
-        { text: 'Let $AB = 200$ m be the lighthouse and $C$, $D$ the ships. There are two right triangles, $BAC$ and $BAD$, sharing the side $AB$.', highlight: ['ab'] },
-        { text: 'In $\\triangle BAC$:', math: '\\tan 30^\\circ = \\frac{AB}{AC} \\;\\Rightarrow\\; \\frac{1}{\\sqrt3} = \\frac{200}{AC} \\;\\Rightarrow\\; AC = 200\\sqrt3', highlight: ['ab', 'ac', 'c'] },
-        { text: 'In $\\triangle BAD$:', math: '\\tan 45^\\circ = \\frac{AB}{AD} \\;\\Rightarrow\\; 1 = \\frac{200}{AD} \\;\\Rightarrow\\; AD = 200', highlight: ['ab', 'ad', 'd'] },
-        { text: 'The ships are on opposite sides, so add the two distances.', math: 'CD = AC + AD = 200\\sqrt3 + 200 = 200(\\sqrt3 + 1)', highlight: ['ac', 'ad'] },
+        {
+          text: 'Let $AB = 200$ m be the lighthouse and $C$, $D$ the ships. There are two right triangles, $BAC$ and $BAD$, sharing the side $AB$.',
+          highlight: ['ab'],
+        },
+        {
+          text: 'In $\\triangle BAC$:',
+          math: '\\tan 30^\\circ = \\frac{AB}{AC} \\;\\Rightarrow\\; \\frac{1}{\\sqrt3} = \\frac{200}{AC} \\;\\Rightarrow\\; AC = 200\\sqrt3',
+          highlight: ['ab', 'ac', 'c'],
+        },
+        {
+          text: 'In $\\triangle BAD$:',
+          math: '\\tan 45^\\circ = \\frac{AB}{AD} \\;\\Rightarrow\\; 1 = \\frac{200}{AD} \\;\\Rightarrow\\; AD = 200',
+          highlight: ['ab', 'ad', 'd'],
+        },
+        {
+          text: 'The ships are on opposite sides, so add the two distances.',
+          math: 'CD = AC + AD = 200\\sqrt3 + 200 = 200(\\sqrt3 + 1)',
+          highlight: ['ac', 'ad'],
+        },
         { math: '= 200 \\times 2.732 = 546.4' },
       ],
       answer: 'The ships are 546.4 m apart.',
@@ -375,10 +442,24 @@ export const lesson4: Lesson = {
         ],
       },
       steps: [
-        { text: 'Let $AB = 30$ m be the building, $AC = h$ the tower and $P$ the observer. Then $BC = 30 + h$.', highlight: ['ab', 'ac'] },
-        { text: 'The bottom of the tower is the top of the building. In $\\triangle ABP$, $\\angle APB = 45^\\circ$:', math: '\\tan 45^\\circ = \\frac{AB}{BP} \\;\\Rightarrow\\; 1 = \\frac{30}{BP} \\;\\Rightarrow\\; BP = 30', highlight: ['ab', 'bp', 'p45'] },
-        { text: 'In $\\triangle CBP$, $\\angle CPB = 60^\\circ$:', math: '\\tan 60^\\circ = \\frac{BC}{BP} \\;\\Rightarrow\\; \\sqrt3 = \\frac{30 + h}{30}', highlight: ['ab', 'ac', 'bp', 'p60'] },
-        { math: '30 + h = 30\\sqrt3 \\;\\Rightarrow\\; h = 30(\\sqrt3 - 1) = 30 \\times 0.732 = 21.96', highlight: ['ac'] },
+        {
+          text: 'Let $AB = 30$ m be the building, $AC = h$ the tower and $P$ the observer. Then $BC = 30 + h$.',
+          highlight: ['ab', 'ac'],
+        },
+        {
+          text: 'The bottom of the tower is the top of the building. In $\\triangle ABP$, $\\angle APB = 45^\\circ$:',
+          math: '\\tan 45^\\circ = \\frac{AB}{BP} \\;\\Rightarrow\\; 1 = \\frac{30}{BP} \\;\\Rightarrow\\; BP = 30',
+          highlight: ['ab', 'bp', 'p45'],
+        },
+        {
+          text: 'In $\\triangle CBP$, $\\angle CPB = 60^\\circ$:',
+          math: '\\tan 60^\\circ = \\frac{BC}{BP} \\;\\Rightarrow\\; \\sqrt3 = \\frac{30 + h}{30}',
+          highlight: ['ab', 'ac', 'bp', 'p60'],
+        },
+        {
+          math: '30 + h = 30\\sqrt3 \\;\\Rightarrow\\; h = 30(\\sqrt3 - 1) = 30 \\times 0.732 = 21.96',
+          highlight: ['ac'],
+        },
       ],
       answer: 'The tower is 21.96 m high.',
     },
@@ -410,9 +491,20 @@ export const lesson4: Lesson = {
       },
       steps: [
         { text: 'Let $AB$ be the tower and $BC$ the width of the canal. $CD = 20$ m.', highlight: ['ab', 'bc', 'cd'] },
-        { text: 'In $\\triangle ABC$:', math: '\\tan 58^\\circ = \\frac{AB}{BC} \\;\\Rightarrow\\; AB = 1.6003\\,BC \\quad (1)', highlight: ['ab', 'bc', 'c'] },
-        { text: 'In $\\triangle ABD$, $BD = BC + 20$:', math: '\\tan 30^\\circ = \\frac{AB}{BC + 20} \\;\\Rightarrow\\; AB = \\frac{BC + 20}{\\sqrt3} \\quad (2)', highlight: ['ab', 'bc', 'cd', 'd'] },
-        { text: 'Both expressions equal $AB$, so set them equal.', math: '1.6003\\sqrt3\\,BC = BC + 20 \\;\\Rightarrow\\; 2.7717\\,BC - BC = 20' },
+        {
+          text: 'In $\\triangle ABC$:',
+          math: '\\tan 58^\\circ = \\frac{AB}{BC} \\;\\Rightarrow\\; AB = 1.6003\\,BC \\quad (1)',
+          highlight: ['ab', 'bc', 'c'],
+        },
+        {
+          text: 'In $\\triangle ABD$, $BD = BC + 20$:',
+          math: '\\tan 30^\\circ = \\frac{AB}{BC + 20} \\;\\Rightarrow\\; AB = \\frac{BC + 20}{\\sqrt3} \\quad (2)',
+          highlight: ['ab', 'bc', 'cd', 'd'],
+        },
+        {
+          text: 'Both expressions equal $AB$, so set them equal.',
+          math: '1.6003\\sqrt3\\,BC = BC + 20 \\;\\Rightarrow\\; 2.7717\\,BC - BC = 20',
+        },
         { math: 'BC = \\frac{20}{1.7717} = 11.29 \\text{ m}', highlight: ['bc'] },
         { text: 'Substitute in (1).', math: 'AB = 1.6003 \\times 11.29 = 18.07 \\text{ m}', highlight: ['ab'] },
       ],
@@ -428,7 +520,14 @@ export const lesson4: Lesson = {
         view: [-70, -20, 300, 305],
         maxWidth: 440,
         north: [-45, 0],
-        points: { G: [0, 0], O: [0, 228.38], H: [101.68, 228.38], I: [278.37, 228.38], J: [278.37, 262.72], X: [130.15, 292.3] },
+        points: {
+          G: [0, 0],
+          O: [0, 228.38],
+          H: [101.68, 228.38],
+          I: [278.37, 228.38],
+          J: [278.37, 262.72],
+          X: [130.15, 292.3],
+        },
         labelDir: { G: 'sw', O: 'nw', H: 's', I: 'se', J: 'ne', X: 'none' },
         segs: [
           { id: 'go', a: 'G', b: 'O', kind: 'dash', color: 'adj', label: 'North', labelSide: 1 },
@@ -450,12 +549,34 @@ export const lesson4: Lesson = {
         ],
       },
       steps: [
-        { text: 'Draw North from G and East from H to make right triangle $GOH$ with $\\angle OGH = 24^\\circ$ and $GH = 250$ km.', highlight: ['go', 'oh', 'gh', 'g'] },
-        { text: '(i) North distance is the side next to the $24^\\circ$ angle.', math: 'OG = 250\\cos 24^\\circ = 250 \\times 0.9135 = 228.38 \\text{ km}', highlight: ['go', 'g'] },
-        { text: '(ii) East distance is the side opposite the angle.', math: 'OH = 250\\sin 24^\\circ = 250 \\times 0.4067 = 101.68 \\text{ km}', highlight: ['oh', 'g'] },
-        { text: 'At H the plane turns $55^\\circ$ more, so its new bearing is $24^\\circ + 55^\\circ = 79^\\circ$. Measured from East, that is $90^\\circ - 79^\\circ = 11^\\circ$.', highlight: ['h55', 'h11'] },
-        { text: '(iii) In $\\triangle HIJ$, North distance is opposite the $11^\\circ$ angle.', math: 'IJ = 180\\sin 11^\\circ = 180 \\times 0.1908 = 34.34 \\text{ km}', highlight: ['ij', 'h11'] },
-        { text: '(iv) East distance is next to the $11^\\circ$ angle.', math: 'HI = 180\\cos 11^\\circ = 180 \\times 0.9816 = 176.69 \\text{ km}', highlight: ['hi', 'h11'] },
+        {
+          text: 'Draw North from G and East from H to make right triangle $GOH$ with $\\angle OGH = 24^\\circ$ and $GH = 250$ km.',
+          highlight: ['go', 'oh', 'gh', 'g'],
+        },
+        {
+          text: '(i) North distance is the side next to the $24^\\circ$ angle.',
+          math: 'OG = 250\\cos 24^\\circ = 250 \\times 0.9135 = 228.38 \\text{ km}',
+          highlight: ['go', 'g'],
+        },
+        {
+          text: '(ii) East distance is the side opposite the angle.',
+          math: 'OH = 250\\sin 24^\\circ = 250 \\times 0.4067 = 101.68 \\text{ km}',
+          highlight: ['oh', 'g'],
+        },
+        {
+          text: 'At H the plane turns $55^\\circ$ more, so its new bearing is $24^\\circ + 55^\\circ = 79^\\circ$. Measured from East, that is $90^\\circ - 79^\\circ = 11^\\circ$.',
+          highlight: ['h55', 'h11'],
+        },
+        {
+          text: '(iii) In $\\triangle HIJ$, North distance is opposite the $11^\\circ$ angle.',
+          math: 'IJ = 180\\sin 11^\\circ = 180 \\times 0.1908 = 34.34 \\text{ km}',
+          highlight: ['ij', 'h11'],
+        },
+        {
+          text: '(iv) East distance is next to the $11^\\circ$ angle.',
+          math: 'HI = 180\\cos 11^\\circ = 180 \\times 0.9816 = 176.69 \\text{ km}',
+          highlight: ['hi', 'h11'],
+        },
       ],
       answer: '(i) 228.38 km  (ii) 101.68 km  (iii) 34.34 km  (iv) 176.69 km',
     },
@@ -486,9 +607,19 @@ export const lesson4: Lesson = {
         angles: [{ id: 'x', at: 'X', from: 'C', to: 'D', label: '40°', r: 34 }],
       },
       steps: [
-        { text: 'The tops B and D both lie on the same line of sight from X, because the angle is the same.', highlight: ['bd', 'dx'] },
-        { text: '(i) In $\\triangle XCD$, we know the adjacent side $CX = 8$ m and want the hypotenuse $XD$, so use cos.', math: '\\cos 40^\\circ = \\frac{CX}{XD} \\;\\Rightarrow\\; XD = \\frac{8}{0.7660} = 10.44 \\text{ m}', highlight: ['cx', 'dx', 'x'] },
-        { text: '(ii) In $\\triangle XAB$, the hypotenuse is $BX = BD + DX = 20 + 10.44 = 30.44$ m.', highlight: ['bd', 'dx'] },
+        {
+          text: 'The tops B and D both lie on the same line of sight from X, because the angle is the same.',
+          highlight: ['bd', 'dx'],
+        },
+        {
+          text: '(i) In $\\triangle XCD$, we know the adjacent side $CX = 8$ m and want the hypotenuse $XD$, so use cos.',
+          math: '\\cos 40^\\circ = \\frac{CX}{XD} \\;\\Rightarrow\\; XD = \\frac{8}{0.7660} = 10.44 \\text{ m}',
+          highlight: ['cx', 'dx', 'x'],
+        },
+        {
+          text: '(ii) In $\\triangle XAB$, the hypotenuse is $BX = BD + DX = 20 + 10.44 = 30.44$ m.',
+          highlight: ['bd', 'dx'],
+        },
         { math: 'AX = BX\\cos 40^\\circ = 30.44 \\times 0.7660 = 23.32 \\text{ m}', highlight: ['ac', 'cx'] },
         { math: 'AC = AX - CX = 23.32 - 8 = 15.32 \\text{ m}', highlight: ['ac'] },
       ],
@@ -519,7 +650,10 @@ export const lesson4: Lesson = {
         angles: [{ at: 'R', from: 'Q', to: 'P', label: 'θ', r: 40 }],
       },
       parts: [{ answer: { value: 30, unit: '°', display: '30°' } }],
-      hints: ['You know the height (opposite) and the distance (adjacent). Which ratio links them?', '$\\tan\\theta = \\dfrac{10\\sqrt3}{30}$. Simplify, then look it up in the table.'],
+      hints: [
+        'You know the height (opposite) and the distance (adjacent). Which ratio links them?',
+        '$\\tan\\theta = \\dfrac{10\\sqrt3}{30}$. Simplify, then look it up in the table.',
+      ],
       solution: [
         { math: '\\tan\\theta = \\frac{10\\sqrt3}{30} = \\frac{\\sqrt3}{3} = \\frac{1}{\\sqrt3}' },
         { text: '$\\tan 30^\\circ = \\dfrac{1}{\\sqrt3}$, so $\\theta = 30^\\circ$.' },
@@ -552,9 +686,15 @@ export const lesson4: Lesson = {
         angles: [{ at: 'M', from: 'B', to: 'T', label: '30°', r: 40 }],
       },
       parts: [{ answer: { value: 24, unit: 'm', display: '24 m' } }],
-      hints: ['First find the distance from the pedestrian to one row of houses using tan.', 'The pedestrian is in the middle, so the road is twice that distance.'],
+      hints: [
+        'First find the distance from the pedestrian to one row of houses using tan.',
+        'The pedestrian is in the middle, so the road is twice that distance.',
+      ],
       solution: [
-        { text: 'Let $d$ be the distance from the pedestrian to the houses.', math: '\\tan 30^\\circ = \\frac{4\\sqrt3}{d} \\;\\Rightarrow\\; \\frac{1}{\\sqrt3} = \\frac{4\\sqrt3}{d}' },
+        {
+          text: 'Let $d$ be the distance from the pedestrian to the houses.',
+          math: '\\tan 30^\\circ = \\frac{4\\sqrt3}{d} \\;\\Rightarrow\\; \\frac{1}{\\sqrt3} = \\frac{4\\sqrt3}{d}',
+        },
         { math: 'd = 4\\sqrt3 \\times \\sqrt3 = 12 \\text{ m}' },
         { text: 'The pedestrian is on the median, so the road is $2d$ wide.', math: '2 \\times 12 = 24 \\text{ m}' },
       ],
@@ -589,11 +729,13 @@ export const lesson4: Lesson = {
       },
       parts: [{ answer: { value: 5 * R3 - 5, unit: 'm', display: '3.66 m' } }],
       hints: [
-        'Both angles are measured from the man\'s eye, so work with heights **above his eye level**. Does his height matter?',
+        "Both angles are measured from the man's eye, so work with heights **above his eye level**. Does his height matter?",
         'Height of the top above eye level $= 5\\tan 60^\\circ$; height of the bottom $= 5\\tan 45^\\circ$.',
       ],
       solution: [
-        { text: 'Both lines of sight start at the man\'s eye. Measure heights above eye level, so his own height is not needed.' },
+        {
+          text: "Both lines of sight start at the man's eye. Measure heights above eye level, so his own height is not needed.",
+        },
         { text: 'Top of the window:', math: '5\\tan 60^\\circ = 5\\sqrt3 = 5 \\times 1.732 = 8.66 \\text{ m}' },
         { text: 'Bottom of the window:', math: '5\\tan 45^\\circ = 5 \\text{ m}' },
         { text: 'Height of the window:', math: '8.66 - 5 = 3.66 \\text{ m}' },
@@ -632,7 +774,10 @@ export const lesson4: Lesson = {
       solution: [
         { math: '\\tan 40^\\circ = \\frac{h}{d} \\;\\Rightarrow\\; d = \\frac{h}{0.8391}' },
         { math: '\\tan 60^\\circ = \\frac{h + 1.6}{d} \\;\\Rightarrow\\; \\sqrt3\\,d = h + 1.6' },
-        { text: 'Substitute $d$:', math: '\\frac{1.732\\,h}{0.8391} = h + 1.6 \\;\\Rightarrow\\; 2.0641\\,h = h + 1.6' },
+        {
+          text: 'Substitute $d$:',
+          math: '\\frac{1.732\\,h}{0.8391} = h + 1.6 \\;\\Rightarrow\\; 2.0641\\,h = h + 1.6',
+        },
         { math: '1.0641\\,h = 1.6 \\;\\Rightarrow\\; h = 1.50 \\text{ m}' },
       ],
     },
@@ -674,9 +819,17 @@ export const lesson4: Lesson = {
         'For the bottom of the pole (height $r$): $\\tan 30^\\circ = \\dfrac{r}{r + 12}$.',
       ],
       solution: [
-        { text: 'Take O as the centre of the dome, directly below the pole. The pole\'s bottom is at height $r$ and its top at $r + h$.' },
-        { text: 'From 7 m away, his distance from O is $r + 7$.', math: '\\tan 45^\\circ = \\frac{r + h}{r + 7} = 1 \\;\\Rightarrow\\; r + h = r + 7 \\;\\Rightarrow\\; h = 7' },
-        { text: 'From 12 m away, his distance from O is $r + 12$.', math: '\\tan 30^\\circ = \\frac{r}{r + 12} \\;\\Rightarrow\\; \\sqrt3\\,r = r + 12' },
+        {
+          text: "Take O as the centre of the dome, directly below the pole. The pole's bottom is at height $r$ and its top at $r + h$.",
+        },
+        {
+          text: 'From 7 m away, his distance from O is $r + 7$.',
+          math: '\\tan 45^\\circ = \\frac{r + h}{r + 7} = 1 \\;\\Rightarrow\\; r + h = r + 7 \\;\\Rightarrow\\; h = 7',
+        },
+        {
+          text: 'From 12 m away, his distance from O is $r + 12$.',
+          math: '\\tan 30^\\circ = \\frac{r}{r + 12} \\;\\Rightarrow\\; \\sqrt3\\,r = r + 12',
+        },
         { math: 'r = \\frac{12}{\\sqrt3 - 1} = \\frac{12}{0.732} = 16.39 \\text{ m}' },
       ],
     },
@@ -690,7 +843,10 @@ export const lesson4: Lesson = {
         view: [-3, -2, 12.5, 17],
         maxWidth: 340,
         ground: true,
-        objects: [{ type: 'tower', at: [0, 0], h: 15, w: 1.6 }, { type: 'pole', at: [8.66, 0], h: 10 }],
+        objects: [
+          { type: 'tower', at: [0, 0], h: 15, w: 1.6 },
+          { type: 'pole', at: [8.66, 0], h: 10 },
+        ],
         points: { A: [0, 0], B: [0, 15], C: [8.66, 0], D: [8.66, 10], E: [0, 10] },
         labelDir: { A: 'sw', B: 'nw', C: 'se', D: 'ne', E: 'w' },
         segs: [
@@ -713,8 +869,14 @@ export const lesson4: Lesson = {
         'From the top of the pole (height $x$): $\\tan 30^\\circ = \\dfrac{15 - x}{d}$.',
       ],
       solution: [
-        { text: 'Let the pole be $x$ m high and $d$ m from the tower. From the bottom of the pole:', math: '\\tan 60^\\circ = \\frac{15}{d} \\;\\Rightarrow\\; d = \\frac{15}{\\sqrt3} = 5\\sqrt3' },
-        { text: 'From the top of the pole, the top of the tower is $15 - x$ higher:', math: '\\tan 30^\\circ = \\frac{15 - x}{5\\sqrt3} \\;\\Rightarrow\\; 15 - x = \\frac{5\\sqrt3}{\\sqrt3} = 5' },
+        {
+          text: 'Let the pole be $x$ m high and $d$ m from the tower. From the bottom of the pole:',
+          math: '\\tan 60^\\circ = \\frac{15}{d} \\;\\Rightarrow\\; d = \\frac{15}{\\sqrt3} = 5\\sqrt3',
+        },
+        {
+          text: 'From the top of the pole, the top of the tower is $15 - x$ higher:',
+          math: '\\tan 30^\\circ = \\frac{15 - x}{5\\sqrt3} \\;\\Rightarrow\\; 15 - x = \\frac{5\\sqrt3}{\\sqrt3} = 5',
+        },
         { math: 'x = 10 \\text{ m}' },
       ],
     },
@@ -748,7 +910,10 @@ export const lesson4: Lesson = {
         ],
       },
       parts: [{ answer: { value: (80 * R3 - 80) / 2, unit: 'm/s', display: '29.28 m/s' } }],
-      hints: ['Find the horizontal distance to the bird at the start ($45^\\circ$) and after 2 s ($30^\\circ$).', 'Speed = distance flown ÷ 2 seconds.'],
+      hints: [
+        'Find the horizontal distance to the bird at the start ($45^\\circ$) and after 2 s ($30^\\circ$).',
+        'Speed = distance flown ÷ 2 seconds.',
+      ],
       solution: [
         { text: 'At first: $\\tan 45^\\circ = \\dfrac{80}{PQ}$, so $PQ = 80$ m.' },
         { text: 'After 2 s: $\\tan 30^\\circ = \\dfrac{80}{PR}$, so $PR = 80\\sqrt3 = 138.56$ m.' },
@@ -786,11 +951,17 @@ export const lesson4: Lesson = {
         ],
       },
       parts: [{ answer: { value: 1.9659, unit: 's', display: '1.97 seconds (approx)', tol: 0.02 } }],
-      hints: ['Horizontal distance at $37^\\circ$: $600 \\div \\tan 37^\\circ$. At $53^\\circ$: $600 \\div \\tan 53^\\circ$.', 'Time = distance flown ÷ 175.'],
+      hints: [
+        'Horizontal distance at $37^\\circ$: $600 \\div \\tan 37^\\circ$. At $53^\\circ$: $600 \\div \\tan 53^\\circ$.',
+        'Time = distance flown ÷ 175.',
+      ],
       solution: [
         { math: 'PC = \\frac{600}{\\tan 37^\\circ} = \\frac{600}{0.7536} = 796.18 \\text{ m}' },
         { math: 'PD = \\frac{600}{\\tan 53^\\circ} = \\frac{600}{1.3270} = 452.15 \\text{ m}' },
-        { text: 'The angle increases, so the plane is flying towards the observer.', math: '\\text{distance flown} = 796.18 - 452.15 = 344.03 \\text{ m}' },
+        {
+          text: 'The angle increases, so the plane is flying towards the observer.',
+          math: '\\text{distance flown} = 796.18 - 452.15 = 344.03 \\text{ m}',
+        },
         { math: '\\text{time} = \\frac{344.03}{175} \\approx 1.97 \\text{ s}' },
       ],
     },
@@ -856,7 +1027,11 @@ export const lesson4: Lesson = {
       prompt: 'Which instrument measures the angle between an object and the eye of the observer?',
       options: ['Compass', 'Theodolite', 'Thermometer', 'Odometer'],
       correct: 1,
-      solution: [{ text: 'A **theodolite** measures horizontal and vertical angles. A clinometer is a simpler instrument for angles of elevation and depression.' }],
+      solution: [
+        {
+          text: 'A **theodolite** measures horizontal and vertical angles. A clinometer is a simpler instrument for angles of elevation and depression.',
+        },
+      ],
     },
     {
       id: 'l4-q3',
@@ -871,16 +1046,22 @@ export const lesson4: Lesson = {
       id: 'l4-q4',
       source: 'Exercise 6.5 · Q10',
       type: 'mcq',
-      prompt: 'If the ratio of the height of a tower to the length of its shadow is $\\sqrt3 : 1$, the angle of elevation of the sun is',
+      prompt:
+        'If the ratio of the height of a tower to the length of its shadow is $\\sqrt3 : 1$, the angle of elevation of the sun is',
       options: ['$45^\\circ$', '$30^\\circ$', '$90^\\circ$', '$60^\\circ$'],
       correct: 3,
-      solution: [{ math: '\\tan\\theta = \\frac{\\text{height}}{\\text{shadow}} = \\frac{\\sqrt3}{1} = \\sqrt3 \\;\\Rightarrow\\; \\theta = 60^\\circ' }],
+      solution: [
+        {
+          math: '\\tan\\theta = \\frac{\\text{height}}{\\text{shadow}} = \\frac{\\sqrt3}{1} = \\sqrt3 \\;\\Rightarrow\\; \\theta = 60^\\circ',
+        },
+      ],
     },
     {
       id: 'l4-q5',
       source: 'Exercise 6.5 · Q12',
       type: 'mcq',
-      prompt: 'A tower is 60 m high. Its shadow becomes $x$ m shorter when the angle of elevation of the sun increases from $30^\\circ$ to $45^\\circ$. Then $x$ is',
+      prompt:
+        'A tower is 60 m high. Its shadow becomes $x$ m shorter when the angle of elevation of the sun increases from $30^\\circ$ to $45^\\circ$. Then $x$ is',
       options: ['41.92 m', '43.92 m', '43 m', '45.6 m'],
       correct: 1,
       solution: [
@@ -891,14 +1072,15 @@ export const lesson4: Lesson = {
     {
       id: 'l4-q6',
       type: 'numeric',
-      prompt: 'A tree casts a shadow 20 m long when the sun\'s angle of elevation is $45^\\circ$. How tall is the tree?',
+      prompt: "A tree casts a shadow 20 m long when the sun's angle of elevation is $45^\\circ$. How tall is the tree?",
       parts: [{ answer: { value: 20, unit: 'm', display: '20 m' } }],
       solution: [{ math: '\\tan 45^\\circ = \\frac{h}{20} \\;\\Rightarrow\\; h = 20 \\text{ m}' }],
     },
     {
       id: 'l4-q7',
       type: 'numeric',
-      prompt: 'A 10 m ladder leans against a wall and makes an angle of $60^\\circ$ with the ground. How high up the wall does it reach? (Give your answer to 2 decimal places.)',
+      prompt:
+        'A 10 m ladder leans against a wall and makes an angle of $60^\\circ$ with the ground. How high up the wall does it reach? (Give your answer to 2 decimal places.)',
       parts: [{ answer: { value: 5 * R3, unit: 'm', display: '5√3 ≈ 8.66 m' } }],
       solution: [
         { text: 'The ladder is the hypotenuse and the height is opposite the angle, so use sin.' },
@@ -908,10 +1090,15 @@ export const lesson4: Lesson = {
     {
       id: 'l4-q8',
       type: 'mcq',
-      prompt: 'You know the height of a building and your horizontal distance from it. Which ratio gives the angle of elevation directly?',
+      prompt:
+        'You know the height of a building and your horizontal distance from it. Which ratio gives the angle of elevation directly?',
       options: ['$\\sin$', '$\\cos$', '$\\tan$', '$\\sec$'],
       correct: 2,
-      solution: [{ text: 'Height is opposite and distance is adjacent: $\\tan\\theta = \\dfrac{\\text{height}}{\\text{distance}}$.' }],
+      solution: [
+        {
+          text: 'Height is opposite and distance is adjacent: $\\tan\\theta = \\dfrac{\\text{height}}{\\text{distance}}$.',
+        },
+      ],
     },
   ],
 }

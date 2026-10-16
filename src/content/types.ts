@@ -9,11 +9,7 @@
 export type Rich = string
 
 export type WidgetName =
-  | 'triangle-explorer'
-  | 'complementary-proof'
-  | 'standard-table'
-  | 'elevation-simulator'
-  | 'ratio-picker'
+  'triangle-explorer' | 'complementary-proof' | 'standard-table' | 'elevation-simulator' | 'ratio-picker'
 
 /* ---------- Scene diagrams (heights and distances, triangles) ---------- */
 

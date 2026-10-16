@@ -42,14 +42,15 @@ export function StandardTable() {
         >
           Test myself
         </button>
-        <button className={`chip ${pattern ? 'is-on' : ''}`} onClick={() => setPattern((p) => !p)}>
+        <button className={`chip ${pattern ? 'is-on-sky' : ''}`} onClick={() => setPattern((p) => !p)}>
           Show the memory pattern
         </button>
       </div>
 
       {pattern && (
         <div className="pattern">
-          <p className="small">
+          <span className="pattern-label">memory pattern</span>
+          <p>
             Write <Tex tex="\sqrt{0},\sqrt{1},\sqrt{2},\sqrt{3},\sqrt{4}" />, then divide each by 2. That is the{' '}
             <strong>sin</strong> row. Read it backwards for the <strong>cos</strong> row. Then{' '}
             <Tex tex="\tan = \sin \div \cos" />, and the last three rows are reciprocals.
@@ -61,8 +62,8 @@ export function StandardTable() {
         </div>
       )}
 
-      <div className="table-wrap">
-        <table className="data-table std-table">
+      <div className="table-scroll">
+        <table className="data-table is-centred std-table">
           <thead>
             <tr>
               <th>

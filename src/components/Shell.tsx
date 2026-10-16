@@ -1,9 +1,14 @@
 import { useEffect, useState, type ReactNode } from 'react'
-import { Link } from 'react-router-dom'
+import { Link, useLocation } from 'react-router-dom'
+import { UNITS } from '../content'
+import { overallCompletion, useProgress } from '../store/progress'
 import { FormulaSheet } from './FormulaSheet'
 
 export function Shell({ children }: { children: ReactNode }) {
   const [sheet, setSheet] = useState(false)
+  const lessons = useProgress((s) => s.lessons)
+  const { pathname } = useLocation()
+  const pct = Math.round(overallCompletion(lessons, UNITS) * 100)
 
   useEffect(() => {
     if (!sheet) return
@@ -14,36 +19,32 @@ export function Shell({ children }: { children: ReactNode }) {
 
   return (
     <div className="shell">
-      <header className="topbar">
-        <div className="container topbar-inner">
-          <Link to="/" className="brand">
-            <svg viewBox="0 0 32 32" aria-hidden="true" className="brand-mark">
-              <defs>
-                <linearGradient id="brand-gradient" x1="0" y1="0" x2="1" y2="1">
-                  <stop offset="0" stopColor="#b845ed" />
-                  <stop offset="0.5" stopColor="#f041ff" />
-                  <stop offset="1" stopColor="#3245ff" />
-                </linearGradient>
-              </defs>
-              <path d="M5 27 L27 27 L5 7 Z" className="brand-tri" />
-              <path d="M5 23 h4 v4" className="brand-right" />
-              <path d="M27 27 A 9 9 0 0 0 20.5 20.6" className="brand-arc" />
-            </svg>
-            <span className="brand-text">
-              <span className="brand-name">Kanakku</span>
-              <span className="brand-sub">Class 10 Maths</span>
-            </span>
+      <header className="container site-header">
+        <Link to="/" className="brand" aria-label="Kanakku home">
+          <span className="brand-k" aria-hidden="true">
+            K
+          </span>
+          <span className="brand-name">Kanakku</span>
+          <span className="brand-pill">Class 10 Maths</span>
+        </Link>
+        <div className="header-actions">
+          <Link to="/me" className={`btn-outline ${pathname === '/me' ? 'is-active' : ''}`}>
+            <span className="pct-badge tabular">{pct}%</span>
+            My progress
           </Link>
-          <button className="btn-sheet" onClick={() => setSheet(true)} aria-haspopup="dialog">
+          <button className="btn-outline" onClick={() => setSheet(true)} aria-haspopup="dialog">
             <span aria-hidden="true">∑</span> Formula sheet
           </button>
         </div>
       </header>
       <main className="main">{children}</main>
-      <footer className="footer">
-        <div className="container">
-          Based on the Tamil Nadu State Board Class 10 Mathematics textbook. Explanations, diagrams and tools are
-          original.
+      <footer className="site-footer">
+        <div className="container footer-inner">
+          <p>
+            Based on the Tamil Nadu State Board Class 10 Mathematics textbook. Explanations, diagrams and tools are
+            original.
+          </p>
+          <span className="hand-note footer-note">made with chalk &amp; curiosity</span>
         </div>
       </footer>
       <FormulaSheet open={sheet} onClose={() => setSheet(false)} />

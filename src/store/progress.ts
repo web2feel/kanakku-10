@@ -1,6 +1,6 @@
 import { create } from 'zustand'
 import { persist, createJSONStorage, type StateStorage } from 'zustand/middleware'
-import type { Lesson } from '../content/types'
+import type { Lesson, Unit } from '../content/types'
 
 export type Tab = 'learn' | 'explore' | 'examples' | 'practice' | 'quiz'
 export const TABS: { id: Tab; label: string }[] = [
@@ -13,7 +13,7 @@ export const TABS: { id: Tab; label: string }[] = [
 
 export type PracticeStatus = 'correct' | 'revealed' | 'tried'
 
-interface LessonProgress {
+export interface LessonProgress {
   seen: Tab[]
   practice: Record<string, PracticeStatus>
   quizBest?: number
@@ -99,4 +99,19 @@ export function lessonCompletion(lp: LessonProgress | undefined, lesson: Lesson)
   const solved = lesson.practice.filter((q) => lp.practice[q.id] === 'correct').length
   const quiz = lp.quizBest && lp.quizTotal ? lp.quizBest / lp.quizTotal : 0
   return 0.2 * read + 0.4 * (solved / total) + 0.4 * quiz
+}
+
+/** Average completion across every lesson in a unit, including ones not yet written (0..1). */
+export function unitCompletion(lessons: Record<string, LessonProgress | undefined>, unit: Unit): number {
+  if (unit.lessons.length === 0) return 0
+  return (
+    unit.lessons.reduce((s, l) => s + lessonCompletion(lessons[lessonKey(unit.id, l.id)], l), 0) / unit.lessons.length
+  )
+}
+
+/** Completion across all units that have at least one lesson ready (0..1). */
+export function overallCompletion(lessons: Record<string, LessonProgress | undefined>, units: Unit[]): number {
+  const open = units.filter((u) => u.lessons.some((l) => l.status === 'ready'))
+  if (open.length === 0) return 0
+  return open.reduce((s, u) => s + unitCompletion(lessons, u), 0) / open.length
 }

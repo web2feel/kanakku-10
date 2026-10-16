@@ -3,7 +3,7 @@ import { Rich, Tex } from './Rich'
 import { Scene } from './Scene'
 import { Widget } from '../widgets'
 
-const NOTE_LABEL = { note: 'Note', tip: 'Tip', think: 'Think about it', history: 'A little history' } as const
+const NOTE_LABEL = { note: 'note', tip: 'tip', think: 'think about it', history: 'a little history' } as const
 
 export function Blocks({ blocks }: { blocks: Block[] }) {
   return (
@@ -24,7 +24,11 @@ function BlockView({ b }: { b: Block }) {
         </p>
       )
     case 'math':
-      return <Tex tex={b.tex} display />
+      return (
+        <div className="math-box">
+          <Tex tex={b.tex} display />
+        </div>
+      )
     case 'list': {
       const L = b.ordered ? 'ol' : 'ul'
       return (
@@ -41,7 +45,7 @@ function BlockView({ b }: { b: Block }) {
       const tone = b.tone ?? 'note'
       return (
         <aside className={`note note-${tone}`}>
-          <div className="note-label">{b.title ?? NOTE_LABEL[tone]}</div>
+          <div className="note-label">{b.title?.toLowerCase() ?? NOTE_LABEL[tone]}</div>
           <div>
             <Rich text={b.text} />
           </div>
@@ -49,36 +53,53 @@ function BlockView({ b }: { b: Block }) {
       )
     }
     case 'table':
+      // A table with no headings is a set of formulas: show each cell as a maths chip.
+      if (b.head.every((h) => !h.trim())) {
+        return (
+          <figure className="table-wrap">
+            <div className="formula-grid">
+              {b.rows.flat().map((c, i) => (
+                <div key={i} className="formula-chip">
+                  <Rich text={c} />
+                </div>
+              ))}
+            </div>
+            {b.caption && <figcaption>{b.caption}</figcaption>}
+          </figure>
+        )
+      }
       return (
         <figure className="table-wrap">
-          <table className="data-table">
-            <thead>
-              <tr>
-                {b.head.map((h, i) => (
-                  <th key={i}>
-                    <Rich text={h} />
-                  </th>
-                ))}
-              </tr>
-            </thead>
-            <tbody>
-              {b.rows.map((r, i) => (
-                <tr key={i}>
-                  {r.map((c, j) =>
-                    j === 0 && b.firstColHead ? (
-                      <th key={j} scope="row">
-                        <Rich text={c} />
-                      </th>
-                    ) : (
-                      <td key={j}>
-                        <Rich text={c} />
-                      </td>
-                    ),
-                  )}
+          <div className="table-scroll">
+            <table className={`data-table ${b.head.length > 3 ? 'is-centred' : ''}`}>
+              <thead>
+                <tr>
+                  {b.head.map((h, i) => (
+                    <th key={i}>
+                      <Rich text={h} />
+                    </th>
+                  ))}
                 </tr>
-              ))}
-            </tbody>
-          </table>
+              </thead>
+              <tbody>
+                {b.rows.map((r, i) => (
+                  <tr key={i}>
+                    {r.map((c, j) =>
+                      j === 0 && b.firstColHead ? (
+                        <th key={j} scope="row">
+                          <Rich text={c} />
+                        </th>
+                      ) : (
+                        <td key={j}>
+                          <Rich text={c} />
+                        </td>
+                      ),
+                    )}
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
           {b.caption && <figcaption>{b.caption}</figcaption>}
         </figure>
       )
@@ -104,7 +125,11 @@ export function StepView({ step, index }: { step: Step; index?: number }) {
             <Rich text={step.text} />
           </p>
         )}
-        {step.math && <Tex tex={step.math} display />}
+        {step.math && (
+          <div className="math-box">
+            <Tex tex={step.math} display />
+          </div>
+        )}
       </div>
     </li>
   )

@@ -59,7 +59,7 @@ export function RatioPicker() {
           ))}
         </fieldset>
       </div>
-      <div className="picker-result" aria-live="polite">
+      <div className={`picker-result ${res ? '' : 'is-empty'}`} aria-live="polite">
         {res ? (
           <>
             <Tex tex={res.tex} display />

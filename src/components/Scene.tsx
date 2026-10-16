@@ -101,7 +101,12 @@ export function Scene({ spec, highlight }: { spec: SceneSpec; highlight?: string
             s.kind === 'sight' ? 'seg-sight' : '',
             on ? 'seg-on' : dimOthers ? 'seg-dim' : '',
           ].join(' ')
-          return <line key={i} x1={a[0]} y1={a[1]} x2={b[0]} y2={b[1]} className={cls} />
+          return (
+            <g key={i}>
+              {on && <line x1={a[0]} y1={a[1]} x2={b[0]} y2={b[1]} className="seg-glow" />}
+              <line x1={a[0]} y1={a[1]} x2={b[0]} y2={b[1]} className={cls} />
+            </g>
+          )
         })}
 
         {spec.right?.map((r, i) => {
@@ -134,6 +139,12 @@ export function Scene({ spec, highlight }: { spec: SceneSpec; highlight?: string
           const on = an.id ? active.has(an.id) : false
           return (
             <g key={i} className={`angle ${on ? 'angle-on' : dimOthers ? 'angle-dim' : ''}`}>
+              {on && (
+                <path
+                  d={`M ${start[0]} ${start[1]} A ${r} ${r} 0 0 ${d > 0 ? 1 : 0} ${end[0]} ${end[1]}`}
+                  className="angle-glow"
+                />
+              )}
               <path d={`M ${start[0]} ${start[1]} A ${r} ${r} 0 0 ${d > 0 ? 1 : 0} ${end[0]} ${end[1]}`} />
               <text x={lp[0]} y={lp[1] + 4} textAnchor="middle" className="angle-label">
                 {an.label}
@@ -161,7 +172,7 @@ export function Scene({ spec, highlight }: { spec: SceneSpec; highlight?: string
               x={p[0]}
               y={p[1] + 4}
               textAnchor={anchor}
-              className={`seg-label seg-label-${s.color ?? 'ink'} ${on ? 'seg-label-on' : ''}`}
+              className={`seg-label seg-label-${s.color ?? 'ink'} ${on ? 'seg-label-on' : ''} ${isWordLabel(s.label) ? 'is-hand' : ''}`}
             >
               {s.label}
             </text>
@@ -184,6 +195,11 @@ export function Scene({ spec, highlight }: { spec: SceneSpec; highlight?: string
       </svg>
     </div>
   )
+}
+
+/** Word labels such as "opposite" or "line of sight" are drawn in the handwritten face; measurements stay in Figtree. */
+function isWordLabel(label: string) {
+  return /^[a-z][a-z ]{2,}$/i.test(label)
 }
 
 function autoDir(p: Vec, c: Vec): Dir {

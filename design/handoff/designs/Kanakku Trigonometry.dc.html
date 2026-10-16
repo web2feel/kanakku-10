@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FBF6EC;color:#1F2A44;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1F2A44;text-decoration:none}a:hover{color:#E8553A}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#FBF6EC;display:flex;flex-direction:column;">
+  <header style="width:100%;box-sizing:border-box;max-width:1120px;margin:0 auto;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+    <a href="Kanakku Home.dc.html" style="display:flex;align-items:center;gap:10px;">
+      <span style="width:38px;height:38px;border-radius:12px;background:#FF6B4A;display:grid;place-items:center;color:#FFF;font-family:'Bricolage Grotesque';font-weight:800;font-size:20px;transform:rotate(-6deg);">K</span>
+      <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:22px;letter-spacing:-0.02em;">Kanakku</span>
+      <span style="font-size:13px;font-weight:600;color:#5B6478;background:#F1E8D6;padding:4px 10px;border-radius:999px;">Class 10 Maths</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <a href="Kanakku Profile.dc.html" style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:10px 14px;border-radius:999px;" style-hover="background:#F1E8D6;color:#1F2A44;"><span style="width:26px;height:26px;border-radius:50%;background:#CDEFE0;border:2px solid #1F2A44;display:grid;place-items:center;font-family:'Bricolage Grotesque';font-weight:800;font-size:12px;box-sizing:border-box;">14%</span>My progress</a>
+      <dc-import name="Formula Sheet" hint-size="160px,44px"></dc-import>
+    </div>
+  </header>
+
+  <main style="width:100%;box-sizing:border-box;max-width:1120px;margin:0 auto;padding:24px 24px 88px;display:flex;flex-direction:column;gap:40px;flex:1;">
+    <div style="display:flex;flex-direction:column;gap:14px;max-width:640px;">
+      <nav style="display:flex;gap:8px;align-items:center;font-size:14px;font-weight:600;color:#7A8296;">
+        <a href="Kanakku Home.dc.html#units" style="color:#7A8296;">Units</a>
+        <span>/</span>
+        <span>Unit 6 · Pages 239–268</span>
+      </nav>
+      <h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(48px,7vw,80px);line-height:0.95;letter-spacing:-0.04em;">Trigonometry</h1>
+      <p style="margin:0;font-size:19px;line-height:1.55;color:#4A5368;text-wrap:pretty;">Ratios, identities, and finding heights and distances you cannot measure directly.</p>
+    </div>
+
+    <ol style="list-style:none;margin:0;padding:0;display:flex;flex-direction:column;gap:14px;">
+      <sc-for list="{{ lessons }}" as="l" hint-placeholder-count="7">
+        <li style="display:block;">
+          <sc-if value="{{ l.open }}" hint-placeholder-val="{{ false }}">
+            <a href="Kanakku Lesson.dc.html" style="background:#FFFFFF;border:2px solid #1F2A44;border-radius:22px;padding:20px 22px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;box-shadow:5px 5px 0 #1F2A44;" style-hover="color:#1F2A44;transform:translate(-2px,-2px);box-shadow:7px 7px 0 #1F2A44;">
+              <span style="width:48px;height:48px;border-radius:50%;background:#FFD25A;border:2px solid #1F2A44;display:grid;place-items:center;font-family:'Bricolage Grotesque';font-weight:800;font-size:20px;">{{ l.n }}</span>
+              <div style="display:flex;flex-direction:column;gap:6px;min-width:0;">
+                <h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:22px;letter-spacing:-0.02em;line-height:1.15;text-wrap:balance;">{{ l.title }}</h2>
+                <p style="margin:0;font-size:16px;line-height:1.45;color:#3B4560;text-wrap:pretty;">{{ l.desc }}</p>
+                <div style="display:flex;flex-wrap:wrap;gap:6px;margin-top:4px;">
+                  <sc-for list="{{ l.meta }}" as="m" hint-placeholder-count="3">
+                    <span style="font-size:13px;font-weight:600;padding:4px 10px;border-radius:999px;background:#F4EDDF;color:#4A5368;">{{ m }}</span>
+                  </sc-for>
+                </div>
+              </div>
+              <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;width:140px;">
+                <span style="font-size:13px;font-weight:700;color:#0F5640;">{{ l.pct }}% done</span>
+                <div style="width:100%;height:12px;border-radius:999px;background:#F4EDDF;border:2px solid #1F2A44;overflow:hidden;box-sizing:border-box;">
+                  <div style="height:100%;width:{{ l.pct }}%;background:#1FA97A;border-radius:999px;"></div>
+                </div>
+                <span style="font-size:14px;font-weight:700;color:#E8553A;">Continue →</span>
+              </div>
+            </a>
+          </sc-if>
+          <sc-if value="{{ l.closed }}" hint-placeholder-val="{{ true }}">
+            <div style="background:#2B3758;border:2px solid #1F2A44;border-radius:22px;padding:18px 22px;display:grid;grid-template-columns:auto minmax(0,1fr) auto;gap:18px;align-items:center;">
+              <span style="width:48px;height:48px;border-radius:50%;border:2px solid #4A5778;display:grid;place-items:center;font-family:'Bricolage Grotesque';font-weight:800;font-size:20px;color:#AEB8D3;box-sizing:border-box;">{{ l.n }}</span>
+              <div style="display:flex;flex-direction:column;gap:6px;min-width:0;">
+                <h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:21px;letter-spacing:-0.02em;line-height:1.15;color:#FFFFFF;text-wrap:balance;">{{ l.title }}</h2>
+                <p style="margin:0;font-size:16px;line-height:1.45;color:#C9D1E6;text-wrap:pretty;">{{ l.desc }}</p>
+                <span style="font-size:13px;font-weight:600;color:#AEB8D3;">{{ l.pages }}</span>
+              </div>
+              <span style="font-size:12px;font-weight:600;color:#C9D1E6;padding:5px 10px;border-radius:999px;border:1.5px solid #4A5778;white-space:nowrap;">Coming soon</span>
+            </div>
+          </sc-if>
+        </li>
+      </sc-for>
+    </ol>
+  </main>
+
+  <footer style="border-top:2px solid #1F2A44;background:#1F2A44;color:#C9D1E6;">
+    <div style="max-width:1120px;margin:0 auto;padding:28px 24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:14px;">
+      <span>Based on the Tamil Nadu State Board Class 10 Mathematics textbook. Explanations, diagrams and tools are original.</span>
+      <span style="font-family:Caveat;font-size:20px;color:#FFD25A;">made with chalk & curiosity</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script>
+class Component extends DCLogic {
+  renderVals() {
+    const raw = [
+      ['Trigonometric ratios refresher', 'The six ratios, complementary angles and the standard-angle table.', 'Pages 239–242', ['6 examples', '12 practice questions'], 67],
+      ['The three fundamental identities', 'Where sin²θ + cos²θ = 1 comes from, and its two partners.', 'Pages 242–244'],
+      ['Proving identities', 'Techniques for Examples 6.1–6.17 and Exercise 6.1.', 'Pages 244–250'],
+      ['Heights and distances: angle of elevation', 'Line of sight, angle of elevation, choosing the right ratio, and one- and two-triangle problems.', 'Pages 250–257', ['8 examples', '9 practice questions'], 33],
+      ['Heights and distances: angle of depression', 'Looking down from towers, lighthouses and aeroplanes.', 'Pages 258–261'],
+      ['Elevation and depression together', 'Problems that use both angles from one point.', 'Pages 262–265'],
+      ['Chapter review', 'Formula sheet, 15 multiple-choice questions and the Unit Exercise.', 'Pages 265–268'],
+    ];
+    const lessons = raw.map(([title, desc, pages, extra, pct], i) => {
+      const open = !!extra;
+      return { n: i + 1, title, desc, pages, open, closed: !open, pct: pct ?? 0, meta: open ? [pages, ...extra] : [] };
+    });
+    return { lessons, readyCount: lessons.filter(l => l.open).length };
+  }
+}
+</script>
+</body>
+</html>

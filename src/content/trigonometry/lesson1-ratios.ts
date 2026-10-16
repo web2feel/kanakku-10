@@ -16,7 +16,7 @@ const omp = (mp = 3, om = 4, labels = true): SceneSpec => ({
 })
 
 const withLengths = (mp: number, om: number, op: number): SceneSpec => {
-  const s = omp(mp / Math.max(mp, om) * 3, om / Math.max(mp, om) * 4, false)
+  const s = omp((mp / Math.max(mp, om)) * 3, (om / Math.max(mp, om)) * 4, false)
   s.segs = s.segs!.map((g) => ({
     ...g,
     label: g.id === 'mp' ? String(mp) : g.id === 'om' ? String(om) : String(op),
@@ -90,7 +90,9 @@ export const lesson1: Lesson = {
         figure: withLengths(5, 12, 13),
         options: ['$\\dfrac{5}{12}$', '$\\dfrac{12}{5}$', '$\\dfrac{5}{13}$', '$\\dfrac{12}{13}$'],
         correct: 0,
-        solution: [{ text: '$\\tan\\theta = \\dfrac{\\text{opposite}}{\\text{adjacent}} = \\dfrac{MP}{OM} = \\dfrac{5}{12}$.' }],
+        solution: [
+          { text: '$\\tan\\theta = \\dfrac{\\text{opposite}}{\\text{adjacent}} = \\dfrac{MP}{OM} = \\dfrac{5}{12}$.' },
+        ],
       },
     },
     {
@@ -137,8 +139,16 @@ export const lesson1: Lesson = {
           t: 'table',
           head: ['', '', ''],
           rows: [
-            ['$\\sin(90^\\circ-\\theta)=\\cos\\theta$', '$\\cos(90^\\circ-\\theta)=\\sin\\theta$', '$\\tan(90^\\circ-\\theta)=\\cot\\theta$'],
-            ['$\\operatorname{cosec}(90^\\circ-\\theta)=\\sec\\theta$', '$\\sec(90^\\circ-\\theta)=\\operatorname{cosec}\\theta$', '$\\cot(90^\\circ-\\theta)=\\tan\\theta$'],
+            [
+              '$\\sin(90^\\circ-\\theta)=\\cos\\theta$',
+              '$\\cos(90^\\circ-\\theta)=\\sin\\theta$',
+              '$\\tan(90^\\circ-\\theta)=\\cot\\theta$',
+            ],
+            [
+              '$\\operatorname{cosec}(90^\\circ-\\theta)=\\sec\\theta$',
+              '$\\sec(90^\\circ-\\theta)=\\operatorname{cosec}\\theta$',
+              '$\\cot(90^\\circ-\\theta)=\\tan\\theta$',
+            ],
           ],
           caption: 'Trigonometric ratios of complementary angles',
         },
@@ -164,7 +174,10 @@ export const lesson1: Lesson = {
       id: 'standard',
       title: 'Values at standard angles',
       blocks: [
-        { t: 'p', text: 'These values appear in almost every problem in this chapter. Learn them until you can write the table from memory.' },
+        {
+          t: 'p',
+          text: 'These values appear in almost every problem in this chapter. Learn them until you can write the table from memory.',
+        },
         {
           t: 'table',
           head: ['$\\theta$', '$0^\\circ$', '$30^\\circ$', '$45^\\circ$', '$60^\\circ$', '$90^\\circ$'],
@@ -202,7 +215,8 @@ export const lesson1: Lesson = {
     {
       widget: 'triangle-explorer',
       title: 'Triangle explorer',
-      intro: 'Drag the pink point P up and down and the blue point O left and right. The six ratios update as the triangle changes.',
+      intro:
+        'Drag the coral point P up and down and the blue point O left and right. The six ratios update as the triangle changes.',
       tryThis: [
         'Press 30°, 45° and 60°. Compare the values with the standard-angle table.',
         'Tick "Keep the angle fixed" and drag. The sides change, the ratios do not.',
@@ -212,7 +226,8 @@ export const lesson1: Lesson = {
     {
       widget: 'complementary-proof',
       title: 'Complementary angles on a semicircle',
-      intro: 'This is the textbook\'s visual proof (Fig 6.2). Q moves on a semicircle of radius 1. Drag Q and check that $\\sin(90^\\circ-\\theta)$ always equals $\\cos\\theta$.',
+      intro:
+        "This is the textbook's visual proof (Fig 6.2). Q moves on a semicircle of radius 1. Drag Q and check that $\\sin(90^\\circ-\\theta)$ always equals $\\cos\\theta$.",
       tryThis: ['Set $\\theta$ close to $45^\\circ$. What happens to the rectangle OPQR, and why?'],
     },
     {
@@ -227,15 +242,26 @@ export const lesson1: Lesson = {
       id: 'l1-e1',
       source: 'Worked example 1',
       title: 'All six ratios from two sides',
-      prompt: 'In right triangle OMP (right angle at M), $MP = 7$ and $OM = 24$. Find all six trigonometric ratios of $\\theta = \\angle MOP$.',
+      prompt:
+        'In right triangle OMP (right angle at M), $MP = 7$ and $OM = 24$. Find all six trigonometric ratios of $\\theta = \\angle MOP$.',
       figure: withLengths(7, 24, 25),
       steps: [
-        { text: 'Find the hypotenuse with Pythagoras theorem.', math: 'OP = \\sqrt{MP^2 + OM^2} = \\sqrt{49 + 576} = \\sqrt{625} = 25', highlight: ['op'] },
+        {
+          text: 'Find the hypotenuse with Pythagoras theorem.',
+          math: 'OP = \\sqrt{MP^2 + OM^2} = \\sqrt{49 + 576} = \\sqrt{625} = 25',
+          highlight: ['op'],
+        },
         { text: 'Opposite = 7, adjacent = 24, hypotenuse = 25.', highlight: ['mp', 'om', 'op', 'th'] },
-        { math: '\\sin\\theta = \\tfrac{7}{25}, \\quad \\cos\\theta = \\tfrac{24}{25}, \\quad \\tan\\theta = \\tfrac{7}{24}' },
-        { text: 'Flip each one for its reciprocal.', math: '\\operatorname{cosec}\\theta = \\tfrac{25}{7}, \\quad \\sec\\theta = \\tfrac{25}{24}, \\quad \\cot\\theta = \\tfrac{24}{7}' },
+        {
+          math: '\\sin\\theta = \\tfrac{7}{25}, \\quad \\cos\\theta = \\tfrac{24}{25}, \\quad \\tan\\theta = \\tfrac{7}{24}',
+        },
+        {
+          text: 'Flip each one for its reciprocal.',
+          math: '\\operatorname{cosec}\\theta = \\tfrac{25}{7}, \\quad \\sec\\theta = \\tfrac{25}{24}, \\quad \\cot\\theta = \\tfrac{24}{7}',
+        },
       ],
-      answer: '$\\sin\\theta = \\tfrac{7}{25}$, $\\cos\\theta = \\tfrac{24}{25}$, $\\tan\\theta = \\tfrac{7}{24}$, $\\operatorname{cosec}\\theta = \\tfrac{25}{7}$, $\\sec\\theta = \\tfrac{25}{24}$, $\\cot\\theta = \\tfrac{24}{7}$',
+      answer:
+        '$\\sin\\theta = \\tfrac{7}{25}$, $\\cos\\theta = \\tfrac{24}{25}$, $\\tan\\theta = \\tfrac{7}{24}$, $\\operatorname{cosec}\\theta = \\tfrac{25}{7}$, $\\sec\\theta = \\tfrac{25}{24}$, $\\cot\\theta = \\tfrac{24}{7}$',
     },
     {
       id: 'l1-e2',
@@ -244,7 +270,10 @@ export const lesson1: Lesson = {
       prompt: 'If $\\sin\\theta = \\dfrac{3}{5}$ and $\\theta$ is acute, find $\\cos\\theta$ and $\\tan\\theta$.',
       figure: withLengths(3, 4, 5),
       steps: [
-        { text: 'Draw a right triangle with opposite side 3 and hypotenuse 5, so that $\\sin\\theta = \\tfrac35$.', highlight: ['mp', 'op'] },
+        {
+          text: 'Draw a right triangle with opposite side 3 and hypotenuse 5, so that $\\sin\\theta = \\tfrac35$.',
+          highlight: ['mp', 'op'],
+        },
         { text: 'Find the adjacent side.', math: 'OM = \\sqrt{5^2 - 3^2} = \\sqrt{16} = 4', highlight: ['om'] },
         { math: '\\cos\\theta = \\frac{4}{5}, \\qquad \\tan\\theta = \\frac{3}{4}' },
       ],
@@ -256,7 +285,10 @@ export const lesson1: Lesson = {
       title: 'Evaluating with standard values',
       prompt: 'Find the value of $\\cos 60^\\circ \\sin 30^\\circ + \\cos 30^\\circ \\sin 60^\\circ$.',
       steps: [
-        { text: 'Substitute values from the table.', math: '= \\frac12 \\cdot \\frac12 + \\frac{\\sqrt3}{2} \\cdot \\frac{\\sqrt3}{2}' },
+        {
+          text: 'Substitute values from the table.',
+          math: '= \\frac12 \\cdot \\frac12 + \\frac{\\sqrt3}{2} \\cdot \\frac{\\sqrt3}{2}',
+        },
         { math: '= \\frac14 + \\frac34 = 1' },
       ],
       answer: '1',
@@ -279,8 +311,14 @@ export const lesson1: Lesson = {
       title: 'Spotting complementary angles',
       prompt: 'Find the value of $\\dfrac{\\sin 35^\\circ}{\\cos 55^\\circ} + \\tan 20^\\circ \\tan 70^\\circ$.',
       steps: [
-        { text: '$35^\\circ + 55^\\circ = 90^\\circ$, so $\\cos 55^\\circ = \\sin 35^\\circ$.', math: '\\frac{\\sin 35^\\circ}{\\cos 55^\\circ} = 1' },
-        { text: '$20^\\circ + 70^\\circ = 90^\\circ$, so $\\tan 70^\\circ = \\cot 20^\\circ$.', math: '\\tan 20^\\circ \\tan 70^\\circ = \\tan 20^\\circ \\cot 20^\\circ = 1' },
+        {
+          text: '$35^\\circ + 55^\\circ = 90^\\circ$, so $\\cos 55^\\circ = \\sin 35^\\circ$.',
+          math: '\\frac{\\sin 35^\\circ}{\\cos 55^\\circ} = 1',
+        },
+        {
+          text: '$20^\\circ + 70^\\circ = 90^\\circ$, so $\\tan 70^\\circ = \\cot 20^\\circ$.',
+          math: '\\tan 20^\\circ \\tan 70^\\circ = \\tan 20^\\circ \\cot 20^\\circ = 1',
+        },
         { math: '1 + 1 = 2' },
       ],
       answer: '2',
@@ -292,8 +330,14 @@ export const lesson1: Lesson = {
       prompt: 'For which acute angle $\\theta$ is $\\sin\\theta = \\cos\\theta$?',
       figure: omp(3, 3, false),
       steps: [
-        { text: 'Divide both sides by $\\cos\\theta$.', math: '\\frac{\\sin\\theta}{\\cos\\theta} = 1 \\;\\Rightarrow\\; \\tan\\theta = 1' },
-        { text: 'From the table, $\\tan 45^\\circ = 1$. The triangle is isosceles: opposite and adjacent sides are equal.', highlight: ['mp', 'om'] },
+        {
+          text: 'Divide both sides by $\\cos\\theta$.',
+          math: '\\frac{\\sin\\theta}{\\cos\\theta} = 1 \\;\\Rightarrow\\; \\tan\\theta = 1',
+        },
+        {
+          text: 'From the table, $\\tan 45^\\circ = 1$. The triangle is isosceles: opposite and adjacent sides are equal.',
+          highlight: ['mp', 'om'],
+        },
       ],
       answer: '$\\theta = 45^\\circ$',
     },
@@ -323,7 +367,9 @@ export const lesson1: Lesson = {
       correct: 1,
       hints: ['Count the ways to pick an ordered pair of sides: a top side and a different bottom side.'],
       solution: [
-        { text: 'A ratio is one side divided by another side. With 3 sides, the top can be any of 3 and the bottom any of the other 2.' },
+        {
+          text: 'A ratio is one side divided by another side. With 3 sides, the top can be any of 3 and the bottom any of the other 2.',
+        },
         { math: '3 \\times 2 = 6' },
         { text: 'So there are exactly 6 ratios, not 8.' },
       ],
@@ -332,9 +378,12 @@ export const lesson1: Lesson = {
       id: 'l1-p3',
       source: 'Progress Check 6.2 · Q7',
       type: 'numeric',
-      prompt: 'Find the value of $(\\tan 45^\\circ + \\cot 45^\\circ) + (\\sec 45^\\circ \\operatorname{cosec} 45^\\circ)$.',
+      prompt:
+        'Find the value of $(\\tan 45^\\circ + \\cot 45^\\circ) + (\\sec 45^\\circ \\operatorname{cosec} 45^\\circ)$.',
       parts: [{ answer: { value: 4, display: '4' } }],
-      hints: ['$\\tan 45^\\circ = \\cot 45^\\circ = 1$ and $\\sec 45^\\circ = \\operatorname{cosec} 45^\\circ = \\sqrt2$.'],
+      hints: [
+        '$\\tan 45^\\circ = \\cot 45^\\circ = 1$ and $\\sec 45^\\circ = \\operatorname{cosec} 45^\\circ = \\sqrt2$.',
+      ],
       solution: [{ math: '(1 + 1) + (\\sqrt2 \\times \\sqrt2) = 2 + 2 = 4' }],
     },
     {
@@ -345,7 +394,9 @@ export const lesson1: Lesson = {
       parts: [{ answer: { value: 45, unit: '°', display: '45°' } }],
       hints: ['Write both as reciprocals: $\\dfrac{1}{\\cos\\theta} = \\dfrac{1}{\\sin\\theta}$.'],
       solution: [
-        { math: '\\frac{1}{\\cos\\theta} = \\frac{1}{\\sin\\theta} \\;\\Rightarrow\\; \\sin\\theta = \\cos\\theta \\;\\Rightarrow\\; \\tan\\theta = 1' },
+        {
+          math: '\\frac{1}{\\cos\\theta} = \\frac{1}{\\sin\\theta} \\;\\Rightarrow\\; \\sin\\theta = \\cos\\theta \\;\\Rightarrow\\; \\tan\\theta = 1',
+        },
         { text: 'So $\\theta = 45^\\circ$.' },
       ],
     },
@@ -357,7 +408,9 @@ export const lesson1: Lesson = {
       parts: [{ answer: { value: 45, unit: '°', display: '45°' } }],
       hints: ['$\\cot\\theta = \\dfrac{1}{\\tan\\theta}$, so $\\tan^2\\theta = 1$.'],
       solution: [
-        { math: '\\frac{1}{\\tan\\theta} = \\tan\\theta \\;\\Rightarrow\\; \\tan^2\\theta = 1 \\;\\Rightarrow\\; \\tan\\theta = 1' },
+        {
+          math: '\\frac{1}{\\tan\\theta} = \\tan\\theta \\;\\Rightarrow\\; \\tan^2\\theta = 1 \\;\\Rightarrow\\; \\tan\\theta = 1',
+        },
         { text: 'For an acute angle, $\\theta = 45^\\circ$.' },
       ],
     },
@@ -368,9 +421,13 @@ export const lesson1: Lesson = {
       prompt: 'For what value of $\\theta$ is $\\sin\\theta = 2$?',
       options: ['$30^\\circ$', '$60^\\circ$', '$90^\\circ$', 'There is no such angle'],
       correct: 3,
-      hints: ['$\\sin\\theta = \\dfrac{\\text{opposite}}{\\text{hypotenuse}}$. Can the opposite side be longer than the hypotenuse?'],
+      hints: [
+        '$\\sin\\theta = \\dfrac{\\text{opposite}}{\\text{hypotenuse}}$. Can the opposite side be longer than the hypotenuse?',
+      ],
       solution: [
-        { text: 'The hypotenuse is the longest side of a right triangle, so the opposite side is never longer than it.' },
+        {
+          text: 'The hypotenuse is the longest side of a right triangle, so the opposite side is never longer than it.',
+        },
         { text: 'That means $\\sin\\theta$ can never be more than 1. There is no angle with $\\sin\\theta = 2$.' },
       ],
     },
@@ -386,9 +443,13 @@ export const lesson1: Lesson = {
         'All six at $0^\\circ$',
       ],
       correct: 1,
-      hints: ['A ratio is undefined when its denominator is 0. Which ratios divide by $\\cos\\theta$? Which divide by $\\sin\\theta$?'],
+      hints: [
+        'A ratio is undefined when its denominator is 0. Which ratios divide by $\\cos\\theta$? Which divide by $\\sin\\theta$?',
+      ],
       solution: [
-        { text: '$\\cos 90^\\circ = 0$, so $\\tan 90^\\circ = \\dfrac{\\sin 90^\\circ}{\\cos 90^\\circ}$ and $\\sec 90^\\circ = \\dfrac{1}{\\cos 90^\\circ}$ are undefined.' },
+        {
+          text: '$\\cos 90^\\circ = 0$, so $\\tan 90^\\circ = \\dfrac{\\sin 90^\\circ}{\\cos 90^\\circ}$ and $\\sec 90^\\circ = \\dfrac{1}{\\cos 90^\\circ}$ are undefined.',
+        },
         { text: '$\\sin 0^\\circ = 0$, so $\\cot 0^\\circ$ and $\\operatorname{cosec} 0^\\circ$ are undefined.' },
       ],
     },
@@ -396,24 +457,39 @@ export const lesson1: Lesson = {
       id: 'l1-p8',
       source: 'Thinking Corner · p.242 Q5(i)',
       type: 'mcq',
-      prompt: 'Let $0^\\circ \\le \\theta \\le 90^\\circ$. For which values of $\\theta$ is $\\sin\\theta > \\cos\\theta$?',
-      options: ['$0^\\circ \\le \\theta < 45^\\circ$', 'Only $\\theta = 45^\\circ$', '$45^\\circ < \\theta \\le 90^\\circ$', 'Never'],
+      prompt:
+        'Let $0^\\circ \\le \\theta \\le 90^\\circ$. For which values of $\\theta$ is $\\sin\\theta > \\cos\\theta$?',
+      options: [
+        '$0^\\circ \\le \\theta < 45^\\circ$',
+        'Only $\\theta = 45^\\circ$',
+        '$45^\\circ < \\theta \\le 90^\\circ$',
+        'Never',
+      ],
       correct: 2,
-      hints: ['They are equal at $45^\\circ$. Above $45^\\circ$, which side of the triangle is longer, the opposite or the adjacent?'],
+      hints: [
+        'They are equal at $45^\\circ$. Above $45^\\circ$, which side of the triangle is longer, the opposite or the adjacent?',
+      ],
       solution: [
-        { text: 'At $45^\\circ$ they are equal. As $\\theta$ grows, the opposite side grows and the adjacent side shrinks.' },
-        { text: 'So $\\sin\\theta > \\cos\\theta$ for $45^\\circ < \\theta \\le 90^\\circ$. (Part (ii), $\\cos\\theta > \\sin\\theta$, is the other range: $0^\\circ \\le \\theta < 45^\\circ$.)' },
+        {
+          text: 'At $45^\\circ$ they are equal. As $\\theta$ grows, the opposite side grows and the adjacent side shrinks.',
+        },
+        {
+          text: 'So $\\sin\\theta > \\cos\\theta$ for $45^\\circ < \\theta \\le 90^\\circ$. (Part (ii), $\\cos\\theta > \\sin\\theta$, is the other range: $0^\\circ \\le \\theta < 45^\\circ$.)',
+        },
       ],
     },
     {
       id: 'l1-p9',
       source: 'Thinking Corner · p.242 Q5(iii)',
       type: 'numeric',
-      prompt: 'Let $0^\\circ \\le \\theta \\le 90^\\circ$. For what value of $\\theta$ is $\\sec\\theta = 2\\tan\\theta$?',
+      prompt:
+        'Let $0^\\circ \\le \\theta \\le 90^\\circ$. For what value of $\\theta$ is $\\sec\\theta = 2\\tan\\theta$?',
       parts: [{ answer: { value: 30, unit: '°', display: '30°' } }],
       hints: ['Write both sides using sin and cos, then multiply by $\\cos\\theta$.'],
       solution: [
-        { math: '\\frac{1}{\\cos\\theta} = \\frac{2\\sin\\theta}{\\cos\\theta} \\;\\Rightarrow\\; 1 = 2\\sin\\theta \\;\\Rightarrow\\; \\sin\\theta = \\frac12' },
+        {
+          math: '\\frac{1}{\\cos\\theta} = \\frac{2\\sin\\theta}{\\cos\\theta} \\;\\Rightarrow\\; 1 = 2\\sin\\theta \\;\\Rightarrow\\; \\sin\\theta = \\frac12',
+        },
         { text: 'So $\\theta = 30^\\circ$.' },
       ],
     },
@@ -421,11 +497,14 @@ export const lesson1: Lesson = {
       id: 'l1-p10',
       source: 'Thinking Corner · p.242 Q5(iv)',
       type: 'numeric',
-      prompt: 'Let $0^\\circ \\le \\theta \\le 90^\\circ$. For what value of $\\theta$ is $\\operatorname{cosec}\\theta = 2\\cot\\theta$?',
+      prompt:
+        'Let $0^\\circ \\le \\theta \\le 90^\\circ$. For what value of $\\theta$ is $\\operatorname{cosec}\\theta = 2\\cot\\theta$?',
       parts: [{ answer: { value: 60, unit: '°', display: '60°' } }],
       hints: ['Write both sides using sin and cos, then multiply by $\\sin\\theta$.'],
       solution: [
-        { math: '\\frac{1}{\\sin\\theta} = \\frac{2\\cos\\theta}{\\sin\\theta} \\;\\Rightarrow\\; 1 = 2\\cos\\theta \\;\\Rightarrow\\; \\cos\\theta = \\frac12' },
+        {
+          math: '\\frac{1}{\\sin\\theta} = \\frac{2\\cos\\theta}{\\sin\\theta} \\;\\Rightarrow\\; 1 = 2\\cos\\theta \\;\\Rightarrow\\; \\cos\\theta = \\frac12',
+        },
         { text: 'So $\\theta = 60^\\circ$.' },
       ],
     },
@@ -485,12 +564,17 @@ export const lesson1: Lesson = {
       prompt: 'Which of these is undefined?',
       options: ['$\\sin 0^\\circ$', '$\\cos 90^\\circ$', '$\\operatorname{cosec} 0^\\circ$', '$\\cot 90^\\circ$'],
       correct: 2,
-      solution: [{ text: '$\\operatorname{cosec} 0^\\circ = \\dfrac{1}{\\sin 0^\\circ} = \\dfrac{1}{0}$, which is undefined. The others are 0.' }],
+      solution: [
+        {
+          text: '$\\operatorname{cosec} 0^\\circ = \\dfrac{1}{\\sin 0^\\circ} = \\dfrac{1}{0}$, which is undefined. The others are 0.',
+        },
+      ],
     },
     {
       id: 'l1-q5',
       type: 'numeric',
-      prompt: 'In a right triangle, the side opposite $\\theta$ is 8 and the side adjacent to $\\theta$ is 6. Find $\\sin\\theta$.',
+      prompt:
+        'In a right triangle, the side opposite $\\theta$ is 8 and the side adjacent to $\\theta$ is 6. Find $\\sin\\theta$.',
       parts: [{ answer: { value: 0.8, display: '4/5 = 0.8' } }],
       solution: [
         { math: '\\text{hypotenuse} = \\sqrt{8^2 + 6^2} = 10' },
@@ -509,7 +593,10 @@ export const lesson1: Lesson = {
       type: 'numeric',
       prompt: 'Find the value of $\\sin^2 30^\\circ + \\cos^2 30^\\circ$.',
       parts: [{ answer: { value: 1, display: '1' } }],
-      solution: [{ math: '\\left(\\tfrac12\\right)^2 + \\left(\\tfrac{\\sqrt3}{2}\\right)^2 = \\tfrac14 + \\tfrac34 = 1' }, { text: 'This is true for every angle. You will meet it in the next lesson as an identity.' }],
+      solution: [
+        { math: '\\left(\\tfrac12\\right)^2 + \\left(\\tfrac{\\sqrt3}{2}\\right)^2 = \\tfrac14 + \\tfrac34 = 1' },
+        { text: 'This is true for every angle. You will meet it in the next lesson as an identity.' },
+      ],
     },
     {
       id: 'l1-q8',
