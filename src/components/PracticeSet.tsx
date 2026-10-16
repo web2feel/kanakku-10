@@ -30,7 +30,7 @@ export function PracticeSet({ questions, lessonKey }: { questions: Question[]; l
             </button>
           ))}
         </div>
-        <span className="muted small tabular">
+        <span className="solved-count tabular">
           {solved} of {questions.length} solved
         </span>
       </div>
@@ -46,10 +46,10 @@ export function PracticeSet({ questions, lessonKey }: { questions: Question[]; l
       />
 
       <div className="pager">
-        <button className="btn btn-ghost" disabled={i === 0} onClick={() => setI(i - 1)}>
+        <button className="btn-text" disabled={i === 0} onClick={() => setI(i - 1)}>
           ← Previous
         </button>
-        <button className="btn btn-ghost" disabled={i === questions.length - 1} onClick={() => setI(i + 1)}>
+        <button className="btn-text" disabled={i === questions.length - 1} onClick={() => setI(i + 1)}>
           Next question →
         </button>
       </div>

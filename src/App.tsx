@@ -5,6 +5,7 @@ import { HomePage } from './pages/HomePage'
 import { UnitPage } from './pages/UnitPage'
 import { LessonPage } from './pages/LessonPage'
 import { NotFound } from './pages/NotFound'
+import { MePage } from './pages/MePage'
 
 /**
  * Hash routing works on any static host (GitHub Pages, Netlify, a USB stick) with no server config.
@@ -29,6 +30,7 @@ export default function App() {
           <Route path="/" element={<HomePage />} />
           <Route path="/unit/:unitId" element={<UnitPage />} />
           <Route path="/unit/:unitId/:lessonId" element={<LessonPage />} />
+          <Route path="/me" element={<MePage />} />
           <Route path="*" element={<NotFound />} />
         </Routes>
       </Shell>

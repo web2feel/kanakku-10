@@ -84,13 +84,18 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
   const canHint = mode !== 'quiz' && (q.hints?.length ?? 0) > hints && !locked
 
   return (
-    <article className={`card question ${allCorrect ? 'is-correct' : ''}`}>
-      <header className="card-head">
-        <span className="eyebrow">
-          {number !== undefined && <>Question {number} · </>}
-          {q.source ?? (mode === 'check' ? 'Check yourself' : 'Practice')}
-        </span>
-      </header>
+    <article
+      className={`qcard ${mode === 'check' ? 'check-box' : 'card'} ${allCorrect ? 'is-correct' : ''}`}
+      aria-label={mode === 'check' ? 'Check yourself' : number !== undefined ? `Question ${number}` : undefined}
+    >
+      {mode === 'check' ? (
+        <span className="check-label">check yourself</span>
+      ) : (
+        <header className="qcard-head">
+          <span className="pill">{q.source ?? (mode === 'quiz' ? 'Quiz' : 'Practice')}</span>
+          {number !== undefined && <span className="qcard-num">Question {number}</span>}
+        </header>
+      )}
       <div className={q.figure ? 'question-grid' : ''}>
         <div className="question-main">
           <p className="prompt">
@@ -205,9 +210,12 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
           {hints > 0 && (
             <div className="hints">
               {q.hints!.slice(0, hints).map((h, i) => (
-                <p key={i} className="hint">
-                  <span className="hint-label">Hint {i + 1}</span> <Rich text={h} />
-                </p>
+                <div key={i} className="hint">
+                  <span className="hint-label">hint {i + 1}</span>
+                  <p>
+                    <Rich text={h} />
+                  </p>
+                </div>
               ))}
             </div>
           )}
@@ -215,19 +223,19 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
           {!locked && (
             <div className="btn-row">
               <button
-                className="btn btn-primary"
+                className="btn-dark"
                 onClick={check}
                 disabled={q.type === 'mcq' ? choice === null : values.every((v) => !v.trim())}
               >
-                {mode === 'quiz' ? 'Submit' : 'Check'}
+                Check
               </button>
               {canHint && (
-                <button className="btn btn-ghost" onClick={() => setHints((h) => h + 1)}>
+                <button className="btn-link" onClick={() => setHints((h) => h + 1)}>
                   {hints === 0 ? 'Show a hint' : 'Another hint'}
                 </button>
               )}
               {mode !== 'quiz' && !showSolution && (
-                <button className="btn btn-ghost" onClick={reveal}>
+                <button className="btn-link" onClick={reveal}>
                   Show solution
                 </button>
               )}
@@ -235,20 +243,18 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
           )}
           {locked && mode !== 'quiz' && !showSolution && (
             <div className="btn-row">
-              <button className="btn btn-ghost" onClick={() => setShowSolution(true)}>
+              <button className="btn-link" onClick={() => setShowSolution(true)}>
                 See the worked solution
               </button>
             </div>
           )}
           {q.type === 'numeric' && !locked && (
-            <p className="muted small input-help">
-              You can type a decimal, a fraction, or an exact form like 16√3 or 50*sqrt(3).
-            </p>
+            <p className="input-help">You can type a decimal, a fraction, or an exact form like 16√3 or 50*sqrt(3).</p>
           )}
 
           {showSolution && (
             <div className="solution">
-              <div className="solution-label">Solution</div>
+              <span className="solution-label">solution</span>
               <ol className="steps">
                 {q.solution.map((s, i) => (
                   <StepView key={i} step={s} index={i} />

@@ -9,7 +9,7 @@ Each lesson is built on its own branch (`lesson/<unit>-<lesson>-<name>`) and mer
 
 | Item | Status | Notes |
 |---|---|---|
-| App shell, routing, responsive layout (dark theme) | ✅ | Hash routing, works on any static host |
+| App shell, routing, responsive layout | ✅ | Hash routing, works on any static host |
 | Lesson template: Learn, Explore, Examples, Practice, Quiz | ✅ | |
 | Scene diagrams with step highlighting | ✅ | `src/components/Scene.tsx` |
 | Answer checking (decimals, fractions, √, units) | ✅ | `src/lib/answers.ts` |
@@ -17,7 +17,11 @@ Each lesson is built on its own branch (`lesson/<unit>-<lesson>-<name>`) and mer
 | Content validation script | ✅ | `npm run check:content` |
 | CI (type-check, content check, build) | ✅ | `.github/workflows/ci.yml` |
 | Netlify deployment (CLI + GitHub Actions) | ✅ | Needs Netlify secrets, see README |
-| Visual design: Astro design system | ✅ | `design/astro.design.md`; tokens and adaptations in `src/index.css` |
+| Visual design: Kanakku redesign (Claude Design handoff) | ✅ | `design/handoff/`, tokens in `src/theme.css` |
+| My progress page (`/me`) | ✅ | Reads progress saved in the browser |
+| Google sign-in, nickname, synced progress | ⬜ | Needs a Firebase or Supabase project |
+| Weekly leaderboard | ⬜ | Needs sign-in; 10 pts per practice solved, 5 per quiz answer |
+| Sign-in page (`/signin`) | ⬜ | Designed; built with sign-in |
 | Code-split lessons to speed up first load | ⬜ | Bundle is ~410 KB gzipped |
 | Identity checker tool (for Lesson 6.3) | ⬜ | |
 | Logins and cross-device progress | ⬜ | Later |
@@ -52,5 +56,6 @@ Textbook PDFs are needed for each unit. The answer key for Units 1–8 is alread
 
 ## Changelog
 
+- **2026-10-16** · Kanakku redesign from the Claude Design handoff: warm paper, ink outlines, hard shadows; new My progress page.
 - **2026-10-15** · Restyled with the Astro design system: dark canvas, gradient atmosphere, ghost-pill controls, self-hosted Archivo and Inter.
 - **2026-10-15** · Pilot: app shell, Lessons 6.1 and 6.4, Netlify deployment, CI.

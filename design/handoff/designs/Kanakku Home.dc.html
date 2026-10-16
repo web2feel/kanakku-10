@@ -1,0 +1,187 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:wght@400;500;600;700&family=Caveat:wght@600&display=swap" rel="stylesheet">
+<style>
+body{margin:0;background:#FBF6EC;color:#1F2A44;font-family:Figtree,system-ui,sans-serif;-webkit-font-smoothing:antialiased}
+a{color:#1F2A44;text-decoration:none}a:hover{color:#E8553A}
+input[type=range]{accent-color:#FF6B4A}
+</style>
+</helmet>
+<div style="min-height:100vh;background:#FBF6EC;">
+  <header style="max-width:1120px;margin:0 auto;padding:20px 24px;display:flex;align-items:center;justify-content:space-between;gap:16px;flex-wrap:wrap;">
+    <a href="#" style="display:flex;align-items:center;gap:10px;">
+      <span style="width:38px;height:38px;border-radius:12px;background:#FF6B4A;display:grid;place-items:center;color:#FFF;font-family:'Bricolage Grotesque';font-weight:800;font-size:20px;transform:rotate(-6deg);">K</span>
+      <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:22px;letter-spacing:-0.02em;">Kanakku</span>
+      <span style="font-size:13px;font-weight:600;color:#5B6478;background:#F1E8D6;padding:4px 10px;border-radius:999px;">Class 10 Maths</span>
+    </a>
+    <div style="display:flex;align-items:center;gap:10px;">
+      <a href="Kanakku Profile.dc.html" style="display:flex;align-items:center;gap:8px;font-weight:600;font-size:15px;padding:10px 14px;border-radius:999px;" style-hover="background:#F1E8D6;color:#1F2A44;"><span style="width:26px;height:26px;border-radius:50%;background:#CDEFE0;border:2px solid #1F2A44;display:grid;place-items:center;font-family:'Bricolage Grotesque';font-weight:800;font-size:12px;box-sizing:border-box;">14%</span>My progress</a>
+      <dc-import name="Formula Sheet" hint-size="160px,44px"></dc-import>
+    </div>
+  </header>
+
+  <section style="max-width:1120px;margin:0 auto;padding:40px 24px 72px;display:grid;grid-template-columns:repeat(auto-fit,minmax(min(100%,440px),1fr));gap:48px;align-items:center;">
+    <div style="display:flex;flex-direction:column;gap:24px;">
+      <div style="display:flex;flex-wrap:wrap;gap:8px;">
+        <span style="font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:#FFE7A3;color:#5A4300;">TN State Board · Class 10</span>
+        <a href="#unit-06" style="font-size:13px;font-weight:600;padding:6px 12px;border-radius:999px;background:#CDEFE0;color:#0F5640;display:flex;gap:6px;align-items:center;"><span style="width:7px;height:7px;border-radius:50%;background:#1FA97A;"></span>Trigonometry is open →</a>
+      </div>
+      <h1 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(40px,6vw,68px);line-height:1;letter-spacing:-0.035em;text-wrap:balance;">Learn maths one lesson at a time, with tools you can <span style="background:#FFD25A;padding:0 10px;border-radius:14px;display:inline-block;transform:rotate(-2deg);">touch.</span></h1>
+      <p style="margin:0;font-size:19px;line-height:1.55;color:#4A5368;max-width:520px;text-wrap:pretty;">Short explanations, interactive diagrams, worked examples you reveal step by step, and practice that checks your answers as you go.</p>
+      <div style="display:flex;flex-wrap:wrap;gap:14px;align-items:center;">
+        <a href="#" style="display:flex;align-items:center;gap:10px;background:#FF6B4A;color:#FFFFFF;font-weight:700;font-size:17px;padding:15px 24px;border-radius:16px;border:2px solid #1F2A44;box-shadow:4px 4px 0 #1F2A44;" style-hover="color:#FFFFFF;transform:translate(-2px,-2px);box-shadow:6px 6px 0 #1F2A44;">Continue learning →</a>
+        <a href="#units" style="font-weight:700;font-size:17px;padding:15px 12px;text-decoration:underline;text-decoration-color:#FFD25A;text-decoration-thickness:4px;text-underline-offset:6px;">See all units</a>
+      </div>
+      <div style="display:flex;align-items:center;gap:12px;background:#FFFFFF;border-radius:16px;padding:12px 16px;max-width:440px;border:1.5px solid #EADFC9;">
+        <span style="width:36px;height:36px;flex:none;border-radius:10px;background:#E6E0FB;display:grid;place-items:center;font-family:'Bricolage Grotesque';font-weight:800;color:#4B3A9C;">6</span>
+        <div style="display:flex;flex-direction:column;gap:2px;min-width:0;">
+          <span style="font-size:12px;font-weight:600;color:#7A8296;">Pick up where you left off</span>
+          <span style="font-size:15px;font-weight:600;">Lesson 4 · Heights and distances: angle of elevation</span>
+        </div>
+      </div>
+    </div>
+
+    <div style="background:#1F2A44;border-radius:28px;padding:20px 20px 18px;border:2px solid #1F2A44;box-shadow:8px 8px 0 #FFD25A;display:flex;flex-direction:column;gap:12px;transform:rotate(1deg);">
+      <div style="display:flex;justify-content:space-between;align-items:center;color:#C9D1E6;font-size:13px;font-weight:600;">
+        <span>Try it · angle of elevation</span>
+        <span style="display:flex;gap:6px;"><span style="width:10px;height:10px;border-radius:50%;background:#FF6B4A;"></span><span style="width:10px;height:10px;border-radius:50%;background:#FFD25A;"></span><span style="width:10px;height:10px;border-radius:50%;background:#7ED9B5;"></span></span>
+      </div>
+      <svg viewBox="0 0 400 290" style="width:100%;height:auto;display:block;">
+        <circle cx="70" cy="40" r="1.6" fill="#8D97B3"></circle><circle cx="160" cy="70" r="1.2" fill="#8D97B3"></circle><circle cx="230" cy="30" r="1.8" fill="#8D97B3"></circle><circle cx="370" cy="90" r="1.3" fill="#8D97B3"></circle><circle cx="120" cy="140" r="1.1" fill="#8D97B3"></circle>
+        <line x1="20" y1="250" x2="390" y2="250" stroke="#5B6684" stroke-width="2" stroke-linecap="round"></line>
+        <line x1="300" y1="250" x2="300" y2="{{ topY }}" stroke="#7ED9B5" stroke-width="3" stroke-linecap="round"></line>
+        <path d="M288 250 V238 H300" fill="none" stroke="#7ED9B5" stroke-width="1.5"></path>
+        <line x1="60" y1="250" x2="300" y2="{{ topY }}" stroke="#FFD25A" stroke-width="2.5" stroke-dasharray="6 6" stroke-linecap="round"></line>
+        <path d="{{ arcPath }}" fill="none" stroke="#FF6B4A" stroke-width="3" stroke-linecap="round"></path>
+        <circle cx="60" cy="250" r="7" fill="#FF6B4A" stroke="#1F2A44" stroke-width="2"></circle>
+        <text x="{{ starX }}" y="{{ starY }}" font-size="26" fill="#FFD25A" text-anchor="middle">★</text>
+        <text x="118" y="244" font-family="Caveat" font-size="22" fill="#FF8C72">θ = {{ angle }}°</text>
+        <text x="312" y="{{ hLabelY }}" font-family="Caveat" font-size="22" fill="#7ED9B5">h = {{ height }} m</text>
+        <text x="180" y="276" font-family="Caveat" font-size="22" fill="#C9D1E6" text-anchor="middle">d = 50 m</text>
+        <text x="44" y="276" font-family="Caveat" font-size="20" fill="#C9D1E6">you</text>
+      </svg>
+      <label style="display:flex;align-items:center;gap:12px;color:#FFFFFF;font-size:14px;font-weight:600;">
+        <span style="flex:none;">Tilt your head</span>
+        <input type="range" min="10" max="45" value="{{ angle }}" onChange="{{ onAngle }}" style="flex:1;min-width:0;">
+      </label>
+      <div style="background:#2B3758;border-radius:14px;padding:10px 14px;color:#E8ECF7;font-size:15px;display:flex;flex-wrap:wrap;gap:6px 14px;align-items:baseline;">
+        <span style="font-weight:700;color:#FFD25A;">tan θ = h ÷ d</span>
+        <span>tan {{ angle }}° × 50 = <b style="color:#7ED9B5;white-space:nowrap;">{{ height }} m</b></span>
+      </div>
+    </div>
+  </section>
+
+  <section style="background:#FFFFFF;border-top:2px solid #1F2A44;border-bottom:2px solid #1F2A44;">
+    <div style="max-width:1120px;margin:0 auto;padding:72px 24px;display:flex;flex-direction:column;gap:36px;">
+      <div style="display:flex;flex-wrap:wrap;justify-content:space-between;align-items:end;gap:16px;">
+        <h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(30px,4vw,44px);letter-spacing:-0.03em;line-height:1.05;max-width:560px;text-wrap:balance;">Every lesson moves through the same five steps.</h2>
+        <p style="margin:0;font-family:Caveat;font-size:26px;color:#E8553A;transform:rotate(-2deg);">Read a little, play with the idea, watch it solved, then try it yourself.</p>
+      </div>
+      <div style="display:grid;grid-template-columns:repeat(auto-fit,minmax(190px,1fr));gap:14px;">
+        <sc-for list="{{ steps }}" as="s" hint-placeholder-count="5">
+          <div style="background:{{ s.bg }};border-radius:22px;padding:20px;display:flex;flex-direction:column;gap:10px;border:2px solid #1F2A44;min-height:170px;">
+            <span style="width:36px;height:36px;border-radius:50%;background:#FFFFFF;border:2px solid #1F2A44;display:grid;place-items:center;font-family:'Bricolage Grotesque';font-weight:800;font-size:16px;">{{ s.n }}</span>
+            <h3 style="margin:8px 0 0;font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;letter-spacing:-0.02em;">{{ s.title }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.45;color:#2E3852;text-wrap:pretty;">{{ s.body }}</p>
+          </div>
+        </sc-for>
+      </div>
+    </div>
+  </section>
+
+  <section id="units" style="max-width:1120px;margin:0 auto;padding:80px 24px;display:flex;flex-direction:column;gap:32px;">
+    <h2 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:clamp(30px,4vw,44px);letter-spacing:-0.03em;">The book, unit by unit</h2>
+    <div style="display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:16px;">
+      <sc-for list="{{ units }}" as="u" hint-placeholder-count="8">
+        <sc-if value="{{ u.open }}" hint-placeholder-val="{{ false }}">
+          <a id="unit-06" href="Kanakku Trigonometry.dc.html" style="background:#FFD25A;border:2px solid #1F2A44;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:12px;box-shadow:5px 5px 0 #1F2A44;transform:rotate(-1deg);" style-hover="color:#1F2A44;transform:rotate(0deg) translate(-2px,-2px);box-shadow:7px 7px 0 #1F2A44;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+              <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;white-space:nowrap;">Unit {{ u.num }}</span>
+              <span style="font-size:12px;font-weight:700;background:#1F2A44;color:#FFFFFF;padding:5px 10px;border-radius:999px;">{{ u.badge }}</span>
+            </div>
+            <h3 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:26px;letter-spacing:-0.02em;line-height:1.1;">{{ u.title }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.45;color:#3B3520;flex:1;">{{ u.desc }}</p>
+            <div style="display:flex;align-items:center;gap:10px;">
+              <div style="flex:1;height:12px;border-radius:999px;background:#FFFFFF;border:2px solid #1F2A44;overflow:hidden;">
+                <div style="height:100%;width:{{ u.pct }}%;background:#1FA97A;border-radius:999px;"></div>
+              </div>
+              <span style="font-size:13px;font-weight:700;">{{ u.pct }}%</span>
+            </div>
+          </a>
+        </sc-if>
+        <sc-if value="{{ u.closed }}" hint-placeholder-val="{{ true }}">
+          <div style="background:#2B3758;border:2px solid #1F2A44;border-radius:22px;padding:22px;display:flex;flex-direction:column;gap:12px;">
+            <div style="display:flex;justify-content:space-between;align-items:center;gap:8px;">
+              <span style="font-family:'Bricolage Grotesque';font-weight:800;font-size:15px;color:#AEB8D3;white-space:nowrap;">Unit {{ u.num }}</span>
+              <span style="font-size:12px;font-weight:600;background:transparent;color:#C9D1E6;padding:5px 10px;border-radius:999px;border:1.5px solid #4A5778;">Coming soon</span>
+            </div>
+            <h3 style="margin:0;font-family:'Bricolage Grotesque';font-weight:800;font-size:24px;letter-spacing:-0.02em;line-height:1.1;color:#FFFFFF;">{{ u.title }}</h3>
+            <p style="margin:0;font-size:15px;line-height:1.45;color:#C9D1E6;">{{ u.desc }}</p>
+          </div>
+        </sc-if>
+      </sc-for>
+    </div>
+  </section>
+
+  <footer style="border-top:2px solid #1F2A44;background:#1F2A44;color:#C9D1E6;">
+    <div style="max-width:1120px;margin:0 auto;padding:28px 24px;display:flex;flex-wrap:wrap;justify-content:space-between;gap:12px;font-size:14px;">
+      <span>Based on the Tamil Nadu State Board Class 10 Mathematics textbook. Explanations, diagrams and tools are original.</span>
+      <span style="font-family:Caveat;font-size:20px;color:#FFD25A;">made with chalk & curiosity</span>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;lessonsReady&quot;:{&quot;editor&quot;:&quot;int&quot;,&quot;default&quot;:2,&quot;min&quot;:0,&quot;max&quot;:7,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Trigonometry unit&quot;},&quot;progress&quot;:{&quot;editor&quot;:&quot;range&quot;,&quot;default&quot;:6,&quot;min&quot;:0,&quot;max&quot;:100,&quot;step&quot;:1,&quot;unit&quot;:&quot;%&quot;,&quot;tsType&quot;:&quot;number&quot;,&quot;section&quot;:&quot;Trigonometry unit&quot;}}">
+class Component extends DCLogic {
+  state = { angle: 30 };
+  renderVals() {
+    const a = this.state.angle, r = a * Math.PI / 180;
+    const hPx = 240 * Math.tan(r), topY = 250 - hPx;
+    const ready = Math.max(0, Math.min(7, this.props.lessonsReady ?? 2));
+    const pct = this.props.progress ?? 14;
+    const pastel = ['#FFE1D6', '#E6E0FB', '#D7ECFF', '#CDEFE0'];
+    const raw = [
+      ['01','Relations and Functions','Cartesian products, relations, and the different kinds of functions.'],
+      ['02','Numbers and Sequences',"Euclid's division lemma, modular arithmetic, AP, GP and series."],
+      ['03','Algebra','Linear equations in three variables, polynomials, quadratics and matrices.'],
+      ['04','Geometry','Similar triangles, Thales theorem, Pythagoras theorem and circles.'],
+      ['05','Coordinate Geometry','Area of a triangle, slope, and equations of straight lines.'],
+      ['06','Trigonometry','Ratios, identities, and finding heights and distances you cannot measure directly.'],
+      ['07','Mensuration','Surface area and volume of solids and combined solids.'],
+      ['08','Statistics and Probability','Measures of dispersion and the algebra of events.'],
+    ];
+    const units = raw.map(([num, title, desc], i) => {
+      const open = num === '06';
+      return { num, title, desc, open, closed: !open, bg: pastel[i % 4], pct, badge: `${ready} of 7 lessons ready` };
+    });
+    return {
+      angle: a,
+      height: (50 * Math.tan(r)).toFixed(1),
+      topY: topY.toFixed(1),
+      starX: 300, starY: (topY + 4).toFixed(1),
+      hLabelY: (250 - hPx / 2).toFixed(1),
+      arcPath: `M100 250 A40 40 0 0 0 ${(60 + 40 * Math.cos(r)).toFixed(1)} ${(250 - 40 * Math.sin(r)).toFixed(1)}`,
+      onAngle: e => this.setState({ angle: +e.target.value }),
+      steps: [
+        { n: 1, title: 'Learn', body: 'Short explanation cards, each ending with a quick check.', bg: '#FFE1D6' },
+        { n: 2, title: 'Explore', body: 'Drag, slide and test ideas with interactive tools.', bg: '#FFF0C2' },
+        { n: 3, title: 'Examples', body: 'Worked solutions revealed one step at a time.', bg: '#CDEFE0' },
+        { n: 4, title: 'Practice', body: 'Textbook questions with hints and instant checking.', bg: '#D7ECFF' },
+        { n: 5, title: 'Quiz', body: 'A short scored test. Your best score is saved.', bg: '#E6E0FB' },
+      ],
+      units,
+    };
+  }
+}
+</script>
+</body>
+</html>

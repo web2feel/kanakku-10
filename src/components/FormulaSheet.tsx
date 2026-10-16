@@ -1,9 +1,10 @@
 import { AnimatePresence, motion, useReducedMotion } from 'framer-motion'
 import { Tex } from './Rich'
 
-const SECTIONS: { title: string; items: string[] }[] = [
+const SECTIONS: { title: string; swatch: string; items: string[] }[] = [
   {
     title: 'The six ratios',
+    swatch: 'var(--color-peach)',
     items: [
       '\\sin\\theta = \\frac{\\text{opp}}{\\text{hyp}}\\quad \\cos\\theta = \\frac{\\text{adj}}{\\text{hyp}}\\quad \\tan\\theta = \\frac{\\text{opp}}{\\text{adj}}',
       '\\operatorname{cosec}\\theta = \\frac{1}{\\sin\\theta}\\quad \\sec\\theta = \\frac{1}{\\cos\\theta}\\quad \\cot\\theta = \\frac{1}{\\tan\\theta}',
@@ -12,6 +13,7 @@ const SECTIONS: { title: string; items: string[] }[] = [
   },
   {
     title: 'Complementary angles',
+    swatch: 'var(--color-mintwash)',
     items: [
       '\\sin(90^\\circ-\\theta)=\\cos\\theta\\quad \\cos(90^\\circ-\\theta)=\\sin\\theta',
       '\\tan(90^\\circ-\\theta)=\\cot\\theta\\quad \\cot(90^\\circ-\\theta)=\\tan\\theta',
@@ -20,6 +22,7 @@ const SECTIONS: { title: string; items: string[] }[] = [
   },
   {
     title: 'Fundamental identities',
+    swatch: 'var(--color-lilac)',
     items: [
       '\\sin^2\\theta + \\cos^2\\theta = 1',
       '1 + \\tan^2\\theta = \\sec^2\\theta',
@@ -28,6 +31,7 @@ const SECTIONS: { title: string; items: string[] }[] = [
   },
   {
     title: 'Heights and distances',
+    swatch: 'var(--color-sky)',
     items: [
       '\\tan\\theta = \\frac{\\text{height}}{\\text{horizontal distance}}',
       '\\sin\\theta = \\frac{\\text{height}}{\\text{line of sight}}\\quad \\cos\\theta = \\frac{\\text{distance}}{\\text{line of sight}}',
@@ -66,16 +70,19 @@ export function FormulaSheet({ open, onClose }: { open: boolean; onClose: () => 
             transition={{ type: 'tween', duration: 0.22 }}
           >
             <div className="sheet-head">
-              <h2>Formula sheet</h2>
-              <button className="btn btn-ghost" onClick={onClose} autoFocus>
+              <div className="sheet-head-text">
+                <span className="hand-note sheet-note">keep it handy</span>
+                <h2>Formula sheet</h2>
+              </div>
+              <button className="btn-outline sheet-close" onClick={onClose} autoFocus>
                 Close
               </button>
             </div>
             <div className="sheet-body">
               <section>
                 <h3>Standard values</h3>
-                <div className="table-wrap">
-                  <table className="data-table compact">
+                <div className="table-scroll">
+                  <table className="data-table">
                     <thead>
                       <tr>
                         <th />
@@ -108,9 +115,14 @@ export function FormulaSheet({ open, onClose }: { open: boolean; onClose: () => 
               </section>
               {SECTIONS.map((s) => (
                 <section key={s.title}>
-                  <h3>{s.title}</h3>
+                  <h3>
+                    <span className="sheet-swatch" style={{ background: s.swatch }} aria-hidden="true" />
+                    {s.title}
+                  </h3>
                   {s.items.map((t) => (
-                    <Tex key={t} tex={t} display />
+                    <div key={t} className="formula-card">
+                      <Tex tex={t} display />
+                    </div>
                   ))}
                 </section>
               ))}

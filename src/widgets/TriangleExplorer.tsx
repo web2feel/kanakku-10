@@ -100,13 +100,13 @@ export function TriangleExplorer() {
               [o, 0],
               [0, p],
             ]}
-            color="var(--accent)"
-            fillOpacity={0.08}
+            color="var(--color-sun)"
+            fillOpacity={0.3}
             weight={0}
           />
-          <Line.Segment point1={[0, 0]} point2={[0, p]} color="var(--opp)" weight={4} />
-          <Line.Segment point1={[0, 0]} point2={[o, 0]} color="var(--adj)" weight={4} />
-          <Line.Segment point1={[o, 0]} point2={[0, p]} color="var(--hyp)" weight={4} />
+          <Line.Segment point1={[0, 0]} point2={[0, p]} color="var(--color-opp)" weight={4} />
+          <Line.Segment point1={[0, 0]} point2={[o, 0]} color="var(--color-adj)" weight={4} />
+          <Line.Segment point1={[o, 0]} point2={[0, p]} color="var(--color-hyp)" weight={4} />
           <Polygon
             points={[
               [0, 0],
@@ -114,32 +114,32 @@ export function TriangleExplorer() {
               [0.35, 0.35],
               [0, 0.35],
             ]}
-            color="var(--muted)"
+            color="var(--color-muted-3)"
             fillOpacity={0}
             weight={1.5}
           />
           {arcPts.slice(1).map((pt, i) => (
-            <Line.Segment key={i} point1={arcPts[i]} point2={pt} color="var(--ink)" weight={2} />
+            <Line.Segment key={i} point1={arcPts[i]} point2={pt} color="var(--color-ink)" weight={2} />
           ))}
-          <Text x={o - arcR - 0.35} y={0.35} size={16} color="var(--ink)">
+          <Text x={o - arcR - 0.35} y={0.35} size={16} color="var(--color-ink)">
             θ
           </Text>
-          <Text x={-0.3} y={-0.35} size={15} color="var(--ink)">
+          <Text x={-0.3} y={-0.35} size={15} color="var(--color-ink)">
             M
           </Text>
-          <Text x={o + 0.25} y={-0.35} size={15} color="var(--ink)">
+          <Text x={o + 0.25} y={-0.35} size={15} color="var(--color-ink)">
             O
           </Text>
-          <Text x={-0.35} y={p + 0.25} size={15} color="var(--ink)">
+          <Text x={-0.35} y={p + 0.25} size={15} color="var(--color-ink)">
             P
           </Text>
-          <Text x={-0.55} y={p / 2} size={13} color="var(--opp)">
+          <Text x={-0.55} y={p / 2} size={13} color="var(--color-opp)">
             {fmt(p, 1)}
           </Text>
-          <Text x={o / 2} y={-0.4} size={13} color="var(--adj)">
+          <Text x={o / 2} y={-0.4} size={13} color="var(--color-adj)">
             {fmt(o, 1)}
           </Text>
-          <Text x={o / 2 + 0.45} y={p / 2 + 0.3} size={13} color="var(--hyp)">
+          <Text x={o / 2 + 0.45} y={p / 2 + 0.3} size={13} color="var(--color-hyp)">
             {fmt(hyp, 1)}
           </Text>
           <MovablePoint
@@ -204,24 +204,26 @@ export function TriangleExplorer() {
           />
         </label>
 
-        <table className="ratio-table tabular">
-          <tbody>
-            {rows.map((r) => (
-              <tr key={r.name}>
-                <th scope="row">
-                  <Tex tex={r.tex} />
-                </th>
-                <td>
-                  <Tex tex={`=${r.sides}`} />
-                </td>
-                <td className="ratio-num">
-                  <Tex tex={`=\\dfrac{${fmt(r.num)}}{${fmt(r.den)}}`} />
-                </td>
-                <td className="ratio-val">{fmt(r.num / r.den, 3)}</td>
-              </tr>
-            ))}
-          </tbody>
-        </table>
+        <div className="ratio-box">
+          <table className="ratio-table tabular">
+            <tbody>
+              {rows.map((r) => (
+                <tr key={r.name}>
+                  <th scope="row">
+                    <Tex tex={r.tex} />
+                  </th>
+                  <td>
+                    <Tex tex={`=${r.sides}`} />
+                  </td>
+                  <td className="ratio-num">
+                    <Tex tex={`=\\dfrac{${fmt(r.num)}}{${fmt(r.den)}}`} />
+                  </td>
+                  <td className="ratio-val">{fmt(r.num / r.den, 3)}</td>
+                </tr>
+              ))}
+            </tbody>
+          </table>
+        </div>
       </div>
     </div>
   )

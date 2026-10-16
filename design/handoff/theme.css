@@ -1,0 +1,80 @@
+/* Kanakku redesign tokens — Tailwind v4. Import after "@import 'tailwindcss';" in src/index.css */
+@import url('https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500;12..96,700;12..96,800&family=Figtree:ital,wght@0,400;0,500;0,600;0,700;1,500&family=Caveat:wght@600&display=swap');
+/* Prefer self-hosting these (all OFL) in src/assets/fonts like the current Archivo/Inter setup. Keep the Inter Greek subset or check Figtree covers θ α β. */
+
+@theme {
+  --font-display: 'Bricolage Grotesque', system-ui, sans-serif;
+  --font-sans: 'Figtree', system-ui, sans-serif;
+  --font-hand: 'Caveat', cursive;
+
+  /* surfaces */
+  --color-paper: #FBF6EC;        /* page background */
+  --color-paper-2: #F4EDDF;      /* inset fills, table heads, chips */
+  --color-paper-3: #F1E8D6;      /* subtle pills, row dividers */
+  --color-line: #EADFC9;         /* soft borders */
+  --color-line-2: #D3C6AB;       /* dashed borders */
+  --color-card: #FFFFFF;
+
+  /* ink */
+  --color-ink: #1F2A44;          /* text, outlines, hard shadows, dark panels */
+  --color-ink-2: #2B3758;        /* dark card (locked/coming soon) */
+  --color-ink-3: #4A5778;        /* borders on dark */
+  --color-muted: #4A5368;        /* body secondary */
+  --color-muted-2: #5B6478;
+  --color-muted-3: #7A8296;      /* captions, meta */
+  --color-on-dark: #C9D1E6;
+  --color-on-dark-2: #AEB8D3;
+
+  /* accents */
+  --color-coral: #FF6B4A;        /* primary CTA */
+  --color-coral-ink: #E8553A;    /* hand-note text, hover link */
+  --color-sun: #FFD25A;          /* highlight, current item, podium #1 */
+  --color-mint: #1FA97A;         /* progress fill */
+  --color-mint-ink: #0F5640;     /* success text */
+
+  /* pastels (one per meaning — do not reuse across meanings) */
+  --color-peach: #FFE1D6;        /* history note, wrong answer, step 1 */
+  --color-butter: #FFF0C2;       /* tip, "you" row, step 2 */
+  --color-mintwash: #CDEFE0;     /* correct, seen tab, step 3 */
+  --color-sky: #D7ECFF;          /* note, step 4 */
+  --color-lilac: #E6E0FB;        /* check yourself, step 5 */
+
+  /* geometry semantics — keep fixed everywhere */
+  --color-opp: #D2452A;
+  --color-adj: #2F6FD0;
+  --color-hyp: #1C8F67;
+
+  --radius-pill: 999px;
+  --radius-sm: 12px;
+  --radius-md: 16px;
+  --radius-lg: 22px;
+  --radius-xl: 28px;
+
+  --shadow-hard-sm: 3px 3px 0 #1F2A44;
+  --shadow-hard: 4px 4px 0 #1F2A44;
+  --shadow-hard-md: 5px 5px 0 #1F2A44;
+  --shadow-hard-lg: 8px 8px 0 #1F2A44;
+  --shadow-sun: 8px 8px 0 #FFD25A;
+}
+
+@layer base {
+  body { background: var(--color-paper); color: var(--color-ink); font-family: var(--font-sans); -webkit-font-smoothing: antialiased; }
+  a { color: var(--color-ink); }
+  a:hover { color: var(--color-coral-ink); }
+  h1, h2, h3 { font-family: var(--font-display); font-weight: 800; letter-spacing: -0.03em; text-wrap: balance; }
+  p { text-wrap: pretty; }
+}
+
+@layer components {
+  .btn-primary { display:inline-flex; align-items:center; gap:10px; background:var(--color-coral); color:#fff; font-weight:700; font-size:17px; padding:15px 24px; border-radius:16px; border:2px solid var(--color-ink); box-shadow:var(--shadow-hard); transition:transform .12s, box-shadow .12s; }
+  .btn-primary:hover { color:#fff; transform:translate(-2px,-2px); box-shadow:6px 6px 0 var(--color-ink); }
+  .btn-outline { display:inline-flex; align-items:center; gap:8px; background:#fff; font-weight:600; font-size:15px; padding:10px 16px; border-radius:999px; border:2px solid var(--color-ink); box-shadow:var(--shadow-hard-sm); }
+  .btn-outline:hover { transform:translate(-1px,-1px); box-shadow:4px 4px 0 var(--color-ink); color:var(--color-ink); }
+  .btn-dark { background:var(--color-ink); color:#fff; border:2px solid var(--color-ink); font-weight:700; font-size:15px; padding:9px 18px; border-radius:12px; }
+  .btn-link { font-weight:700; font-size:15px; text-decoration:underline; text-underline-offset:4px; }
+  .card { background:#fff; border:2px solid var(--color-ink); border-radius:24px; padding:28px; }
+  .pill { font-size:12px; font-weight:700; padding:4px 10px; border-radius:999px; background:var(--color-paper-2); color:var(--color-muted-2); }
+  .hand-note { font-family:var(--font-hand); font-weight:600; line-height:1; }
+  .meter { height:12px; border-radius:999px; background:#fff; border:2px solid var(--color-ink); overflow:hidden; }
+  .meter > span { display:block; height:100%; background:var(--color-mint); border-radius:999px; }
+}

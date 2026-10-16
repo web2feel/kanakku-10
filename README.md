@@ -54,11 +54,13 @@ Any other static host also works: build with `npm run build` and publish `dist/`
 
 ## Design
 
-The visual design follows the Astro design system in `design/astro.design.md`. The tokens, and the
-few tutor-specific additions (diagram side colours, hint and wrong-answer colours, the light band
-on the home page), are documented at the top of `src/index.css`. Fonts are self-hosted from
-`src/assets/fonts` (Archivo for display, standing in for the proprietary Obviously; Inter for body).
-Body text weight is one token, `--w-body`, if it ever needs to be heavier.
+The visual design comes from the Claude Design handoff in `design/handoff/` (open any `.dc.html` there in a
+browser, with `support.js` beside it). Tokens live in `src/theme.css` (copied from the handoff); the app's
+component styles are in `src/index.css`. Fonts are self-hosted from `src/assets/fonts`: Bricolage Grotesque
+(headings), Figtree (body and UI), Caveat (handwritten notes only), plus Inter's Greek subset for θ, α, β.
+
+Fixed colour meanings: opposite `#D2452A`, adjacent `#2F6FD0`, hypotenuse `#1C8F67` in every diagram;
+peach = history / wrong, butter = tip / hint, mint wash = correct, sky = note, lilac = check yourself.
 
 ## Project layout
 
@@ -72,7 +74,7 @@ src/
   widgets/                   interactive tools (TriangleExplorer, ElevationSimulator, …)
   lib/answers.ts             answer parsing and checking
   store/progress.ts          progress saved in the browser (zustand + localStorage)
-  pages/                     Home, Unit, Lesson
+  pages/                     Home, Unit, Lesson, My progress (/me), Not found
 scripts/check-content.ts     content validation
 ```
 
