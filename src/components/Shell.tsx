@@ -11,6 +11,8 @@ export function Shell({ children }: { children: ReactNode }) {
   const { pathname } = useLocation()
   const pct = Math.round(overallCompletion(lessons, UNITS) * 100)
   const status = useAccount((s) => s.status)
+  // lesson pages use the wider layout; keep the header aligned with it
+  const wide = /^\/unit\/[^/]+\/[^/]+/.test(pathname)
 
   useEffect(() => {
     if (!sheet) return
@@ -21,7 +23,7 @@ export function Shell({ children }: { children: ReactNode }) {
 
   return (
     <div className="shell">
-      <header className="container site-header">
+      <header className={`container site-header ${wide ? 'container-xl' : ''}`}>
         <Link to="/" className="brand" aria-label="Kanakku home">
           <span className="brand-k" aria-hidden="true">
             K
@@ -47,7 +49,7 @@ export function Shell({ children }: { children: ReactNode }) {
       </header>
       <main className="main">{children}</main>
       <footer className="site-footer">
-        <div className="container footer-inner">
+        <div className={`container footer-inner ${wide ? 'container-xl' : ''}`}>
           <p>
             Based on the Tamil Nadu State Board Class 10 Mathematics textbook. Explanations, diagrams and tools are
             original.

@@ -87,7 +87,7 @@ export function TriangleExplorer() {
     <div className="widget triangle-explorer">
       <div className="widget-stage mafs-wrap">
         <Mafs
-          height={340}
+          height={420}
           viewBox={{ x: [-1.2, 8.5], y: [-1, 6.5] }}
           preserveAspectRatio="contain"
           pan={false}

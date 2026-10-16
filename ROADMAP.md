@@ -18,6 +18,7 @@ Each lesson is built on its own branch (`lesson/<unit>-<lesson>-<name>`) and mer
 | CI (type-check, content check, build) | ✅ | `.github/workflows/ci.yml` |
 | Netlify deployment (CLI + GitHub Actions) | ✅ | Needs Netlify secrets, see README |
 | Visual design: Kanakku redesign (Claude Design handoff) | ✅ | `design/handoff/`, tokens in `src/theme.css` |
+| Lesson page layout: rail, drawer, spread, examples reader | ✅ | Screenshots in `design/screenshots/lesson-layout/` |
 | My progress page (`/me`) | ✅ | Reads progress saved in the browser |
 | Google sign-in, nickname, synced progress | ✅ | Firebase; see README for console setup |
 | Weekly leaderboard | ✅ | 10 pts per practice solved, 5 per quiz answer; top 10, resets Monday IST |
@@ -57,6 +58,7 @@ Textbook PDFs are needed for each unit. The answer key for Units 1–8 is alread
 
 ## Changelog
 
+- **2026-10-16** · Lesson page layout: wider page (up to 1440 px), lesson rail and All lessons drawer, sticky tab bar, Learn as a spread with margin notes, Examples as a reader (index + one example at a time), larger Explore tools.
 - **2026-10-16** · Accounts: Google sign-in, nickname, progress synced to Firebase, weekly leaderboard, security rules with tests.
 
 - **2026-10-16** · Kanakku redesign from the Claude Design handoff: warm paper, ink outlines, hard shadows; new My progress page.
