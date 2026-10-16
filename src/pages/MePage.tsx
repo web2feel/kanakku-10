@@ -3,10 +3,19 @@ import { Link } from 'react-router-dom'
 import { UNITS, findLesson, findUnit } from '../content'
 import { TABS, lessonCompletion, lessonKey, unitCompletion, useProgress } from '../store/progress'
 import { Meter } from '../components/Meter'
+import { Leaderboard } from '../components/Leaderboard'
+import { signOut, useAccount } from '../accounts/store'
+
+const SYNC_TEXT = {
+  idle: '',
+  saving: 'Saving…',
+  saved: 'All progress saved to your account.',
+  error: "Couldn't reach the server. Your progress is safe on this device and will save when you're back online.",
+} as const
 
 /**
- * My progress. Reads the progress saved in this browser.
- * The weekly leaderboard and nickname need sign-in and a backend; until then a placeholder card says so.
+ * My progress. Signed in: progress follows the account, plus this week's leaderboard.
+ * Signed out: progress saved in this browser, with an invitation to sign in.
  */
 export function MePage() {
   const lessons = useProgress((s) => s.lessons)
@@ -14,6 +23,10 @@ export function MePage() {
   const reset = useProgress((s) => s.reset)
   const [confirming, setConfirming] = useState(false)
   const [cleared, setCleared] = useState(false)
+  const status = useAccount((s) => s.status)
+  const sync = useAccount((s) => s.sync)
+  const profile = useAccount((s) => s.profile)
+  const signedIn = status === 'signed-in'
 
   const unit = UNITS.find((u) => u.lessons.some((l) => l.status === 'ready'))
   const lastUnit = findUnit(last?.unit)
@@ -32,7 +45,19 @@ export function MePage() {
     <div className="container me-page">
       <header className="page-head">
         <h1 className="me-h1">Your progress</h1>
-        <p className="intro">Saved in this browser, on this device.</p>
+        <p className="intro">
+          {signedIn
+            ? 'Saved to your account, so it follows you to any device you sign in on.'
+            : 'Saved in this browser, on this device.'}
+        </p>
+        {signedIn && (
+          <p className={`sync-line ${sync === 'error' ? 'is-error' : ''}`} role="status">
+            {SYNC_TEXT[sync]}{' '}
+            <button className="link-btn" onClick={() => void signOut()}>
+              Sign out
+            </button>
+          </p>
+        )}
       </header>
 
       <div className="me-top">
@@ -78,14 +103,29 @@ export function MePage() {
         )}
       </div>
 
-      <section className="soon-card" aria-labelledby="lb-h">
-        <span className="hand-note">coming soon</span>
-        <h2 id="lb-h">Weekly leaderboard</h2>
-        <p>
-          Sign in with Google to keep your progress on every device and see where you stand this week. Points: 10 for
-          each practice question solved, 5 for each correct quiz answer.
-        </p>
-      </section>
+      {signedIn && profile && <Leaderboard />}
+      {signedIn && !profile && (
+        <section className="soon-card">
+          <span className="hand-note">one more step</span>
+          <h2>Pick a nickname to join the leaderboard</h2>
+          <Link className="btn-primary btn-sm" to="/signin">
+            Pick a nickname →
+          </Link>
+        </section>
+      )}
+      {(status === 'signed-out' || status === 'loading') && (
+        <section className="soon-card" aria-labelledby="lb-h">
+          <span className="hand-note">this week on Kanakku</span>
+          <h2 id="lb-h">Join the weekly leaderboard</h2>
+          <p>
+            Sign in with Google to keep your progress on every device and see where you stand this week. Points: 10 for
+            each practice question solved, 5 for each correct quiz answer.
+          </p>
+          <Link className="btn-primary btn-sm" to="/signin">
+            Sign in →
+          </Link>
+        </section>
+      )}
 
       <section className="me-section" aria-labelledby="lbl-h">
         <div className="me-section-head">
@@ -154,7 +194,11 @@ export function MePage() {
       <section className="reset-box" aria-labelledby="reset-h">
         <div className="stack" style={{ gap: 4 }}>
           <h2 id="reset-h">Start over</h2>
-          <p>Clears every lesson's progress and quiz scores saved in this browser. This cannot be undone.</p>
+          <p>
+            {signedIn
+              ? "Clears every lesson's progress and quiz scores from your account. Your past leaderboard weeks stay. This cannot be undone."
+              : "Clears every lesson's progress and quiz scores saved in this browser. This cannot be undone."}
+          </p>
         </div>
         {!confirming ? (
           <button className="btn-plain" onClick={() => setConfirming(true)}>
