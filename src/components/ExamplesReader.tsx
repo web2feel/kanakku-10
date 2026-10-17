@@ -1,6 +1,6 @@
 import { useState } from 'react'
 import type { Example } from '../content/types'
-import { ExampleCard } from './ExampleCard'
+import { ExampleCard, exampleSteps } from './ExampleCard'
 import { Rich } from './Rich'
 
 /**
@@ -23,7 +23,8 @@ export function ExamplesReader({ examples, onTop }: { examples: Example[]; onTop
         <ol>
           {examples.map((e, j) => {
             const n = shown[e.id] ?? 0
-            const done = n >= e.steps.length
+            const total = exampleSteps(e).length
+            const done = n >= total
             return (
               <li key={e.id}>
                 <button
@@ -36,7 +37,7 @@ export function ExamplesReader({ examples, onTop }: { examples: Example[]; onTop
                     <Rich text={e.title} />
                   </span>
                   <span className="ex-index-state tabular">
-                    {done ? '✓ solved' : n > 0 ? `${n} / ${e.steps.length} steps` : `${e.steps.length} steps`}
+                    {done ? '✓ solved' : n > 0 ? `${n} / ${total} steps` : `${total} steps`}
                   </span>
                 </button>
               </li>

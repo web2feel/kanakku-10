@@ -4,6 +4,15 @@ import { lesson4 } from './trigonometry/lesson4-elevation'
 import { lesson12 } from './algebra/lesson12-matrices'
 import { lesson13 } from './algebra/lesson13-operations'
 import { lesson14 } from './algebra/lesson14-review'
+import { lesson1 as geo1 } from './geometry/lesson1-similar'
+import { lesson2 as geo2 } from './geometry/lesson2-construct-similar'
+import { lesson3 as geo3 } from './geometry/lesson3-thales'
+import { lesson4 as geo4 } from './geometry/lesson4-construct-triangles'
+import { lesson5 as geo5 } from './geometry/lesson5-pythagoras'
+import { lesson6 as geo6 } from './geometry/lesson6-tangents'
+import { lesson7 as geo7 } from './geometry/lesson7-construct-tangents'
+import { lesson8 as geo8 } from './geometry/lesson8-concurrency'
+import { lesson9 as geo9 } from './geometry/lesson9-review'
 
 const soon = (number: number, id: string, title: string, summary: string, pages: string): Lesson => ({
   id,
@@ -102,6 +111,15 @@ const algebra: Unit = {
   ],
 }
 
+const geometry: Unit = {
+  id: 'geometry',
+  number: 4,
+  title: 'Geometry',
+  blurb: 'Similar triangles, Thales theorem, Pythagoras theorem, tangents to circles and concurrency.',
+  pages: '161–202',
+  lessons: [geo1, geo2, geo3, geo4, geo5, geo6, geo7, geo8, geo9],
+}
+
 const comingUnit = (number: number, id: string, title: string, blurb: string): Unit => ({
   id,
   number,
@@ -125,7 +143,7 @@ export const UNITS: Unit[] = [
     "Euclid's division lemma, modular arithmetic, AP, GP and series.",
   ),
   algebra,
-  comingUnit(4, 'geometry', 'Geometry', 'Similar triangles, Thales theorem, Pythagoras theorem and circles.'),
+  geometry,
   comingUnit(
     5,
     'coordinate-geometry',

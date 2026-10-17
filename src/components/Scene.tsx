@@ -56,6 +56,18 @@ export function Scene({ spec, highlight }: { spec: SceneSpec; highlight?: string
     <div className="scene" ref={wrap} style={{ maxWidth: W, '--s': textScale } as CSSProperties}>
       <svg viewBox={`0 0 ${W} ${H}`} role="img" aria-label="Diagram">
         <defs>
+          <marker
+            id={`arr-${uid}`}
+            viewBox="0 0 10 10"
+            refX="8"
+            refY="5"
+            markerWidth="9"
+            markerHeight="9"
+            markerUnits="userSpaceOnUse"
+            orient="auto-start-reverse"
+          >
+            <path d="M 0 0 L 10 5 L 0 10 z" className="scene-arrow" />
+          </marker>
           <pattern id={`hatch-${uid}`} width="8" height="8" patternUnits="userSpaceOnUse" patternTransform="rotate(45)">
             <line x1="0" y1="0" x2="0" y2="8" className="scene-hatch" />
           </pattern>
@@ -83,6 +95,33 @@ export function Scene({ spec, highlight }: { spec: SceneSpec; highlight?: string
           </g>
         )}
 
+        {spec.fills?.map((f, i) => {
+          const ps = f.pts.map((n) => pts[n]).filter(Boolean)
+          if (ps.length < 3) return null
+          return (
+            <path
+              key={`f${i}`}
+              d={ps.map((p, j) => `${j ? 'L' : 'M'} ${p[0]} ${p[1]}`).join(' ') + ' Z'}
+              className={`scene-fill fill-${f.tone}`}
+            />
+          )
+        })}
+
+        {spec.circles?.map((ci, i) => {
+          const c0 = pts[ci.c]
+          if (!c0) return null
+          const on = ci.id ? active.has(ci.id) : false
+          return (
+            <circle
+              key={`c${i}`}
+              cx={c0[0]}
+              cy={c0[1]}
+              r={ci.r * k}
+              className={`scene-circle seg-${ci.color ?? 'ink'} ${ci.kind === 'dash' ? 'seg-dash' : ''} ${on ? 'seg-on' : dimOthers ? 'seg-dim' : ''}`}
+            />
+          )
+        })}
+
         {spec.objects?.map((o, i) => (
           <SceneObj key={i} o={o} px={px} k={k} />
         ))}
@@ -101,10 +140,34 @@ export function Scene({ spec, highlight }: { spec: SceneSpec; highlight?: string
             s.kind === 'sight' ? 'seg-sight' : '',
             on ? 'seg-on' : dimOthers ? 'seg-dim' : '',
           ].join(' ')
+          const dd = unit(sub(b, a))
+          const nn: Vec = [-dd[1], dd[0]]
+          const mid: Vec = [(a[0] + b[0]) / 2, (a[1] + b[1]) / 2]
           return (
             <g key={i}>
               {on && <line x1={a[0]} y1={a[1]} x2={b[0]} y2={b[1]} className="seg-glow" />}
-              <line x1={a[0]} y1={a[1]} x2={b[0]} y2={b[1]} className={cls} />
+              <line
+                x1={a[0]}
+                y1={a[1]}
+                x2={b[0]}
+                y2={b[1]}
+                className={cls}
+                markerEnd={s.kind === 'line' ? `url(#arr-${uid})` : undefined}
+                markerStart={s.kind === 'line' ? `url(#arr-${uid})` : undefined}
+              />
+              {s.ticks &&
+                Array.from({ length: s.ticks }, (_, t) => {
+                  const c0 = add(mid, mul(dd, (t - (s.ticks! - 1) / 2) * 5))
+                  const p1 = add(c0, mul(nn, 6))
+                  const p2 = sub(c0, mul(nn, 6))
+                  return <line key={t} x1={p1[0]} y1={p1[1]} x2={p2[0]} y2={p2[1]} className="scene-tick" />
+                })}
+              {s.parallel && (
+                <path
+                  d={`M ${add(sub(mid, mul(dd, 5)), mul(nn, 5)).join(' ')} L ${add(mid, mul(dd, 2)).join(' ')} L ${sub(sub(mid, mul(dd, 5)), mul(nn, 5)).join(' ')}`}
+                  className="scene-tick"
+                />
+              )}
             </g>
           )
         })}

@@ -8,6 +8,7 @@
 import { UNITS } from '../src/content'
 import { checkNumeric, parseStudentNumber } from '../src/lib/answers'
 import { cellValue } from '../src/lib/matrix'
+import { build } from '../src/lib/constructions'
 import type { Question } from '../src/content/types'
 
 let failures = 0
@@ -32,6 +33,21 @@ for (const unit of UNITS) {
       ids.add(q.id)
       if (q.type === 'mcq') {
         if (q.correct < 0 || q.correct >= q.options.length) fail(`${q.id}: correct index out of range`)
+      } else if (q.type === 'proof') {
+        const blanks = q.steps.filter((s) => s.choices)
+        if (!blanks.length) fail(`${q.id}: a proof needs at least one step with choices`)
+        for (const s of blanks) {
+          if (!s.choices!.includes(s.reason)) fail(`${q.id}: reason "${s.reason}" is not one of its choices`)
+          if (new Set(s.choices).size !== s.choices!.length) fail(`${q.id}: duplicate choices`)
+        }
+      } else if (q.type === 'construct') {
+        const c = build(q.construction)
+        if (c.error) fail(`${q.id}: construction impossible: ${c.error}`)
+        for (const m of q.measure ?? []) {
+          if (!c.result) fail(`${q.id}: measures a length but the construction has no result`)
+          else if (Math.abs(c.result.value - m.answer.value) > (m.answer.tol ?? 0.15))
+            fail(`${q.id}: measured answer ${m.answer.value} is far from the exact ${c.result.value.toFixed(3)}`)
+        }
       } else if (q.type === 'matrix') {
         for (const p of q.parts) {
           const cols = p.answer.cells[0]?.length ?? 0
@@ -59,6 +75,8 @@ for (const unit of UNITS) {
       }
     }
     for (const ex of lesson.examples) {
+      if (ex.construction && build(ex.construction).error) fail(`${ex.id}: construction impossible`)
+      if (!ex.steps.length && !ex.construction) fail(`${ex.id}: no steps`)
       if (ids.has(ex.id)) fail(`duplicate id ${ex.id}`)
       ids.add(ex.id)
     }

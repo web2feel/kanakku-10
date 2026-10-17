@@ -8,6 +8,9 @@
  */
 export type Rich = string
 
+import type { ConstructionRef } from '../lib/constructions'
+export type { ConstructionRef }
+
 export type WidgetName =
   | 'triangle-explorer'
   | 'complementary-proof'
@@ -19,6 +22,15 @@ export type WidgetName =
   | 'order-finder'
   | 'matrix-arith'
   | 'matrix-multiply'
+  | 'similarity-lab'
+  | 'proportion-lab'
+  | 'pythagoras-lab'
+  | 'tangent-lab'
+  | 'ceva-lab'
+  | 'construction-lab'
+  | 'construction-similar'
+  | 'construction-triangle'
+  | 'construction-tangent'
 
 /* ---------- Scene diagrams (heights and distances, triangles) ---------- */
 
@@ -29,8 +41,12 @@ export interface SceneSeg {
   id?: string
   a: string
   b: string
-  /** solid (default), dash (construction / horizontal), sight (line of sight) */
-  kind?: 'solid' | 'dash' | 'sight'
+  /** solid (default), dash (construction / horizontal), sight (line of sight), line (arrows at both ends) */
+  kind?: 'solid' | 'dash' | 'sight' | 'line'
+  /** equal-length marks: 1, 2 or 3 small ticks across the middle */
+  ticks?: 1 | 2 | 3
+  /** a small arrow in the middle, to mark parallel lines */
+  parallel?: boolean
   color?: SegColor
   label?: Rich
   /** which side of the segment the label sits on: 1 = left of a→b, -1 = right */
@@ -70,6 +86,10 @@ export interface SceneSpec {
   segs?: SceneSeg[]
   angles?: SceneAngle[]
   right?: { at: string; a: string; b: string }[]
+  /** circles: centre point name and radius in world units */
+  circles?: { id?: string; c: string; r: number; color?: SegColor; kind?: 'solid' | 'dash' }[]
+  /** shaded regions, drawn underneath everything else */
+  fills?: { pts: string[]; tone: 'sun' | 'peach' | 'sky' | 'mint' | 'lilac' }[]
   /** ids that are highlighted when no step is active */
   highlight?: string[]
   /** maximum rendered width in px */
@@ -119,6 +139,8 @@ export interface McqQuestion extends QuestionBase {
   type: 'mcq'
   options: Rich[]
   correct: number
+  /** keep the options in the given order (textbook MCQs, whose A–D letters match the book); others are shuffled */
+  keepOrder?: boolean
 }
 
 export interface NumericQuestion extends QuestionBase {
@@ -144,7 +166,34 @@ export interface MatrixQuestion extends QuestionBase {
   parts: { label?: Rich; answer: MatrixAnswer }[]
 }
 
-export type Question = McqQuestion | NumericQuestion | MatrixQuestion
+/** One line of a two-column proof. */
+export interface ProofStep {
+  statement: Rich
+  reason: Rich
+  /** when set, the student picks the reason from these; `reason` must be one of them */
+  choices?: Rich[]
+}
+
+/** A proof in the textbook's statement / reason table. The student supplies the missing reasons. */
+export interface ProofQuestion extends QuestionBase {
+  type: 'proof'
+  given?: Rich
+  toProve: Rich
+  construction?: Rich
+  steps: ProofStep[]
+}
+
+/**
+ * A ruler-and-compass construction. Students draw it in their notebook, then step through it here.
+ * With `measure`, they also type a length they measured from their drawing.
+ */
+export interface ConstructQuestion extends QuestionBase {
+  type: 'construct'
+  construction: ConstructionRef
+  measure?: { label?: Rich; answer: NumericAnswer }[]
+}
+
+export type Question = McqQuestion | NumericQuestion | MatrixQuestion | ProofQuestion | ConstructQuestion
 
 /* ---------- Lessons ---------- */
 
@@ -161,6 +210,8 @@ export interface Example {
   title: string
   prompt: Rich
   figure?: SceneSpec
+  /** a construction drawn step by step; its own step texts are used when `steps` is empty */
+  construction?: ConstructionRef
   steps: Step[]
   answer: Rich
 }

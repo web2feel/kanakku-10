@@ -9,6 +9,12 @@ import { AijBuilder } from './AijBuilder'
 import { OrderFinder } from './OrderFinder'
 import { MatrixArith } from './MatrixArith'
 import { MatrixMultiply } from './MatrixMultiply'
+import { SimilarityLab } from './SimilarityLab'
+import { ProportionLab } from './ProportionLab'
+import { PythagorasLab } from './PythagorasLab'
+import { TangentLab } from './TangentLab'
+import { CevaLab } from './CevaLab'
+import { ConstructionLab } from './ConstructionLab'
 
 const REGISTRY: Record<WidgetName, () => React.JSX.Element> = {
   'triangle-explorer': TriangleExplorer,
@@ -21,6 +27,15 @@ const REGISTRY: Record<WidgetName, () => React.JSX.Element> = {
   'order-finder': OrderFinder,
   'matrix-arith': MatrixArith,
   'matrix-multiply': MatrixMultiply,
+  'similarity-lab': SimilarityLab,
+  'proportion-lab': ProportionLab,
+  'pythagoras-lab': PythagorasLab,
+  'tangent-lab': TangentLab,
+  'ceva-lab': CevaLab,
+  'construction-lab': () => <ConstructionLab />,
+  'construction-similar': () => <ConstructionLab only={['similar', 'root']} />,
+  'construction-triangle': () => <ConstructionLab only={['median', 'altitude', 'bisector']} />,
+  'construction-tangent': () => <ConstructionLab only={['tangent-centre', 'tangent-alt', 'tangent-pair']} />,
 }
 
 export function Widget({ name }: { name: WidgetName }) {
