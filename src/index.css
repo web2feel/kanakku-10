@@ -4095,3 +4095,280 @@ button.mx-cell:hover {
     gap: 12px 18px;
   }
 }
+
+/* ---------- geometry figures ---------- */
+.scene-circle {
+  fill: none;
+  stroke-width: 2.2;
+}
+.scene-fill {
+  stroke: none;
+  opacity: 0.55;
+}
+.fill-sun {
+  fill: var(--color-butter);
+}
+.fill-peach {
+  fill: var(--color-peach);
+}
+.fill-sky {
+  fill: var(--color-sky);
+}
+.fill-mint {
+  fill: var(--color-mintwash);
+}
+.fill-lilac {
+  fill: var(--color-lilac);
+}
+.scene-tick {
+  stroke: var(--color-ink);
+  stroke-width: 1.8;
+  fill: none;
+}
+.scene-arrow {
+  fill: var(--color-ink);
+}
+
+/* ---------- constructions ---------- */
+.cx-player {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.cx-figure {
+  width: 100%;
+  margin-inline: auto;
+  border: 1.5px solid var(--color-line);
+  border-radius: 16px;
+  background: #fff;
+  overflow: hidden;
+}
+.cx-figure svg {
+  display: block;
+  width: 100%;
+  height: auto;
+}
+.cx-line {
+  fill: none;
+  stroke-linecap: round;
+}
+.cx-main {
+  stroke: var(--color-ink);
+  stroke-width: 2;
+}
+.cx-aux {
+  stroke: var(--color-adj);
+  stroke-width: 1.5;
+  stroke-dasharray: 6 5;
+}
+.cx-mark {
+  stroke: var(--color-muted-3);
+  stroke-width: 1.4;
+}
+.cx-result {
+  stroke: var(--color-hyp);
+  stroke-width: 3;
+}
+.cx-line.is-new {
+  stroke: var(--color-coral);
+}
+.cx-main.is-new,
+.cx-mark.is-new {
+  stroke-width: 2.6;
+}
+.cx-fill {
+  fill: var(--color-mintwash);
+  opacity: 0.7;
+}
+.cx-arrow {
+  fill: currentColor;
+  color: var(--color-ink);
+}
+.cx-right {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.4;
+}
+.cx-right.is-new {
+  stroke: var(--color-coral);
+}
+.cx-angle path {
+  fill: none;
+  stroke: var(--color-ink);
+  stroke-width: 1.5;
+}
+.cx-angle text,
+.cx-pt text {
+  font-family: var(--font-display);
+  font-weight: 700;
+  font-size: 14px;
+  fill: var(--color-ink);
+  paint-order: stroke;
+  stroke: #fff;
+  stroke-width: 4px;
+}
+.cx-angle.is-new path {
+  stroke: var(--color-coral);
+}
+.cx-pt circle {
+  fill: var(--color-ink);
+}
+.cx-pt.is-new circle {
+  fill: var(--color-coral);
+}
+.cx-step {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  min-height: 72px;
+  padding: 12px 14px;
+  border-radius: 14px;
+  background: var(--color-paper-2);
+}
+.cx-step p {
+  margin: 0;
+  font-size: 16px;
+  line-height: 1.5;
+}
+.cx-step-num {
+  font-size: 13px;
+  font-weight: 700;
+  color: var(--color-muted-3);
+}
+
+/* ---------- proofs ---------- */
+.proof {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.proof-meta {
+  display: grid;
+  grid-template-columns: max-content 1fr;
+  gap: 6px 14px;
+  margin: 0;
+  font-size: 15px;
+}
+.proof-meta dt {
+  font-weight: 700;
+  color: var(--color-coral-ink);
+}
+.proof-meta dd {
+  margin: 0;
+}
+.proof-steps {
+  list-style: none;
+  counter-reset: proof;
+  margin: 0;
+  padding: 0;
+  border: 2px solid var(--color-line);
+  border-radius: 16px;
+  overflow: hidden;
+  background: #fff;
+}
+.proof-step {
+  counter-increment: proof;
+  display: grid;
+  grid-template-columns: 34px minmax(0, 1fr) minmax(0, 1.1fr);
+  gap: 12px;
+  align-items: start;
+  padding: 12px 14px;
+}
+.proof-step + .proof-step {
+  border-top: 1.5px solid var(--color-paper-3);
+}
+.proof-step::before {
+  content: counter(proof);
+  font-family: var(--font-display);
+  font-weight: 800;
+  color: var(--color-muted-3);
+}
+.proof-step.is-right {
+  background: var(--color-mintwash);
+}
+.proof-step.is-wrong {
+  background: var(--color-peach);
+}
+.proof-statement {
+  font-size: 15px;
+  overflow-x: auto;
+}
+.proof-reason {
+  font-size: 15px;
+  color: var(--color-muted);
+}
+.reason-filled {
+  font-weight: 700;
+  color: var(--color-ink);
+}
+.reason-choices {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+}
+.reason-chip {
+  text-align: left;
+  font: inherit;
+  font-size: 14px;
+  padding: 7px 12px;
+  border-radius: 12px;
+  border: 1.5px solid var(--color-line-2);
+  background: #fff;
+  color: var(--color-ink);
+  cursor: pointer;
+}
+.reason-chip:hover {
+  border-color: var(--color-ink);
+}
+.reason-chip.is-picked {
+  background: var(--color-sun);
+  border-color: var(--color-ink);
+}
+.construct-task {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 10px;
+}
+.construct-task .cx-player {
+  align-self: stretch;
+}
+@media (max-width: 640px) {
+  .proof-step {
+    grid-template-columns: 26px minmax(0, 1fr);
+  }
+  .proof-reason {
+    grid-column: 2;
+  }
+}
+.widget.construction-lab {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  gap: 16px;
+}
+.cx-fields {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px 16px;
+}
+.cx-field {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  font-size: 14px;
+  font-weight: 600;
+}
+.cx-field input {
+  width: 110px;
+  font: inherit;
+  font-size: 16px;
+  padding: 8px 10px;
+  border: 2px solid var(--color-ink);
+  border-radius: 12px;
+  background: #fff;
+  color: var(--color-ink);
+}
+.construction-lab .cx-player .cx-figure {
+  max-width: 640px;
+}

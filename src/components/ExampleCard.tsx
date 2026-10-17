@@ -1,8 +1,16 @@
-import { useState } from 'react'
-import type { Example } from '../content/types'
+import { useMemo, useState } from 'react'
+import type { Example, Step } from '../content/types'
+import { build } from '../lib/constructions'
+import { ConstructionFigure } from './ConstructionView'
 import { Rich } from './Rich'
 import { Scene } from './Scene'
 import { StepView } from './Blocks'
+
+/** The example's steps; a construction example without written steps uses the construction's own. */
+export function exampleSteps(ex: Example): Step[] {
+  if (ex.steps.length || !ex.construction) return ex.steps
+  return build(ex.construction).steps.map((s) => ({ text: s.text }))
+}
 
 /**
  * A worked example whose solution is revealed one step at a time.
@@ -24,14 +32,16 @@ export function ExampleCard({
     setOwn(v)
     onShown?.(v)
   }
-  const done = shown >= ex.steps.length
-  const current = shown > 0 ? ex.steps[shown - 1] : undefined
+  const steps = useMemo(() => exampleSteps(ex), [ex])
+  const cons = useMemo(() => (ex.construction ? build(ex.construction) : null), [ex.construction])
+  const done = shown >= steps.length
+  const current = shown > 0 ? steps[shown - 1] : undefined
 
   return (
     <article className="card lesson-card example" id={ex.id}>
       <span className="pill">{ex.source}</span>
       <h3 className="card-h3">{ex.title}</h3>
-      <div className={ex.figure ? 'example-grid' : ''}>
+      <div className={ex.figure || cons ? 'example-grid' : ''}>
         <div className="example-main">
           <p className="prompt">
             <Rich text={ex.prompt} />
@@ -41,7 +51,7 @@ export function ExampleCard({
           )}
           {shown > 0 && (
             <ol className="steps">
-              {ex.steps.slice(0, shown).map((s, i) => (
+              {steps.slice(0, shown).map((s, i) => (
                 <StepView key={i} step={s} index={i} />
               ))}
             </ol>
@@ -60,7 +70,7 @@ export function ExampleCard({
                 <button className="btn-dark" onClick={() => setShown((n) => n + 1)}>
                   {shown === 0 ? 'Show first step' : 'Next step'}
                 </button>
-                <button className="btn-link" onClick={() => setShown(ex.steps.length)}>
+                <button className="btn-link" onClick={() => setShown(steps.length)}>
                   Show full solution
                 </button>
               </>
@@ -70,10 +80,15 @@ export function ExampleCard({
               </button>
             )}
             <span className="step-count tabular">
-              {Math.min(shown, ex.steps.length)} / {ex.steps.length} steps
+              {Math.min(shown, steps.length)} / {steps.length} steps
             </span>
           </div>
         </div>
+        {cons && (
+          <div className="example-figure">
+            <ConstructionFigure c={cons} stage={Math.max(1, shown)} maxWidth={460} />
+          </div>
+        )}
         {ex.figure && (
           <div className="example-figure">
             <Scene spec={ex.figure} highlight={current?.highlight} />

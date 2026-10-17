@@ -1,7 +1,9 @@
 import { useId, useRef, useState } from 'react'
 import type { NumericAnswer, Question } from '../content/types'
+import { ConstructionPlayer } from './ConstructionView'
 import { checkNumeric, type Verdict } from '../lib/answers'
 import { checkMatrix, emptyGrid, matrixTex } from '../lib/matrix'
+import { order } from '../lib/shuffle'
 import { Rich, Tex } from './Rich'
 import { Scene } from './Scene'
 import { StepView } from './Blocks'
@@ -43,13 +45,24 @@ function numericDisplay(parts: { label?: string; answer: NumericAnswer }[]) {
   return parts.map((p) => (p.label ? `${p.label} ${p.answer.display}` : p.answer.display)).join(', ')
 }
 
+/** Number boxes: a numeric question's parts, or the lengths measured in a construction. */
+function numberParts(q: Question): { label?: string; answer: NumericAnswer }[] {
+  if (q.type === 'numeric') return q.parts
+  if (q.type === 'construct') return q.measure ?? []
+  return []
+}
+
 export function QuestionCard({ q, mode, onResult, number }: Props) {
   const id = useId()
+  const numParts = numberParts(q)
   const [choice, setChoice] = useState<number | null>(null)
-  const [values, setValues] = useState<string[]>(() => (q.type === 'numeric' ? q.parts.map(() => '') : []))
-  const [verdicts, setVerdicts] = useState<(Verdict | null)[]>(() =>
-    q.type === 'numeric' ? q.parts.map(() => null) : [],
-  )
+  const [values, setValues] = useState<string[]>(() => numParts.map(() => ''))
+  const [verdicts, setVerdicts] = useState<(Verdict | null)[]>(() => numParts.map(() => null))
+  /** proofs: the reason picked for each step (index into its choices) */
+  const [picks, setPicks] = useState<(number | null)[]>(() => (q.type === 'proof' ? q.steps.map(() => null) : []))
+  const [pickOk, setPickOk] = useState<(boolean | null)[]>(() => (q.type === 'proof' ? q.steps.map(() => null) : []))
+  const [drawn, setDrawn] = useState(false)
+  const [showSteps, setShowSteps] = useState(false)
   const [grids, setGrids] = useState<string[][][]>(() =>
     q.type === 'matrix' ? q.parts.map((p) => emptyGrid(p.answer)) : [],
   )
@@ -64,19 +77,28 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
   const [locked, setLocked] = useState(false)
   const inputs = useRef<(HTMLInputElement | null)[]>([])
 
+  const proofBlanks = q.type === 'proof' ? q.steps.map((s, i) => (s.choices ? i : -1)).filter((i) => i >= 0) : []
+  const constructOnly = q.type === 'construct' && numParts.length === 0
+
   const allCorrect =
     q.type === 'mcq'
       ? mcqResult === true
-      : q.type === 'numeric'
-        ? verdicts.length > 0 && verdicts.every((v) => v === 'correct')
-        : cellVerdicts.length > 0 && cellVerdicts.every((g) => g !== null && overall(g.flat()) === 'correct')
+      : q.type === 'matrix'
+        ? cellVerdicts.length > 0 && cellVerdicts.every((g) => g !== null && overall(g.flat()) === 'correct')
+        : q.type === 'proof'
+          ? proofBlanks.length > 0 && proofBlanks.every((i) => pickOk[i] === true)
+          : constructOnly
+            ? drawn
+            : verdicts.length > 0 && verdicts.every((v) => v === 'correct')
 
   const nothingTyped =
-    q.type === 'numeric'
-      ? values.every((v) => !v.trim())
-      : q.type === 'matrix'
-        ? grids.every((g) => g.flat().every((v) => !v.trim()))
-        : choice === null
+    q.type === 'matrix'
+      ? grids.every((g) => g.flat().every((v) => !v.trim()))
+      : q.type === 'mcq'
+        ? choice === null
+        : q.type === 'proof'
+          ? proofBlanks.some((i) => picks[i] === null)
+          : values.every((v) => !v.trim())
 
   function finish(ok: boolean) {
     if (mode === 'quiz') {
@@ -101,9 +123,17 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
       finish(v.every((g) => overall(g.flat()) === 'correct'))
       return
     }
-    let v = q.parts.map((p, i) => checkNumeric(values[i], p.answer))
+    if (q.type === 'proof') {
+      const ok = q.steps.map((s, i) =>
+        s.choices ? (picks[i] === null ? false : s.choices[picks[i]!] === s.reason) : null,
+      )
+      setPickOk(ok)
+      finish(proofBlanks.every((i) => ok[i] === true))
+      return
+    }
+    let v = numParts.map((p, i) => checkNumeric(values[i], p.answer))
     let hit: number | null = null
-    if (!v.every((x) => x === 'correct')) {
+    if (q.type === 'numeric' && !v.every((x) => x === 'correct')) {
       // another complete answer set may match, e.g. x, y = 2, 4 instead of 4, 2
       ;(q.alternatives ?? []).forEach((alt, k) => {
         const av = alt.map((a, i) => checkNumeric(values[i], a))
@@ -156,9 +186,104 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
             <Rich text={q.prompt} />
           </p>
 
+          {q.type === 'proof' && (
+            <div className="proof">
+              <dl className="proof-meta">
+                {q.given && (
+                  <>
+                    <dt>Given</dt>
+                    <dd>
+                      <Rich text={q.given} />
+                    </dd>
+                  </>
+                )}
+                <dt>To prove</dt>
+                <dd>
+                  <Rich text={q.toProve} />
+                </dd>
+                {q.construction && (
+                  <>
+                    <dt>Construction</dt>
+                    <dd>
+                      <Rich text={q.construction} />
+                    </dd>
+                  </>
+                )}
+              </dl>
+              <ol className="proof-steps">
+                {q.steps.map((s, i) => {
+                  const open = !!s.choices && !locked && !showSolution
+                  const ok = pickOk[i]
+                  return (
+                    <li key={i} className={`proof-step ${ok === true ? 'is-right' : ok === false ? 'is-wrong' : ''}`}>
+                      <div className="proof-statement">
+                        <Rich text={s.statement} />
+                      </div>
+                      <div className="proof-reason">
+                        {open ? (
+                          <div className="reason-choices" role="radiogroup" aria-label={`Reason for step ${i + 1}`}>
+                            {order(s.choices!.length, `${q.id}:${i}`).map((k) => (
+                              <button
+                                key={k}
+                                type="button"
+                                role="radio"
+                                aria-checked={picks[i] === k}
+                                className={`reason-chip ${picks[i] === k ? 'is-picked' : ''}`}
+                                onClick={() => {
+                                  setPicks((ps) => ps.map((x, j) => (j === i ? k : x)))
+                                  setPickOk((ps) => ps.map((x, j) => (j === i ? null : x)))
+                                }}
+                              >
+                                <Rich text={s.choices![k]} />
+                              </button>
+                            ))}
+                          </div>
+                        ) : (
+                          <span className={s.choices ? 'reason-filled' : ''}>
+                            <Rich text={s.reason} />
+                          </span>
+                        )}
+                      </div>
+                    </li>
+                  )
+                })}
+              </ol>
+              {pickOk.some((x) => x !== null) && !allCorrect && (
+                <p className="feedback f-wrong" role="status">
+                  {mode === 'quiz'
+                    ? 'Not quite. The correct reasons are filled in.'
+                    : 'The steps shaded red need a different reason. Change them and check again.'}
+                </p>
+              )}
+              {allCorrect && (
+                <p className="feedback f-correct" role="status">
+                  Correct. Every reason fits.
+                </p>
+              )}
+            </div>
+          )}
+
+          {q.type === 'construct' && (
+            <div className="construct-task">
+              <p className="hand-note">Draw it in your notebook first, with a ruler and compasses.</p>
+              {(showSteps || showSolution) && <ConstructionPlayer cref={q.construction} startAtEnd={showSolution} />}
+              {!showSteps && !showSolution && (
+                <button type="button" className="btn-link" onClick={() => setShowSteps(true)}>
+                  Show me the construction step by step
+                </button>
+              )}
+              {constructOnly && drawn && (
+                <p className="feedback f-correct" role="status">
+                  Marked as done. Compare your drawing with the finished construction.
+                </p>
+              )}
+            </div>
+          )}
+
           {q.type === 'mcq' && (
             <div className="options" role="radiogroup" aria-label="Answer options">
-              {q.options.map((o, i) => {
+              {(q.keepOrder ? q.options.map((_, i) => i) : order(q.options.length, q.id)).map((i, pos) => {
+                const o = q.options[i]
                 const picked = choice === i
                 const state =
                   mcqResult === null || !picked
@@ -180,7 +305,7 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
                       setMcqResult(null)
                     }}
                   >
-                    <span className="option-key">{String.fromCharCode(65 + i)}</span>
+                    <span className="option-key">{String.fromCharCode(65 + pos)}</span>
                     <span>
                       <Rich text={o} />
                     </span>
@@ -190,9 +315,9 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
             </div>
           )}
 
-          {q.type === 'numeric' && (
+          {numParts.length > 0 && (
             <div className="parts">
-              {q.parts.map((p, i) => {
+              {numParts.map((p, i) => {
                 const v = verdicts[i]
                 const inputId = `${id}-p${i}`
                 return (
@@ -240,7 +365,13 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
                       <p className={`feedback f-${v}`} role="status">
                         {FEEDBACK[v]}
                         {v === 'correct' && (
-                          <> Book answer: {altHit !== null ? q.alternatives![altHit][i].display : p.answer.display}</>
+                          <>
+                            {' '}
+                            Book answer:{' '}
+                            {altHit !== null && q.type === 'numeric'
+                              ? q.alternatives![altHit][i].display
+                              : p.answer.display}
+                          </>
                         )}
                       </p>
                     )}
@@ -345,9 +476,22 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
 
           {!locked && (
             <div className="btn-row">
-              <button className="btn-dark" onClick={check} disabled={nothingTyped}>
-                Check
-              </button>
+              {constructOnly ? (
+                <button
+                  className="btn-dark"
+                  onClick={() => {
+                    setDrawn(true)
+                    setShowSteps(true)
+                    finish(true)
+                  }}
+                >
+                  I have drawn it
+                </button>
+              ) : (
+                <button className="btn-dark" onClick={check} disabled={nothingTyped}>
+                  Check
+                </button>
+              )}
               {canHint && (
                 <button className="btn-link" onClick={() => setHints((h) => h + 1)}>
                   {hints === 0 ? 'Show a hint' : 'Another hint'}
@@ -367,8 +511,11 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
               </button>
             </div>
           )}
-          {q.type === 'numeric' && !locked && (
+          {numParts.length > 0 && !locked && (
             <p className="input-help">You can type a decimal, a fraction, or an exact form like 16√3 or 50*sqrt(3).</p>
+          )}
+          {q.type === 'proof' && !locked && !showSolution && (
+            <p className="input-help">Pick a reason for every step with choices, then check.</p>
           )}
           {q.type === 'matrix' && !locked && (
             <p className="input-help">One number in each box. Fractions and roots are fine: 8/3, -3/2, 4√2.</p>
@@ -377,20 +524,29 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
           {showSolution && (
             <div className="solution">
               <span className="solution-label">solution</span>
-              <ol className="steps">
-                {q.solution.map((s, i) => (
-                  <StepView key={i} step={s} index={i} />
-                ))}
-              </ol>
-              {q.type === 'numeric' && (
-                <p className="book-answer">
-                  Book answer: <Rich text={numericDisplay(q.parts)} />
-                  {q.alternatives?.map((alt, k) => (
-                    <span key={k}>
-                      {' '}
-                      or <Rich text={numericDisplay(alt.map((answer, i) => ({ label: q.parts[i].label, answer })))} />
-                    </span>
+              {q.type === 'proof' && q.solution.length === 0 && (
+                <p>The completed proof is shown above, with every reason filled in.</p>
+              )}
+              {q.type === 'construct' && q.solution.length === 0 && (
+                <p>The finished construction is shown above. Step through it to compare with your drawing.</p>
+              )}
+              {q.solution.length > 0 && (
+                <ol className="steps">
+                  {q.solution.map((s, i) => (
+                    <StepView key={i} step={s} index={i} />
                   ))}
+                </ol>
+              )}
+              {numParts.length > 0 && (
+                <p className="book-answer">
+                  Book answer: <Rich text={numericDisplay(numParts)} />
+                  {q.type === 'numeric' &&
+                    q.alternatives?.map((alt, k) => (
+                      <span key={k}>
+                        {' '}
+                        or <Rich text={numericDisplay(alt.map((answer, i) => ({ label: q.parts[i].label, answer })))} />
+                      </span>
+                    ))}
                 </p>
               )}
               {q.type === 'matrix' && (

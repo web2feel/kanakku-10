@@ -4,6 +4,7 @@
  */
 import katex from 'katex'
 import { UNITS } from '../src/content'
+import { build, type ConstructionRef } from '../src/lib/constructions'
 
 let failures = 0
 let count = 0
@@ -27,6 +28,15 @@ function walk(v: unknown, where: string, key = '') {
   else if (v && typeof v === 'object') {
     for (const [k, x] of Object.entries(v)) {
       if (k === 'figure' || k === 'scene') continue
+      if (k === 'construction' && x && typeof x === 'object' && 'kind' in x) {
+        const c = build(x as ConstructionRef)
+        walk(
+          c.steps.map((s) => s.text),
+          `${where}.construction`,
+        )
+        if (c.error) walk(c.error, `${where}.construction.error`)
+        continue
+      }
       walk(x, `${where}.${k}`, k)
     }
   }

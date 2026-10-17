@@ -27,6 +27,9 @@ Each lesson is built on its own branch (`lesson/<unit>-<lesson>-<name>`) and mer
 | Server-checked points (anti-cheat) | ⬜ | Rules cap points per write; a Cloud Function would make them tamper-proof |
 | Code-split lessons to speed up first load | ⬜ | Bundle is ~410 KB gzipped |
 | Matrix answers (grid input) and alternative answer sets | ✅ | `src/lib/matrix.ts` |
+| Proof questions (pick the reason for each step) | ✅ | `ProofQuestion` in `src/content/types.ts` |
+| Ruler-and-compass constructions, step by step | ✅ | `src/lib/constructions.ts`; worked from the measurements |
+| Answer choices shuffled per question (textbook MCQs keep their order) | ✅ | `src/lib/shuffle.ts` |
 | Expression answers (e.g. a GCD or a simplified fraction) | ⬜ | Needed for Lessons 3.2–3.5 and Unit Exercise Q4–Q7 |
 | Identity checker tool (for Lesson 6.3) | ⬜ | |
 | AI helper ("explain differently") | ⬜ | Later, needs the Claude API |
@@ -50,6 +53,20 @@ Each lesson is built on its own branch (`lesson/<unit>-<lesson>-<name>`) and mer
 | 3.13 | Matrix operations: add, scale, multiply | ✅ | Examples 3.60–3.73, Exercises 3.18, 3.19 |
 | 3.14 | Chapter review | ✅ | Exercise 3.20 (20 MCQs), Unit Exercise Q1–3, 8–20, Points to Remember. Q4–7 wait for expression answers |
 
+## Unit 4 · Geometry (pages 161–202)
+
+| # | Lesson | Status | Textbook coverage |
+|---|---|---|---|
+| 4.1 | Similar triangles | ✅ | Examples 4.1–4.9, Exercise 4.1 Q1–9, Progress Check p.168 |
+| 4.2 | Constructing similar triangles | ✅ | Examples 4.10–4.11, Activity 1, Exercise 4.1 Q10–13 |
+| 4.3 | Proportionality and angle bisector theorems | ✅ | Theorems 1–4, Examples 4.12–4.16, Exercise 4.2 Q1–10 |
+| 4.4 | Constructing triangles | ✅ | Examples 4.17–4.19, Exercise 4.2 Q11–16 |
+| 4.5 | Pythagoras theorem | ✅ | Theorem 5, Examples 4.20–4.23, Exercise 4.3 |
+| 4.6 | Circles and tangents | ✅ | Theorem 6, Examples 4.24–4.28, Exercise 4.4 Q1–8 |
+| 4.7 | Constructing tangents | ✅ | Examples 4.29–4.31, Exercise 4.4 Q11–16 |
+| 4.8 | Ceva and Menelaus | ✅ | Examples 4.32–4.34, Exercise 4.4 Q9–10 |
+| 4.9 | Chapter review | ✅ | Exercise 4.5 (15 MCQs), Unit Exercise 4, Points to Remember |
+
 ## Unit 6 · Trigonometry (pages 239–268)
 
 | # | Lesson | Status | Textbook coverage |
@@ -71,7 +88,7 @@ Textbook PDFs are needed for each unit. The answer key for Units 1–8 is alread
 | 1 | Relations and Functions | ⬜ |
 | 2 | Numbers and Sequences | ⬜ |
 | 3 | Algebra | 🚧 3 of 14 lessons |
-| 4 | Geometry | ⬜ |
+| 4 | Geometry | ✅ 9 of 9 lessons |
 | 5 | Coordinate Geometry | ⬜ |
 | 6 | Trigonometry | 🚧 2 of 7 lessons |
 | 7 | Mensuration | ⬜ |
@@ -79,6 +96,7 @@ Textbook PDFs are needed for each unit. The answer key for Units 1–8 is alread
 
 ## Changelog
 
+- **2026-10-17** · Unit 4 Geometry, all 9 lessons: proof questions, step-by-step constructions, five geometry tools, circles in diagrams; answer choices shuffled.
 - **2026-10-17** · Unit 3 Algebra: Lessons 3.12 (matrices), 3.13 (matrix operations) and 3.14 (chapter review); five matrix tools; matrix answer grid; formula check in CI.
 - **2026-10-16** · Lesson page layout: wider page (up to 1440 px), lesson rail and All lessons drawer, sticky tab bar, Learn as a spread with margin notes, Examples as a reader (index + one example at a time), larger Explore tools.
 - **2026-10-16** · Accounts: Google sign-in, nickname, progress synced to Firebase, weekly leaderboard, security rules with tests.

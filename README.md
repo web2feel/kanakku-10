@@ -5,7 +5,7 @@ Each lesson has five sections: **Learn**, **Explore** (interactive tools), **Exa
 solutions with diagrams that highlight each step), **Practice** (auto-checked, with hints and
 solutions) and **Quiz** (scored, best score saved).
 
-Content so far: Unit 3 Algebra, Lessons 12–14 (matrices and the chapter review), and Unit 6 Trigonometry, Lessons 1 and 4.
+Content so far: Unit 3 Algebra, Lessons 12–14; Unit 4 Geometry, all nine lessons; Unit 6 Trigonometry, Lessons 1 and 4.
 
 ## Run it
 
@@ -141,7 +141,8 @@ scripts/check-content.ts     content validation
 
 ### Diagrams
 
-`SceneSpec` diagrams use real-world units (metres) with y pointing up. Give segments and angles an
+`SceneSpec` diagrams use real-world units (metres) with y pointing up. They can also hold `circles`, shaded `fills`,
+equal-length `ticks` and `parallel` arrows on segments. Give segments and angles an
 `id`, then list those ids in a step's `highlight` to light them up while that step is shown.
 
 ### Answers
@@ -152,6 +153,17 @@ Set `tol` on an answer to override it.
 
 When a question has more than one right answer set (say $x, y = 4, 2$ or $2, 4$), list the others in
 `alternatives`.
+
+Proofs use `type: 'proof'`: a two-column proof (`statement`, `reason`). Steps with `choices` ask the student to pick
+the reason; `reason` must be one of the choices.
+
+Constructions use `type: 'construct'` with a `construction` reference such as
+`{ kind: 'median', base: 8, angle: 60, value: 5.8 }` (see `src/lib/constructions.ts`). The figure and its steps are
+worked out from the measurements. Add `measure` to ask for a length read off the drawing. A worked example with a
+`construction` and empty `steps` uses the construction's own steps.
+
+MCQ options are shown in a fixed shuffled order per question. Set `keepOrder: true` for textbook MCQs whose A–D letters
+should match the book.
 
 Matrix answers use `type: 'matrix'`: the student fills a grid the size of `cells`. Cells are numbers or exact
 forms the parser reads, such as `'8/3'`, `'-√7'` or `'4√2-9'`. In content text, `matrixTex(cells)` from
