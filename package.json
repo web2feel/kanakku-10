@@ -22,7 +22,8 @@
     "dev:mock": "VITE_ACCOUNTS=mock vite",
     "test:rules": "firebase emulators:exec --only firestore --project demo-kanakku \"tsx scripts/test-rules.ts\"",
     "deploy:rules": "firebase deploy --only firestore:rules,firestore:indexes",
-    "firebase:login": "firebase login"
+    "firebase:login": "firebase login",
+    "check:tex": "tsx scripts/check-tex.ts"
   },
   "dependencies": {
     "firebase": "^13.0.0",

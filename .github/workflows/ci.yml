@@ -22,6 +22,7 @@ jobs:
       - run: npm ci
       - run: npm run typecheck
       - run: npm run check:content
+      - run: npm run check:tex
       - run: npm run test:accounts
       - run: npm run build
 
