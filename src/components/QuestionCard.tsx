@@ -1,5 +1,6 @@
 import { useId, useRef, useState } from 'react'
 import type { NumericAnswer, Question } from '../content/types'
+import { ChainProof } from './ChainProof'
 import { ConstructionPlayer } from './ConstructionView'
 import { checkNumeric, type Verdict } from '../lib/answers'
 import { checkMatrix, emptyGrid, matrixTex } from '../lib/matrix'
@@ -62,6 +63,8 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
   const [picks, setPicks] = useState<(number | null)[]>(() => (q.type === 'proof' ? q.steps.map(() => null) : []))
   const [pickOk, setPickOk] = useState<(boolean | null)[]>(() => (q.type === 'proof' ? q.steps.map(() => null) : []))
   const [drawn, setDrawn] = useState(false)
+  /** chains: null while open, else whether it was done without a slip (quiz) or at all (practice) */
+  const [chainOk, setChainOk] = useState<boolean | null>(null)
   const [showSteps, setShowSteps] = useState(false)
   const [grids, setGrids] = useState<string[][][]>(() =>
     q.type === 'matrix' ? q.parts.map((p) => emptyGrid(p.answer)) : [],
@@ -87,9 +90,11 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
         ? cellVerdicts.length > 0 && cellVerdicts.every((g) => g !== null && overall(g.flat()) === 'correct')
         : q.type === 'proof'
           ? proofBlanks.length > 0 && proofBlanks.every((i) => pickOk[i] === true)
-          : constructOnly
-            ? drawn
-            : verdicts.length > 0 && verdicts.every((v) => v === 'correct')
+          : q.type === 'chain'
+            ? chainOk === true
+            : constructOnly
+              ? drawn
+              : verdicts.length > 0 && verdicts.every((v) => v === 'correct')
 
   const nothingTyped =
     q.type === 'matrix'
@@ -261,6 +266,22 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
                 </p>
               )}
             </div>
+          )}
+
+          {q.type === 'chain' && (
+            <ChainProof
+              q={q}
+              mode={mode}
+              revealed={showSolution}
+              onMiss={() => {
+                if (mode !== 'quiz') onResult?.({ correct: false })
+              }}
+              onDone={(misses) => {
+                const ok = mode !== 'quiz' || misses === 0
+                setChainOk(ok)
+                finish(ok)
+              }}
+            />
           )}
 
           {q.type === 'construct' && (
@@ -474,9 +495,9 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
             </div>
           )}
 
-          {!locked && (
+          {!locked && (q.type !== 'chain' || (mode !== 'quiz' && !showSolution)) && (
             <div className="btn-row">
-              {constructOnly ? (
+              {q.type === 'chain' ? null : constructOnly ? (
                 <button
                   className="btn-dark"
                   onClick={() => {
@@ -504,7 +525,7 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
               )}
             </div>
           )}
-          {locked && mode !== 'quiz' && !showSolution && (
+          {locked && mode !== 'quiz' && !showSolution && !(q.type === 'chain' && q.solution.length === 0) && (
             <div className="btn-row">
               <button className="btn-link" onClick={() => setShowSolution(true)}>
                 See the worked solution
@@ -517,6 +538,9 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
           {q.type === 'proof' && !locked && !showSolution && (
             <p className="input-help">Pick a reason for every step with choices, then check.</p>
           )}
+          {q.type === 'chain' && !locked && !showSolution && (
+            <p className="input-help">Choose the line that comes next. Keep going until you reach the other side.</p>
+          )}
           {q.type === 'matrix' && !locked && (
             <p className="input-help">One number in each box. Fractions and roots are fine: 8/3, -3/2, 4√2.</p>
           )}
@@ -527,6 +551,7 @@ export function QuestionCard({ q, mode, onResult, number }: Props) {
               {q.type === 'proof' && q.solution.length === 0 && (
                 <p>The completed proof is shown above, with every reason filled in.</p>
               )}
+              {q.type === 'chain' && q.solution.length === 0 && <p>The complete proof is shown above.</p>}
               {q.type === 'construct' && q.solution.length === 0 && (
                 <p>The finished construction is shown above. Step through it to compare with your drawing.</p>
               )}

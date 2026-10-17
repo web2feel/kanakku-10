@@ -25,13 +25,14 @@ Each lesson is built on its own branch (`lesson/<unit>-<lesson>-<name>`) and mer
 | Sign-in page (`/signin`) | ✅ | Google sign-in, then nickname |
 | Parental consent for under-18 sign-in (DPDP Act) | ⬜ | Needs a decision on the consent method before public launch |
 | Server-checked points (anti-cheat) | ⬜ | Rules cap points per write; a Cloud Function would make them tamper-proof |
-| Code-split lessons to speed up first load | ⬜ | Bundle is ~410 KB gzipped |
+| Code-split lessons to speed up first load | ⬜ | Bundle is ~530 KB gzipped and growing with each unit |
 | Matrix answers (grid input) and alternative answer sets | ✅ | `src/lib/matrix.ts` |
 | Proof questions (pick the reason for each step) | ✅ | `ProofQuestion` in `src/content/types.ts` |
 | Ruler-and-compass constructions, step by step | ✅ | `src/lib/constructions.ts`; worked from the measurements |
 | Answer choices shuffled per question (textbook MCQs keep their order) | ✅ | `src/lib/shuffle.ts` |
 | Expression answers (e.g. a GCD or a simplified fraction) | ⬜ | Needed for Lessons 3.2–3.5 and Unit Exercise Q4–Q7 |
-| Identity checker tool (for Lesson 6.3) | ⬜ | |
+| Identity proofs, one line at a time | ✅ | `ChainQuestion`; every line checked at random angles by `src/lib/texEval.ts` |
+| Identity checker tool (for Lesson 6.3) | ✅ | `IdentityTester` graphs both sides of a claim |
 | AI helper ("explain differently") | ⬜ | Later, needs the Claude API |
 
 ## Unit 3 · Algebra (pages 85–159)
@@ -72,12 +73,12 @@ Each lesson is built on its own branch (`lesson/<unit>-<lesson>-<name>`) and mer
 | # | Lesson | Status | Textbook coverage |
 |---|---|---|---|
 | 6.1 | Trigonometric ratios refresher | ✅ | Recall, complementary angles, standard values, Thinking Corner p.242, Progress Check Q1, Q5–Q8 |
-| 6.2 | The three fundamental identities | ⬜ | Section 6.2, Activity 1 |
-| 6.3 | Proving identities | ⬜ | Examples 6.1–6.17, Exercise 6.1, Unit Exercise Q1–Q4 |
+| 6.2 | The three fundamental identities | ✅ | Section 6.2, Activity 1, Progress Check p.249 Q2–Q4 |
+| 6.3 | Proving identities | ✅ | Examples 6.1–6.17, Exercise 6.1, Unit Exercise Q1–Q4. Q7(ii) is set as "find θ", since both sides of the book's result are undefined at θ = 30° |
 | 6.4 | Heights and distances: angle of elevation | ✅ | Examples 6.18–6.25, Exercise 6.2, Unit Exercise Q5–Q7 |
-| 6.5 | Heights and distances: angle of depression | ⬜ | Examples 6.26–6.30, Exercise 6.3 |
-| 6.6 | Elevation and depression together | ⬜ | Examples 6.31–6.33, Exercise 6.4, Unit Exercise Q8–Q9 |
-| 6.7 | Chapter review | ⬜ | Exercise 6.5 (15 MCQs), Points to Remember |
+| 6.5 | Heights and distances: angle of depression | ✅ | Examples 6.26–6.30, Exercise 6.3, Unit Exercise Q8, Progress Check p.264 Q5 |
+| 6.6 | Elevation and depression together | ✅ | Examples 6.31–6.33, Exercise 6.4, Unit Exercise Q9, Progress Check p.264 Q3 |
+| 6.7 | Chapter review | ✅ | Exercise 6.5 (15 MCQs), Points to Remember, Thinking Corner p.264 |
 
 ## Other units
 
@@ -90,12 +91,13 @@ Textbook PDFs are needed for each unit. The answer key for Units 1–8 is alread
 | 3 | Algebra | 🚧 3 of 14 lessons |
 | 4 | Geometry | ✅ 9 of 9 lessons |
 | 5 | Coordinate Geometry | ⬜ |
-| 6 | Trigonometry | 🚧 2 of 7 lessons |
+| 6 | Trigonometry | ✅ 7 of 7 lessons |
 | 7 | Mensuration | ⬜ |
 | 8 | Statistics and Probability | ⬜ |
 
 ## Changelog
 
+- **2026-10-17** · Unit 6 Trigonometry, Lessons 6.2, 6.3, 6.5, 6.6 and 6.7: identity proofs chosen one line at a time (checked at random angles), four new tools (unit-circle identities, identity grapher, lighthouse and ships, look up and down).
 - **2026-10-17** · Unit 4 Geometry, all 9 lessons: proof questions, step-by-step constructions, five geometry tools, circles in diagrams; answer choices shuffled.
 - **2026-10-17** · Unit 3 Algebra: Lessons 3.12 (matrices), 3.13 (matrix operations) and 3.14 (chapter review); five matrix tools; matrix answer grid; formula check in CI.
 - **2026-10-16** · Lesson page layout: wider page (up to 1440 px), lesson rail and All lessons drawer, sticky tab bar, Learn as a spread with margin notes, Examples as a reader (index + one example at a time), larger Explore tools.

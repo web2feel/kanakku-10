@@ -5,7 +5,7 @@ Each lesson has five sections: **Learn**, **Explore** (interactive tools), **Exa
 solutions with diagrams that highlight each step), **Practice** (auto-checked, with hints and
 solutions) and **Quiz** (scored, best score saved).
 
-Content so far: Unit 3 Algebra, Lessons 12–14; Unit 4 Geometry, all nine lessons; Unit 6 Trigonometry, Lessons 1 and 4.
+Content so far: Unit 3 Algebra, Lessons 12–14; Unit 4 Geometry, all nine lessons; Unit 6 Trigonometry, all seven lessons.
 
 ## Run it
 
@@ -156,6 +156,13 @@ When a question has more than one right answer set (say $x, y = 4, 2$ or $2, 4$)
 
 Proofs use `type: 'proof'`: a two-column proof (`statement`, `reason`). Steps with `choices` ask the student to pick
 the reason; `reason` must be one of the choices.
+
+Identity proofs use `type: 'chain'`: the proof starts at `start` (one side of `toProve`) and each step is the next
+line, as TeX. A step with `wrong` options asks the student to choose it; steps without them appear by themselves. The
+last step must be the other side of `toProve`. `npm run check:content` evaluates every line at random angles
+(`src/lib/texEval.ts`): each line must equal the one above, and each wrong option must really be wrong. Mark a step
+`byGiven` when it follows from the question's condition (for "If …, prove that …" questions); that one step is not
+tested. In TeX, `\cosec` is available as a shorthand for `\operatorname{cosec}`.
 
 Constructions use `type: 'construct'` with a `construction` reference such as
 `{ kind: 'median', base: 8, angle: 60, value: 5.8 }` (see `src/lib/constructions.ts`). The figure and its steps are

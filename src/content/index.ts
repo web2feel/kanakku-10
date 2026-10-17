@@ -1,6 +1,11 @@
 import type { Lesson, Unit } from './types'
 import { lesson1 } from './trigonometry/lesson1-ratios'
+import { lesson2 } from './trigonometry/lesson2-identities'
+import { lesson3 } from './trigonometry/lesson3-proving'
 import { lesson4 } from './trigonometry/lesson4-elevation'
+import { lesson5 } from './trigonometry/lesson5-depression'
+import { lesson6 } from './trigonometry/lesson6-both'
+import { lesson7 } from './trigonometry/lesson7-review'
 import { lesson12 } from './algebra/lesson12-matrices'
 import { lesson13 } from './algebra/lesson13-operations'
 import { lesson14 } from './algebra/lesson14-review'
@@ -34,33 +39,7 @@ const trigonometry: Unit = {
   title: 'Trigonometry',
   blurb: 'Ratios, identities, and finding heights and distances you cannot measure directly.',
   pages: '239–268',
-  lessons: [
-    lesson1,
-    soon(
-      2,
-      'identities',
-      'The three fundamental identities',
-      'Where sin²θ + cos²θ = 1 comes from, and its two partners.',
-      '242–244',
-    ),
-    soon(3, 'proving', 'Proving identities', 'Techniques for Examples 6.1–6.17 and Exercise 6.1.', '244–250'),
-    lesson4,
-    soon(
-      5,
-      'depression',
-      'Heights and distances: angle of depression',
-      'Looking down from towers, lighthouses and aeroplanes.',
-      '258–261',
-    ),
-    soon(6, 'both', 'Elevation and depression together', 'Problems that use both angles from one point.', '262–265'),
-    soon(
-      7,
-      'review',
-      'Chapter review',
-      'Formula sheet, 15 multiple-choice questions and the Unit Exercise.',
-      '265–268',
-    ),
-  ],
+  lessons: [lesson1, lesson2, lesson3, lesson4, lesson5, lesson6, lesson7],
 }
 
 const algebra: Unit = {

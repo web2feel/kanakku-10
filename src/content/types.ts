@@ -31,6 +31,10 @@ export type WidgetName =
   | 'construction-similar'
   | 'construction-triangle'
   | 'construction-tangent'
+  | 'identity-circle'
+  | 'identity-tester'
+  | 'depression-lab'
+  | 'lookout-lab'
 
 /* ---------- Scene diagrams (heights and distances, triangles) ---------- */
 
@@ -193,7 +197,39 @@ export interface ConstructQuestion extends QuestionBase {
   measure?: { label?: Rich; answer: NumericAnswer }[]
 }
 
-export type Question = McqQuestion | NumericQuestion | MatrixQuestion | ProofQuestion | ConstructQuestion
+/** One line of an identity proof: "= tex". With `wrong`, the student picks it from the right line and these. */
+export interface ChainStep {
+  tex: string
+  /** what was done to get this line, shown once it is in place */
+  why?: Rich
+  /** plausible mistakes; each must really differ from the line above (the content check tests this) */
+  wrong?: string[]
+  /** this line follows from the question's condition (`given`), not from an identity */
+  byGiven?: boolean
+}
+
+/**
+ * An identity proved one line at a time, starting from one side and ending at the other.
+ * The student chooses each next line; lines without `wrong` appear by themselves.
+ */
+export interface ChainQuestion extends QuestionBase {
+  type: 'chain'
+  /** a condition for "If …, prove that …" questions */
+  given?: Rich
+  /** the identity, as TeX: "LHS = RHS" */
+  toProve: string
+  /** the side the proof starts from (TeX) */
+  start: string
+  steps: ChainStep[]
+  /**
+   * The content check tests every line against the one above at random angles, except lines marked
+   * `byGiven`. Set false to skip the test altogether.
+   */
+  verify?: boolean
+}
+
+export type Question =
+  McqQuestion | NumericQuestion | MatrixQuestion | ProofQuestion | ConstructQuestion | ChainQuestion
 
 /* ---------- Lessons ---------- */
 
