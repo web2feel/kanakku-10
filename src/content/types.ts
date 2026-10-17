@@ -9,7 +9,16 @@
 export type Rich = string
 
 export type WidgetName =
-  'triangle-explorer' | 'complementary-proof' | 'standard-table' | 'elevation-simulator' | 'ratio-picker'
+  | 'triangle-explorer'
+  | 'complementary-proof'
+  | 'standard-table'
+  | 'elevation-simulator'
+  | 'ratio-picker'
+  | 'matrix-types'
+  | 'aij-builder'
+  | 'order-finder'
+  | 'matrix-arith'
+  | 'matrix-multiply'
 
 /* ---------- Scene diagrams (heights and distances, triangles) ---------- */
 
@@ -115,9 +124,27 @@ export interface McqQuestion extends QuestionBase {
 export interface NumericQuestion extends QuestionBase {
   type: 'numeric'
   parts: { label?: Rich; answer: NumericAnswer }[]
+  /** other complete answer sets that are also right, e.g. x, y = 4, 2 or 2, 4 */
+  alternatives?: NumericAnswer[][]
 }
 
-export type Question = McqQuestion | NumericQuestion
+/**
+ * One matrix cell of a book answer: a number, or an exact form the answer parser reads,
+ * such as '8/3', '-√7' or '4√2-9'.
+ */
+export type MatrixCell = number | string
+
+export interface MatrixAnswer {
+  cells: MatrixCell[][]
+}
+
+/** The student fills in a grid of the answer's size. */
+export interface MatrixQuestion extends QuestionBase {
+  type: 'matrix'
+  parts: { label?: Rich; answer: MatrixAnswer }[]
+}
+
+export type Question = McqQuestion | NumericQuestion | MatrixQuestion
 
 /* ---------- Lessons ---------- */
 

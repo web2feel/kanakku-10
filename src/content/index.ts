@@ -1,6 +1,9 @@
 import type { Lesson, Unit } from './types'
 import { lesson1 } from './trigonometry/lesson1-ratios'
 import { lesson4 } from './trigonometry/lesson4-elevation'
+import { lesson12 } from './algebra/lesson12-matrices'
+import { lesson13 } from './algebra/lesson13-operations'
+import { lesson14 } from './algebra/lesson14-review'
 
 const soon = (number: number, id: string, title: string, summary: string, pages: string): Lesson => ({
   id,
@@ -51,6 +54,54 @@ const trigonometry: Unit = {
   ],
 }
 
+const algebra: Unit = {
+  id: 'algebra',
+  number: 3,
+  title: 'Algebra',
+  blurb: 'Linear equations in three variables, polynomials, quadratics and matrices.',
+  pages: '85–159',
+  lessons: [
+    soon(
+      1,
+      'three-variables',
+      'Linear equations in three variables',
+      'Solving three equations by elimination.',
+      '85–92',
+    ),
+    soon(2, 'gcd-lcm', 'GCD and LCM of polynomials', 'Common factors and multiples of polynomials.', '93–97'),
+    soon(3, 'rational', 'Rational expressions', 'Reducing to lowest form and excluded values.', '98–99'),
+    soon(
+      4,
+      'rational-operations',
+      'Operations on rational expressions',
+      'Multiplying, dividing, adding and subtracting.',
+      '100–103',
+    ),
+    soon(5, 'square-root', 'Square root of polynomials', 'By factorising and by long division.', '103–106'),
+    soon(6, 'quadratics', 'Quadratic equations', 'Zeroes, roots and forming an equation from its roots.', '106–109'),
+    soon(
+      7,
+      'solving-quadratics',
+      'Solving quadratic equations',
+      'Factorising, completing the square and the formula.',
+      '109–114',
+    ),
+    soon(8, 'quadratic-problems', 'Word problems with quadratics', 'Setting up and solving real problems.', '115–116'),
+    soon(
+      9,
+      'nature-of-roots',
+      'Nature of roots; roots and coefficients',
+      'The discriminant, and the sum and product of roots.',
+      '117–122',
+    ),
+    soon(10, 'variation', 'Graphs of variation', 'Direct and inverse variation on a graph.', '123–129'),
+    soon(11, 'quadratic-graphs', 'Quadratic graphs', 'Drawing parabolas and solving equations with them.', '130–137'),
+    lesson12,
+    lesson13,
+    lesson14,
+  ],
+}
+
 const comingUnit = (number: number, id: string, title: string, blurb: string): Unit => ({
   id,
   number,
@@ -73,7 +124,7 @@ export const UNITS: Unit[] = [
     'Numbers and Sequences',
     "Euclid's division lemma, modular arithmetic, AP, GP and series.",
   ),
-  comingUnit(3, 'algebra', 'Algebra', 'Linear equations in three variables, polynomials, quadratics and matrices.'),
+  algebra,
   comingUnit(4, 'geometry', 'Geometry', 'Similar triangles, Thales theorem, Pythagoras theorem and circles.'),
   comingUnit(
     5,

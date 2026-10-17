@@ -7,6 +7,7 @@
  */
 import { UNITS } from '../src/content'
 import { checkNumeric, parseStudentNumber } from '../src/lib/answers'
+import { cellValue } from '../src/lib/matrix'
 import type { Question } from '../src/content/types'
 
 let failures = 0
@@ -31,8 +32,24 @@ for (const unit of UNITS) {
       ids.add(q.id)
       if (q.type === 'mcq') {
         if (q.correct < 0 || q.correct >= q.options.length) fail(`${q.id}: correct index out of range`)
-      } else {
+      } else if (q.type === 'matrix') {
         for (const p of q.parts) {
+          const cols = p.answer.cells[0]?.length ?? 0
+          if (!cols) fail(`${q.id}: empty matrix answer`)
+          if (p.answer.cells.some((r) => r.length !== cols)) fail(`${q.id}: matrix rows have different lengths`)
+          for (const c of p.answer.cells.flat()) {
+            try {
+              cellValue(c)
+            } catch {
+              fail(`${q.id}: matrix cell "${c}" cannot be read`)
+            }
+          }
+        }
+      } else {
+        for (const alt of q.alternatives ?? []) {
+          if (alt.length !== q.parts.length) fail(`${q.id}: an alternative answer set has the wrong number of parts`)
+        }
+        for (const p of [...q.parts, ...(q.alternatives ?? []).flat().map((answer) => ({ answer }))]) {
           // take the first number-like chunk of the display text, e.g. "16.39 m" → 16.39, "5/12" → 5/12
           const m = p.answer.display.match(/^[\d.,/√()+\-* ]+/)
           if (!m) continue

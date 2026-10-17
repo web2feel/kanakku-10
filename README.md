@@ -5,7 +5,7 @@ Each lesson has five sections: **Learn**, **Explore** (interactive tools), **Exa
 solutions with diagrams that highlight each step), **Practice** (auto-checked, with hints and
 solutions) and **Quiz** (scored, best score saved).
 
-Pilot content: Unit 6 Trigonometry, Lesson 1 (trig ratios refresher) and Lesson 4 (angle of elevation).
+Content so far: Unit 3 Algebra, Lessons 12–14 (matrices and the chapter review), and Unit 6 Trigonometry, Lessons 1 and 4.
 
 ## Run it
 
@@ -14,6 +14,7 @@ npm install
 npm run dev            # http://localhost:5173
 npm run build          # static site in dist/
 npm run check:content  # validates every question and the answer parser
+npm run check:tex      # renders every formula in the content with KaTeX
 ```
 
 `npm run build:single` produces one self-contained HTML file in `dist-single/` (used for previews).
@@ -148,6 +149,13 @@ scripts/check-content.ts     content validation
 Numeric answers accept decimals, fractions, `16√3`, `50*sqrt(3)`, `(√3+1)/2`, `45°` and trailing
 units. The default tolerance is 0.6% (or 0.011), enough for `√3 = 1.732` and 2-decimal rounding.
 Set `tol` on an answer to override it.
+
+When a question has more than one right answer set (say $x, y = 4, 2$ or $2, 4$), list the others in
+`alternatives`.
+
+Matrix answers use `type: 'matrix'`: the student fills a grid the size of `cells`. Cells are numbers or exact
+forms the parser reads, such as `'8/3'`, `'-√7'` or `'4√2-9'`. In content text, `matrixTex(cells)` from
+`src/lib/matrix.ts` prints a matrix in round brackets, as the textbook does.
 
 ## Notes
 
