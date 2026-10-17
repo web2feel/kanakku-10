@@ -30,7 +30,9 @@ export function ExampleCard({
   return (
     <article className="card lesson-card example" id={ex.id}>
       <span className="pill">{ex.source}</span>
-      <h3 className="card-h3">{ex.title}</h3>
+      <h3 className="card-h3">
+        <Rich text={ex.title} />
+      </h3>
       <div className={ex.figure ? 'example-grid' : ''}>
         <div className="example-main">
           <p className="prompt">

@@ -170,7 +170,9 @@ function LearnTab({ lesson, wide }: { lesson: Lesson; wide: boolean }) {
             <span className="pill tabular">
               {i + 1} of {lesson.learn.length}
             </span>
-            <h2>{card.title}</h2>
+            <h2>
+              <Rich text={card.title} />
+            </h2>
             {spread ? (
               <div className="spread">
                 <div className="spread-main">
@@ -201,7 +203,9 @@ function ExploreTab({ lesson }: { lesson: Lesson }) {
               <span className="pill tabular">
                 Tool {i + 1} of {lesson.explore.length}
               </span>
-              <h2>{x.title}</h2>
+              <h2>
+                <Rich text={x.title} />
+              </h2>
               <p>
                 <Rich text={x.intro} />
               </p>

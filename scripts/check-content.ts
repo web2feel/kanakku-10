@@ -20,6 +20,8 @@ const ids = new Set<string>()
 let count = 0
 for (const unit of UNITS) {
   for (const lesson of unit.lessons) {
+    // lesson titles appear in navigation, tooltips and the page title, which show plain text only
+    if (/[$*{]/.test(lesson.title)) fail(`${unit.id}/${lesson.id}: lesson titles cannot use maths or markup`)
     if (lesson.status !== 'ready') continue
     const qs: Question[] = [
       ...lesson.practice,
