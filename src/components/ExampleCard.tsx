@@ -4,9 +4,26 @@ import { Rich } from './Rich'
 import { Scene } from './Scene'
 import { StepView } from './Blocks'
 
-/** A worked example whose solution is revealed one step at a time. */
-export function ExampleCard({ ex }: { ex: Example }) {
-  const [shown, setShown] = useState(0)
+/**
+ * A worked example whose solution is revealed one step at a time.
+ * Pass `shown` and `onShown` to control the step count from outside (the examples reader keeps it per example).
+ */
+export function ExampleCard({
+  ex,
+  shown: shownProp,
+  onShown,
+}: {
+  ex: Example
+  shown?: number
+  onShown?: (n: number) => void
+}) {
+  const [own, setOwn] = useState(0)
+  const shown = shownProp ?? own
+  const setShown = (next: number | ((n: number) => number)) => {
+    const v = typeof next === 'function' ? next(shown) : next
+    setOwn(v)
+    onShown?.(v)
+  }
   const done = shown >= ex.steps.length
   const current = shown > 0 ? ex.steps[shown - 1] : undefined
 

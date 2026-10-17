@@ -19,7 +19,7 @@ export function ComplementaryProof() {
     <div className="widget complementary">
       <div className="widget-stage mafs-wrap">
         <Mafs
-          height={320}
+          height={380}
           viewBox={{ x: [-1.25, 1.25], y: [-0.25, 1.25] }}
           preserveAspectRatio="contain"
           pan={false}
