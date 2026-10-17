@@ -9,6 +9,7 @@ import { UNITS } from '../src/content'
 import { checkNumeric, parseStudentNumber } from '../src/lib/answers'
 import { cellValue } from '../src/lib/matrix'
 import { build } from '../src/lib/constructions'
+import { agree, sides } from '../src/lib/texEval'
 import type { Question } from '../src/content/types'
 
 let failures = 0
@@ -40,6 +41,8 @@ for (const unit of UNITS) {
           if (!s.choices!.includes(s.reason)) fail(`${q.id}: reason "${s.reason}" is not one of its choices`)
           if (new Set(s.choices).size !== s.choices!.length) fail(`${q.id}: duplicate choices`)
         }
+      } else if (q.type === 'chain') {
+        checkChain(q)
       } else if (q.type === 'construct') {
         const c = build(q.construction)
         if (c.error) fail(`${q.id}: construction impossible: ${c.error}`)
@@ -80,6 +83,44 @@ for (const unit of UNITS) {
       if (ids.has(ex.id)) fail(`duplicate id ${ex.id}`)
       ids.add(ex.id)
     }
+  }
+}
+
+/**
+ * An identity proof must start on one side of the identity and end, written the same way, on the other.
+ * Unless it depends on a condition, every line must equal the one above at random angles, and every
+ * wrong choice must really be wrong.
+ */
+function checkChain(q: Extract<Question, { type: 'chain' }>) {
+  const flat = (t: string) => t.replace(/\\[,;! ]|\s+/g, '')
+  const [L, R, ...rest] = sides(q.toProve)
+  if (R === undefined || rest.length) return fail(`${q.id}: toProve must be "LHS = RHS"`)
+  const fromLeft = flat(q.start) === flat(L)
+  if (!fromLeft && flat(q.start) !== flat(R)) fail(`${q.id}: start is neither side of toProve`)
+  const target = fromLeft ? R : L
+  const last = q.steps[q.steps.length - 1]
+  if (!last || flat(last.tex) !== flat(target)) fail(`${q.id}: the last line must be the other side, ${target}`)
+  if (!q.steps.some((s) => s.wrong?.length)) fail(`${q.id}: no line to choose`)
+  for (const s of q.steps) {
+    if (s.wrong && new Set([s.tex, ...s.wrong].map(flat)).size !== s.wrong.length + 1)
+      fail(`${q.id}: a wrong choice repeats another choice`)
+  }
+  if (q.verify === false) return
+  try {
+    if (!q.steps.some((s) => s.byGiven) && !agree(L, R)) fail(`${q.id}: the two sides are not equal at sample angles`)
+    let prev = q.start
+    q.steps.forEach((s, i) => {
+      if (s.byGiven) {
+        prev = s.tex
+        return
+      }
+      if (!agree(prev, s.tex)) fail(`${q.id}: line ${i + 1} (${s.tex}) does not equal the line above`)
+      for (const w of s.wrong ?? [])
+        if (agree(prev, w)) fail(`${q.id}: wrong choice ${w} on line ${i + 1} is in fact equal`)
+      prev = s.tex
+    })
+  } catch (e) {
+    fail(`${q.id}: could not evaluate: ${(e as Error).message}`)
   }
 }
 

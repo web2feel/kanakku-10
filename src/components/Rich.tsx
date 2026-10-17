@@ -1,5 +1,6 @@
 import katex from 'katex'
 import { Fragment, useMemo } from 'react'
+import { MACROS } from '../lib/katexMacros'
 
 export function Tex({ tex, display = false, className = '' }: { tex: string; display?: boolean; className?: string }) {
   const html = useMemo(
@@ -8,6 +9,7 @@ export function Tex({ tex, display = false, className = '' }: { tex: string; dis
         displayMode: display,
         throwOnError: false,
         strict: false,
+        macros: { ...MACROS },
         trust: (ctx) => ctx.command === '\\htmlClass',
       }),
     [tex, display],

@@ -15,6 +15,9 @@ import { PythagorasLab } from './PythagorasLab'
 import { TangentLab } from './TangentLab'
 import { CevaLab } from './CevaLab'
 import { ConstructionLab } from './ConstructionLab'
+import { IdentityCircle } from './IdentityCircle'
+import { IdentityTester } from './IdentityTester'
+import { DepressionLab, LookoutLab } from './LookoutLab'
 
 const REGISTRY: Record<WidgetName, () => React.JSX.Element> = {
   'triangle-explorer': TriangleExplorer,
@@ -36,6 +39,10 @@ const REGISTRY: Record<WidgetName, () => React.JSX.Element> = {
   'construction-similar': () => <ConstructionLab only={['similar', 'root']} />,
   'construction-triangle': () => <ConstructionLab only={['median', 'altitude', 'bisector']} />,
   'construction-tangent': () => <ConstructionLab only={['tangent-centre', 'tangent-alt', 'tangent-pair']} />,
+  'identity-circle': IdentityCircle,
+  'identity-tester': IdentityTester,
+  'depression-lab': DepressionLab,
+  'lookout-lab': LookoutLab,
 }
 
 export function Widget({ name }: { name: WidgetName }) {

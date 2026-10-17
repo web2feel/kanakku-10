@@ -5,6 +5,7 @@
 import katex from 'katex'
 import { UNITS } from '../src/content'
 import { build, type ConstructionRef } from '../src/lib/constructions'
+import { MACROS } from '../src/lib/katexMacros'
 
 let failures = 0
 let count = 0
@@ -12,7 +13,7 @@ let count = 0
 function render(tex: string, where: string) {
   count++
   try {
-    katex.renderToString(tex, { throwOnError: true, strict: 'ignore', trust: true })
+    katex.renderToString(tex, { throwOnError: true, strict: 'ignore', trust: true, macros: { ...MACROS } })
   } catch (e) {
     failures++
     console.error(`  ✗ ${where}: ${(e as Error).message.split('\n')[0]}\n      ${tex.slice(0, 140)}`)
@@ -22,7 +23,7 @@ function render(tex: string, where: string) {
 /** Walks any content value; strings are scanned for $…$, fields named tex/math are formulas. */
 function walk(v: unknown, where: string, key = '') {
   if (typeof v === 'string') {
-    if (key === 'tex' || key === 'math') render(v, where)
+    if (['tex', 'math', 'start', 'toProve', 'wrong'].includes(key) && !v.includes('$')) render(v, where)
     else for (const m of v.matchAll(/\$([^$]+)\$/g)) render(m[1], where)
   } else if (Array.isArray(v)) v.forEach((x, i) => walk(x, `${where}[${i}]`, key))
   else if (v && typeof v === 'object') {
